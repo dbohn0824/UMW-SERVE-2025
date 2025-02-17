@@ -61,10 +61,10 @@ table, td, tr, th, form, fieldset, em, button, a {
     --shadow-and-border-color: #e8e8e8;
 
     --main-color: #00aeef;
-    --accent-color: #39B54A;
-    --secondary-accent-color: #a3e0f7;
+    --accent-color: #03020f;
+    --secondary-accent-color: #51c059;
 
-    --calendar-event-color: #7b0a0a;
+    --calendar-event-color: #0a7b24;
     --calendar-event-color-hover: var(--main-color);
     --calendar-today-border: 2px solid var(--secondary-accent-color);
 
