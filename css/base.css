@@ -577,11 +577,7 @@ main.dashboard > p {
 
 .dashboard-item:hover {
     background-color: var(--accent-color);
-<<<<<<< HEAD
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
-=======
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
->>>>>>> d5927db306b3b9aacd567ee73e0c9921aa0c1302
     cursor: pointer;
     /* text-shadow: 0px 0px .25rem black; */
 }
