@@ -26,7 +26,7 @@
     <head>
         <?php require('universal.inc'); ?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <title>SERVE Volunteer System | Dashboard</title> 
+        <title>SERVE Volunteer System | Dashboard</title>
     </head>
     <body>
         <?php require('header.php'); ?>
