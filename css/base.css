@@ -577,6 +577,7 @@ main.dashboard > p {
 
 .dashboard-item:hover {
     background-color: var(--accent-color);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     /* text-shadow: 0px 0px .25rem black; */
 }
@@ -927,3 +928,4 @@ img.profile-pic {
     font-size: 55px; /* Set the desired size */
     color: #ffffff; /* Optional: set color */
 }
+
