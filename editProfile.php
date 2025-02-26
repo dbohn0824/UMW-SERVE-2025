@@ -198,7 +198,7 @@
 <html>
 <head>
     <?php require_once('universal.inc'); ?>
-    <title>Step VA | Manage Profile</title>
+    <title>SERVE | Manage Profile</title>
 </head>
 <body>
     <?php

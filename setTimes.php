@@ -84,7 +84,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Add New Check-In</title>
+        <title>SERVE | Add New Check-In</title>
     </head>
     <body>
 	<?php require_once('header.php') ?>

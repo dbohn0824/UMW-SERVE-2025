@@ -80,7 +80,7 @@
     <?php
         require_once('universal.inc');
     ?>
-    <title>Step VA | View Service: <?php echo $service['name'] ?></title>
+    <title>SERVE | View Service: <?php echo $service['name'] ?></title>
     <link rel="stylesheet" href="css/event.css" type="text/css" />
     <?php if ($access_level >= 2) : ?>
         <script src="js/event.js"></script>
