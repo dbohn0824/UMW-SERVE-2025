@@ -12,7 +12,7 @@
 <html>
 <head>
     <?php require_once('universal.inc'); ?>
-    <title>Step VA | Register</title>
+    <title>SERVE | Register</title>
 </head>
 <body>
     <?php

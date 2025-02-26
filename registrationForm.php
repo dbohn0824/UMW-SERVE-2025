@@ -172,7 +172,7 @@
 
             <p>Here are some optional pieces of information you can give us.</p>
 
-            <label>How did you hear about StepVA?</label>
+            <label>How did you hear about SERVE?</label>
             <input type="text" id="how_you_heard_of_stepva" name="how_you_heard_of_stepva" placeholder="">
 
             <label>What is your preferred contact method?</label>
@@ -182,7 +182,7 @@
                 <input type="radio" id="no-preference" name="preferred_feedback_method" value="No preference" checked><label for="preferred_feedback_method">No preference</label>
             </div>
 
-            <label>What are your hobbies? Are there any specific skills/interests you have that you believe could be useful for volunteering at StepVA?</label>
+            <label>What are your hobbies? Are there any specific skills/interests you have that you believe could be useful for volunteering at SERVE?</label>
             <input type="text" id="hobbies" name="hobbies" placeholder="">
 
             <label>Do you have any other experience with volunteering?</label>

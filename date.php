@@ -38,7 +38,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | View Date</title>
+        <title>SERVE | View Date</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
