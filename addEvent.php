@@ -101,7 +101,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Create Event</title>
+        <title>SERVE | Create Event</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

@@ -38,7 +38,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA | Volunteer History</title>
+        <title>SERVE | Volunteer History</title>
         <link rel="stylesheet" href="css/hours-report.css">
     </head>
     <body>
@@ -89,7 +89,7 @@
                             echo "<tr class='total-hours'><td></td><td></td><td class='total-hours'>Total Hours</td><td class='align-right'>" . floatPrecision($total_hours, 2) . "</td></tr>";
                         ?>
                     </tbody></table>
-                    <p class="print-only">I hereby certify that this volunteer has contributed the above volunteer hours to the Step VA organization.</p>
+                    <p class="print-only">I hereby certify that this volunteer has contributed the above volunteer hours to the SERVE organization.</p>
                     <table id="signature-table" class="print-only">
                         <tbody>
                             <tr><td>Admin Signature:  ______________________________________ Date: <?php echo date('m/d/Y') ?></td></tr>
