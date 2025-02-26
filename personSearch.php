@@ -25,7 +25,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>STEPVA | Volunteer/Participant Search</title>
+        <title>SERVE | Volunteer/Participant Search</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

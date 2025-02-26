@@ -54,7 +54,7 @@
     <head>
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
-        <title>Step VA | View User</title>
+        <title>SERVE | View User</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
     <body>
@@ -290,7 +290,7 @@
                 </div>
 
                 <div class="field-pair">
-                    <label>How You Heard of StepVA</label>
+                    <label>How You Heard of SERVE</label>
                     <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
                 </div>
 

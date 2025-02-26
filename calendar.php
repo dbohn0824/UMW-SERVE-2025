@@ -55,7 +55,7 @@
     <head>
         <?php require('universal.inc'); ?>
         <script src="js/calendar.js"></script>
-        <title>Step VA | Events Calendar</title>
+        <title>SERVE | Events Calendar</title>
         <style>.happy-toast { margin: 0 1rem 1rem 1rem; }</style>
     </head>
     <body>
