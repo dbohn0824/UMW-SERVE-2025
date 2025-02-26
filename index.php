@@ -114,10 +114,10 @@
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Hours</center></span>
                     </div>
-                    <!--<div class="dashboard-item" data-link="resources.php">
+                    <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                        <span><center>Upload Resources</center></span>
-                    </div>-->
+                        <span><center>Upload File</center></span>
+                    </div>
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
