@@ -58,7 +58,7 @@
     <head>
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/roster.css" type="text/css" />
-        <title>Step VA | View Event Roster</title>
+        <title>SERVE | View Event Roster</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

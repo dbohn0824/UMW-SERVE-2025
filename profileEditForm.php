@@ -350,7 +350,7 @@
         <fieldset class="section-box">
             <legend>Optional Information</legend>
 
-            <label>How did you hear about StepVA?</label>
+            <label>How did you hear about SERVE?</label>
             <input type="text" id="how_you_heard_of_stepva" name="how_you_heard_of_stepva" value="<?php echo hsc($person->get_how_you_heard_of_stepva()); ?>" placeholder="">
 
             <label>What is your preferred contact method?</label>
@@ -368,7 +368,7 @@
                 <label for="no-preference">No preference</label>
             </div>
 
-            <label>What are your hobbies? Are there any specific skills/interests you have that you believe could be useful for volunteering at StepVA?</label>
+            <label>What are your hobbies? Are there any specific skills/interests you have that you believe could be useful for volunteering at SERVE?</label>
             <input type="text" id="hobbies" name="hobbies" value="<?php echo hsc($person->get_hobbies()); ?>" placeholder="">
 
             <label>Do you have any other experience with volunteering?</label>

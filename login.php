@@ -70,7 +70,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA Volunteer System | Log In</title>
+        <title>SERVE Volunteer System | Log In</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
