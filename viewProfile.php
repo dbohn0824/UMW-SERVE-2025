@@ -290,7 +290,7 @@
                 </div>
 
                 <div class="field-pair">
-                    <label>How You Heard of StepVA</label>
+                    <label>How You Heard of SERVE</label>
                     <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
                 </div>
 
