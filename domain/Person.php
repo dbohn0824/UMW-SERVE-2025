@@ -33,6 +33,10 @@ class Person {
 	private $phone1;
 	private $phone1type;
 	private $email;
+	private $notes;
+	private $minor;
+	private $total_hours;
+	private $remaining_mandated_hours;
 	private $emergency_contact_first_name;
 	private $emergency_contact_last_name;
 	private $emergency_contact_phone;
@@ -128,9 +132,9 @@ class Person {
 		return $this->password;
 	}
 
-	function get_start_date() {
+	/*function get_start_date() {
 		return $this->start_date;
-	}
+	}*/
 
 	function get_first_name() {
 		return $this->first_name;
@@ -140,7 +144,19 @@ class Person {
 		return $this->last_name;
 	}
 
-	function get_birthday() {
+	function isMinor() {
+		return $this->minor;
+	}
+
+	function get_total_hours() {
+		return $this->total_hours;
+	}
+
+	function get_remaining_mandated_hours() {
+		return $this->remaining_mandated_hours;
+	}
+
+	/*function get_birthday() {
 		return $this->birthday;
 	}
 
@@ -158,21 +174,21 @@ class Person {
 
 	function get_zip_code() {
 		return $this->zip_code;
-	}
+	}*/
 
 	function get_phone1() {
 		return $this->phone1;
 	}
 
-	function get_phone1type() {
+	/*function get_phone1type() {
 		return $this->phone1type;
-	}
+	}*/
 
 	function get_email() {
 		return $this->email;
 	}
 
-	function get_emergency_contact_first_name() {
+	/*function get_emergency_contact_first_name() {
 		return $this->emergency_contact_first_name;
 	}
 
@@ -206,7 +222,7 @@ class Person {
 
 	function get_photo_release_notes() {
 		return $this->photo_release_notes;
-	}
+	}*/
 
 	function get_type() {
 		return $this->type;
@@ -216,15 +232,15 @@ class Person {
 		return $this->status;
 	}
 
-	function get_archived() {
+	/*function get_archived() {
 		return $this->archived;
-	}
+	}*/
 
 	function get_access_level() {
 		return $this->access_level;
 	}
 
-	function get_how_you_heard_of_stepva() {
+	/*function get_how_you_heard_of_stepva() {
 		return $this->how_you_heard_of_stepva;
 	}
 
@@ -266,6 +282,6 @@ class Person {
 	
 	function get_background_date() {
 		return $this->background_date;
-	}
+	}*/
 
 }
