@@ -70,7 +70,7 @@ class Person {
 	 */
 	function __construct(
 						$id, $password, $start_date, $first_name, $last_name, $birthday, $street_address, $city,
-						$state, $zip_code, $phone1, $phone1type, $email, $emergency_contact_first_name,
+						$state, $zip_code, $phone1, $phone1type, $email, $minor, $total_hours, $remaining_mandated_hours, $emergency_contact_first_name,
 						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_phone_type,
 						$emergency_contact_relation, $tshirt_size, $school_affiliation, $photo_release, $photo_release_notes, $type, $status, $archived,
 						$how_you_heard_of_stepva, $preferred_feedback_method, $hobbies, $professional_experience, $disability_accomodation_needs, 
@@ -90,6 +90,9 @@ class Person {
 		$this->phone1 = $phone1;
 		$this->phone1type = $phone1type;
 		$this->email = $email;
+		$this->minor = $minor;
+		$this->total_hours = $total_hours;
+		$this->remaining_mandated_hours = $remaining_mandated_hours;
 		$this->emergency_contact_first_name = $emergency_contact_first_name;
 		$this->emergency_contact_last_name = $emergency_contact_last_name;
 		$this->emergency_contact_phone = $emergency_contact_phone;
