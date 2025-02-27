@@ -1,24 +1,45 @@
-<h1>New Volunteer Registration</h1>
+<h1>New Volunteer Sign-Up</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
         <h2>Registration Form</h2>
-        <p>Please fill out each section of the following form if you would like to volunteer for the organization.</p>
+        <!-- <p>Please fill out each section of the following form if you would like to volunteer for the organization.</p> -->
         <p>An asterisk (<em>*</em>) indicates a required field.</p>
         
         <fieldset class="section-box">
-            <legend>Personal Information</legend>
+            <legend>Volunteer Information</legend>
 
-            <p>The following information will help us identify you within our system.</p>
+            <!-- <p>The following information will help us identify you within our system.</p> -->
             <label for="first_name"><em>* </em>First Name</label>
-            <input type="text" id="first_name" name="first_name" required placeholder="Enter your first name">
+            <input type="text" id="first_name" name="first_name" required placeholder="Enter volunteer first name">
 
             <label for="last_name"><em>* </em>Last Name</label>
-            <input type="text" id="last_name" name="last_name" required placeholder="Enter your last name">
+            <input type="text" id="last_name" name="last_name" required placeholder="Enter volunteer last name">
 
-            <label for="birthdate"><em>* </em>Date of Birth</label>
-            <input type="date" id="birthdate" name="birthdate" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
+            <label for="email"><em>* </em>Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter volunteer email address">
+
+            <label for="phone"><em>* </em>Phone Number</label>
+            <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
+
+            <label><em>* </em>Court Mandated Hours</label>
+            <div class="radio-group">
+                <input type="radio" id="Yes" name="court_hours" value="Yes" required><label for="court_hours">Yes</label>
+                <input type="radio" id="No" name="court_hours" value="No" required><label for="court_hours">No</label>
+            </div>
+
+            <label for="hours_needed"><em> </em>Hours Needed</label>
+            <input type="text" id="hours_needed" name="hours_needed" required placeholder="Enter number of hours needed">
+
+            <label><em>* </em>Minor</label>
+            <div class="radio-group">
+                <input type="radio" id="Yes" name="minor" value="Yes" required><label for="minor">Yes</label>
+                <input type="radio" id="No" name="minor" value="No" required><label for="minor">No</label>
+            </div>
+
+            <!--<label for="birthdate"><em>* </em>Date of Birth</label> -->
+            <!--<input type="date" id="birthdate" name="birthdate" required placeholder="Choose your birthday" max=" --> <?php // echo date('Y-m-d'); ?> <!--"> --> 
             
-            <label for="street_address"><em>* </em>Street Address</label>
+            <!-- <label for="street_address"><em>* </em>Street Address</label>
             <input type="text" id="street_address" name="street_address" required placeholder="Enter your street address">
 
             <label for="city"><em>* </em>City</label>
@@ -81,13 +102,13 @@
             </select>
 
             <label for="zip"><em>* </em>Zip Code</label>
-            <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
+            <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code"> -->
         </fieldset>
 
-        <fieldset class="section-box">
+        <!-- <fieldset class="section-box">
             <legend>Contact Information</legend>
 
-            <p>The following information will help us determine the best way to contact you regarding event coordination.</p>
+            <p>The following information will help us determine the best way to contact you.</p>
             <label for="email"><em>* </em>E-mail</label>
             <input type="email" id="email" name="email" required placeholder="Enter your e-mail address">
 
@@ -101,9 +122,9 @@
                 <input type="radio" id="phone-type-work" name="phone_type" value="work" required><label for="phone-type-work">Work</label>
             </div>
 
-        </fieldset>
+        </fieldset> -->
 
-        <fieldset class="section-box">
+        <!-- <fieldset class="section-box">
             <legend>Emergency Contact</legend>
 
             <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
@@ -125,14 +146,14 @@
                 <input type="radio" id="phone-type-home" name="emergency_contact_phone_type" value="home" required><label for="phone-type-home">Home</label>
                 <input type="radio" id="phone-type-work" name="emergency_contact_phone_type" value="work" required><label for="phone-type-work">Work</label>
             </div>
-        </fieldset>
+        </fieldset> -->
 
-        <fieldset class="section-box">
+        <!-- <fieldset class="section-box">
             <legend>Other Required Information</legend>
 
             <p>Here are a few other pieces on information we need from you.</p>
 
-            <!--
+            
             This is functional code for a user to select if they are a 
             volunteer or participant
             <label><em>* </em>Are you a volunteer or a participant?</label>
@@ -140,8 +161,8 @@
                 <input type="radio" id="v" name="volunteer_or_participant" value="v" required><label for="volunteer_or_participant">Volunteer</label>
                 <input type="radio" id="p" name="volunteer_or_participant" value="p" required><label for="volunteer_or_participant">Participant</label>
             </div>
-            -->
-            <!-- Default value for volunteer_or_participant -->
+            
+            Default value for volunteer_or_participant
             <input type="hidden" name="volunteer_or_participant" value="v">
 
             
@@ -165,9 +186,9 @@
 
             <label for="photo_release_notes"><em>* </em>Photo Release Restriction Notes (or N/A)</label>
             <input type="text" id="photo_release_notes" name="photo_release_notes" required placeholder="Do you have any specific notes about your photo release status?">
-        </fieldset>
+        </fieldset> -->
 
-        <fieldset class="section-box">
+        <!-- <fieldset class="section-box">
             <legend>Optional Information</legend>
 
             <p>Here are some optional pieces of information you can give us.</p>
@@ -191,11 +212,11 @@
             <label>Are there any accomodations you may need? Anything we should keep in mind?</label>
             <input type="text" id="disability_accomodation_needs" name="disability_accomodation_needs" placeholder="">
 
-        </fieldset>
+        </fieldset> -->
 
-        <fieldset class="section-box" id="training-info-section" style="display: none;">
+        <!-- <fieldset class="section-box" id="training-info-section" style="display: none;">
             <legend>Training Information</legend>
-            <!--<p>If you are a volunteer, please indicate your training status.</p>-->
+            <p>If you are a volunteer, please indicate your training status.</p>
 
             <div id="training-info">
                 <label><em>* </em>Training Complete?</label>
@@ -209,7 +230,7 @@
                 <label for="training_date" id="training-date-label" style="display: none;">Training Date</label>
                 <input type="date" id="training_date" name="training_date" placeholder="Enter training date" style="display: none;" max="<?php echo date('Y-m-d'); ?>">
 
-                <!-- Orientation Information -->
+                Orientation Information
                 <label><em>* </em>Orientation Complete?</label>
                 <div class="radio-group">
                     <input type="radio" id="orientation-complete-yes" name="orientation_complete" value="1">
@@ -221,7 +242,7 @@
                 <label for="orientation_date" id="orientation-date-label" style="display: none;">Orientation Date</label>
                 <input type="date" id="orientation_date" name="orientation_date" placeholder="Enter orientation date" style="display: none;" max="<?php echo date('Y-m-d'); ?>">
 
-                <!-- Background Information -->
+                Background Information
                 <label><em>* </em>Background Check Complete?</label>
                 <div class="radio-group">
                     <input type="radio" id="background-complete-yes" name="background_complete" value="1">
@@ -233,7 +254,7 @@
                 <label for="background_date" id="background-date-label" style="display: none;">Background Date</label>
                 <input type="date" id="background_date" name="background_date" placeholder="Enter background date" style="display: none;" max="<?php echo date('Y-m-d'); ?>">
             </div>
-        </fieldset>
+        </fieldset> -->
 
         <script>
             // Function to toggle the visibility of the training section based on volunteer or participant selection
@@ -330,7 +351,7 @@
         </script>
 
 
-        <fieldset class="section-box">
+        <!-- <fieldset class="section-box">
             <legend>Login Credentials</legend>
             
             <p>You will use the following information to log in to the system.</p>
@@ -346,7 +367,7 @@
             <input type="password" id="password-reenter" name="password-reenter" placeholder="Re-enter password" required>
             <p id="password-match-error" class="error hidden">Passwords do not match!</p>
         </fieldset>
-        <p>By pressing Submit below, you are agreeing to volunteer for the organization.</p>
+        <p>By pressing Submit below, you are agreeing to volunteer for the organization.</p> -->
         <input type="submit" name="registration-form" value="Submit">
     </form>
     
