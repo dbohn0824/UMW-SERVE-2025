@@ -47,12 +47,19 @@
         ?>
         <h1>Volunteer History Report</h1>
         <main class="hours-report">
-        <form action="/UMW-SERVE-2025/database/csvExport.php" method="post">
+        
+        <form action="/UMW-SERVE-2025/database/csvExport.php" method="post"> 
+            <label for="startDate"> Export hours starting on:</label>
+            <input type="date" id = "startDate" name="startDate" required>
+
+            <label for="endDate">and ending on:</label>
+            <input type="date" id="endDate" name="endDate" required> 
             <button type="submit" class="no-print" style="margin-bottom: -.5rem">
                  Export Data
             </button>
+        
         </form>
-              
+
         </main>
     </body>
 </html>
