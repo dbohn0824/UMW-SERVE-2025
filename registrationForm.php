@@ -39,7 +39,7 @@
             <!--<label for="birthdate"><em>* </em>Date of Birth</label> -->
             <!--<input type="date" id="birthdate" name="birthdate" required placeholder="Choose your birthday" max=" --> <?php // echo date('Y-m-d'); ?> <!--"> --> 
             
-            <!-- <label for="street_address"><em>* </em>Street Address</label>
+            <label for="street_address"><em>* </em>Street Address</label>
             <input type="text" id="street_address" name="street_address" required placeholder="Enter your street address">
 
             <label for="city"><em>* </em>City</label>
@@ -102,7 +102,7 @@
             </select>
 
             <label for="zip"><em>* </em>Zip Code</label>
-            <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code"> -->
+            <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
         </fieldset>
 
         <!-- <fieldset class="section-box">
@@ -124,10 +124,10 @@
 
         </fieldset> -->
 
-        <!-- <fieldset class="section-box">
+        <fieldset class="section-box">
             <legend>Emergency Contact</legend>
 
-            <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
+            <!-- <p>Please provide us with someone to contact on your behalf in case of an emergency.</p> -->
             <label for="emergency_contact_first_name" required><em>* </em>Contact First Name</label>
             <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" required placeholder="Enter emergency contact first name">
 
@@ -146,7 +146,7 @@
                 <input type="radio" id="phone-type-home" name="emergency_contact_phone_type" value="home" required><label for="phone-type-home">Home</label>
                 <input type="radio" id="phone-type-work" name="emergency_contact_phone_type" value="work" required><label for="phone-type-work">Work</label>
             </div>
-        </fieldset> -->
+        </fieldset>
 
         <!-- <fieldset class="section-box">
             <legend>Other Required Information</legend>

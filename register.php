@@ -31,13 +31,8 @@
 
             // required fields
             $required = array(
-                'first_name', 'last_name', 'birthdate',
-                'street_address', 'city', 'state', 'zip', 
-                'email', 'phone', 'phone_type', 'emergency_contact_first_name',
-                'emergency_contact_last_name',
-                'emergency_contact_relation', 'emergency_contact_phone', 'tshirt_size',
-                'school_affiliation', 'username', 'password',
-                'volunteer_or_participant', 'photo_release', 'photo_release_notes'
+                'first_name', 'last_name', 
+                'email', 'phone', 'court_hours', 'minor'
             );
             
             // Capture the volunteer_or_participant value from the form
