@@ -17,17 +17,6 @@ $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : '';
 
 $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : ''; 
 
-$query = "SELECT dbpersonhours.personID, dbpersons.first_name, dbpersons.last_name, dbpersonhours.date, dbpersonhours.Time_in, dbpersonhours.Time_out, dbpersonhours.Total_hours, dbpersonhours.STT FROM `dbpersonhours` JOIN `dbpersons` ON dbpersonhours.personID = dbpersons.id WHERE  dbpersonhours.date BETWEEN ? AND ? ORDER BY dbpersonhours.date ASC";
-
-$stmt = $con->prepare($query);
-
-$stmt->bind_param('ss', $startDate, $endDate);
-
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-
 
 
 //*********************************************************************************************
@@ -38,43 +27,18 @@ $result = $stmt->get_result();
 //open a file for outputing the csv data
 $output = fopen('php://output', 'w');
 
-//output the column headers
-fputcsv($output, ['Volunteer ID', 'First name', 'Last name', 'Date', 'Time in', 'Time out', 'Hours', 'STT event y/n'] ); 
+//Put the month and year at top of file
+$date = new DateTime($startDate);
+
+fputcsv($output, [$date->format('M Y')]);
 
 
-//output the row data
-while($row = $result->fetch_assoc()){
-    fputcsv($output, $row);
-}
-
-//********************************************************************************************* */
 
 //seperate the sections
 
-for($i = 0; $i < 5; $i = $i + 1 ){
-    fputcsv($output, []);
-}
 
+//Display Grand totals******************************************************************************* */
 
-
-//query to get total hours per person*****************************************************************
-$query = "SELECT personID, SUM(TIMESTAMPDIFF(SECOND, Time_in, Time_out)) / 3600 AS Total_hours FROM dbpersonhours WHERE `date` BETWEEN ? AND ? GROUP BY personID";
-
-$stmt = $con->prepare($query);
-
-$stmt->bind_param('ss', $startDate, $endDate);
-
-$stmt->execute(); 
-
-$result = $stmt->get_result();
-
-fputcsv($output, ['Volunteer ID', 'Total Hours']);
-while($row = $result->fetch_assoc()){
-    fputcsv($output, $row);
-}
-
-//***************************************************************************************************** */
-//Create some space 
 fputcsv($output, []);
 
 fputcsv($output, ['MTD Hours', 'MTD volunteers', 'MTD STT Events']);
@@ -95,6 +59,66 @@ $row = $result->fetch_assoc();
 
 fputcsv($output, $row);
 //**************************************************************************************************** */
+
+// seperate the sections
+for($i = 0; $i < 3; $i = $i + 1 ){
+    fputcsv($output, []);
+}
+
+//Output individual Volunteer data********************************************************************* */
+
+$query = "SELECT dbpersonhours.personID, dbpersons.first_name, dbpersons.last_name, dbpersonhours.date, dbpersonhours.Time_in, dbpersonhours.Time_out, dbpersonhours.Total_hours, dbpersonhours.STT FROM `dbpersonhours` JOIN `dbpersons` ON dbpersonhours.personID = dbpersons.id WHERE  dbpersonhours.date BETWEEN ? AND ? ORDER BY dbpersonhours.date ASC";
+
+$stmt = $con->prepare($query);
+
+$stmt->bind_param('ss', $startDate, $endDate);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+
+//output the column headers
+fputcsv($output, ['Volunteer ID', 'First name', 'Last name', 'Date', 'Time in', 'Time out', 'Hours', 'STT event y/n'] ); 
+
+
+//output the row data
+while($row = $result->fetch_assoc()){
+
+    $formattedTimeIn = date('g:i A', strtotime($row['Time_in']));
+
+    $formattedTimeOut = date('g:i A', strtotime($row['Time_out']));
+
+    fputcsv($output,[ 
+    $row['personID'],
+    $row['first_name'],
+    $row['last_name'],
+    $row['date'],
+    $formattedTimeIn,
+    $formattedTimeOut,
+    $row['Total_hours'],
+    $row['STT']
+    ]);
+}
+
+//****************************************************************************************************** */
+//query to get total hours per person*****************************************************************
+$query = "SELECT personID, ROUND(SUM(TIMESTAMPDIFF(SECOND, Time_in, Time_out)) / 3600) AS Total_hours FROM dbpersonhours WHERE `date` BETWEEN ? AND ? GROUP BY personID";
+
+$stmt = $con->prepare($query);
+
+$stmt->bind_param('ss', $startDate, $endDate);
+
+$stmt->execute(); 
+
+$result = $stmt->get_result();
+
+fputcsv($output, []); 
+
+fputcsv($output, ['Volunteer ID', 'Total Hours']);
+while($row = $result->fetch_assoc()){
+    fputcsv($output, $row);
+}
+//*************************************************************************************************** */
 
 fclose($output);
 $stmt->close();
