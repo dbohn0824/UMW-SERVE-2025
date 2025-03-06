@@ -7,10 +7,10 @@
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
     // Get date?
-    //if (isset($_SESSION['_id'])) {
-        //$person = retrieve_person($_SESSION['_id']);
-    //}
-    //$notRoot = $person->get_id() != 'vmsroot';
+    if (isset($_SESSION['_id'])) {
+        $person = retrieve_person($_SESSION['_id']);
+    }
+    $notRoot = $person->get_id() != 'vmsroot';
 ?>
 <!DOCTYPE html>
 <html>
