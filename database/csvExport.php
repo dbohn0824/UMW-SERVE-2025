@@ -10,8 +10,7 @@ $con = connect();
 
 //Get start and end dates from the form submission from exportData.php
 
-//TODO modify the query to take get the first_name and last_name fields associated with each 
-//volunteer id, and put that in the exported csv file. 
+
 //check the POST array if the user has submitted a form *************************************
 $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : '';
 
@@ -22,7 +21,7 @@ $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : '';
 //*********************************************************************************************
 
 
-//Export volunteer data by date to csv file***********************************************
+//Export volunteer data by date to csv file
 
 //open a file for outputing the csv data
 $output = fopen('php://output', 'w');
