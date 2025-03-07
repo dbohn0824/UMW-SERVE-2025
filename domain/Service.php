@@ -28,9 +28,9 @@ class Service {
 	function get_type() {
 		return $this->type;
 	}	
-	function get_duration() {
+	/*function get_duration() {
 		return $this->gender;
-	}
+	}*/
 
 
 
