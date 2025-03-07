@@ -12,7 +12,7 @@
 
     // redirect to index if already logged in
     if (isset($_SESSION['_id'])) {
-        header('Location: index.php');
+        header('Location: staffDashboard.php');
         die();
     }
     $badLogin = false;
@@ -45,7 +45,7 @@
                 // hard code root privileges
                 if ($user->get_id() == 'vmsroot') {
                     $_SESSION['access_level'] = 3;
-                    header('Location: index.php');
+                    header('Location: staffDashboard.php');
                 }
                 //if ($changePassword) {
                 //    $_SESSION['access_level'] = 0;
@@ -54,7 +54,7 @@
                 //    die();
                 //} 
                 else {
-                    header('Location: index.php');
+                    header('Location: staffDashboard.php');
                     die();
                 }
                 die();
