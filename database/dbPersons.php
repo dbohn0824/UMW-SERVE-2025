@@ -390,7 +390,26 @@ function make_a_person($result_row) {
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass)
 	 */
     $thePerson = new Person(
-        $result_row['id'],
+        $result_row['id'],                           // $id
+        $result_row['password'],                     // $password
+        $result_row['first_name'],                   // $first_name
+        $result_row['last_name'],                    // $last_name
+        $result_row['street_address'],               // $street_address
+        $result_row['city'],                         // $city
+        $result_row['state'],                        // $state
+        $result_row['zip_code'],                     // $zip_code
+        $result_row['notes'],                        // $notes
+        $result_row['phone1'],                       // $phone1
+        $result_row['email'],                        // $email
+        $result_row['minor'],                        // $minor
+        $result_row['total_hours'],                  // $total_hours
+        $result_row['remaining_mandated_hours'],     // $remaining_mandated_hours
+        $result_row['emergency_contact_first_name'], // $emergency_contact_first_name
+        $result_row['emergency_contact_last_name'],  // $emergency_contact_last_name
+        $result_row['emergency_contact_phone'],      // $emergency_contact_phone
+        $result_row['emergency_contact_relation'],   // $emergency_contact_relation
+        $result_row['type']             
+        /*$result_row['id'],
         $result_row['first_name'],
         $result_row['last_name'],
         $result_row['minor'],
@@ -408,7 +427,7 @@ function make_a_person($result_row) {
         $result_row['emergency_contact_first_name'],
         $result_row['emergency_contact_last_name'],
         $result_row['emergency_contact_phone'],
-        $result_row['emergency_contact_relation']
+        $result_row['emergency_contact_relation']*/
         /*$result_row['start_date'],
         $result_row['birthday'],
         $result_row['phone1type'],
