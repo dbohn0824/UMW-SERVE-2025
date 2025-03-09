@@ -23,7 +23,7 @@
         <nav>
             <span id="nav-top">
                 <span class="logo">
-                    <img src="images/stepvalogo.png">
+                    <img src="images/SERVE_logo.png">
                     <span id="vms-logo">  SERVE </span>
                 </span>
             </span>

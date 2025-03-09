@@ -63,7 +63,7 @@
     <body>
         <?php require_once('header.php') ?>
         <span class="logo_print">
-          <img src="images/stepvalogo.png">
+          <img src="images/SERVE_logo.png">
         </span>
           <?php
             $event_name = $event_info['name'];
