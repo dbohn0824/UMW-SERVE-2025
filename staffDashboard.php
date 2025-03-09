@@ -85,19 +85,21 @@
                         <i class="fa-solid fa-plus" font-size: 70px;></i>
                         <span>Create Event</span>
                     </div>
-
+                    
+                    <!-- D.bohn: commented this out becuase it was breaking the dashboard -->
+                    <!--
                     <div class="dashboard-item" data-link="viewAllEventSignUps.php">
                         <i class="fa-solid fa-users"></i>
                         <span><center>View Pending Sign-Ups <?php 
-                        require_once('database/dbEvents.php');
-                        require_once('database/dbPersons.php');
-                        $pendingsignups = all_pending_names();
-                        if (sizeof($pendingsignups) > 0) {
-                            echo ' (' . sizeof($pendingsignups) . ')';
-                        }
+                       // require_once('database/dbEvents.php');
+                       // require_once('database/dbPersons.php');
+                      //  $pendingsignups = all_pending_names();
+                      //  if (sizeof($pendingsignups) > 0) {
+                      //      echo ' (' . sizeof($pendingsignups) . ')';
+                      //  }
                     ?></center></span>
                     </div>
-                    
+                    -->
                     <div class="dashboard-item" data-link="personSearch.php">
                         <img src="images/person-search.svg">
                         <span>Find Volunteer</span>
@@ -117,6 +119,10 @@
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Upload Resources</center></span>
+                    </div>
+                    <div class="dashboard-item" data-link="exportData.php">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                        <span><center>Export Volunteer Data</center></span>
                     </div>
                 <?php endif ?>
 
