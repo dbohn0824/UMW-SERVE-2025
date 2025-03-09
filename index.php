@@ -17,10 +17,12 @@
     <head>
         <?php require('universal.inc'); ?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+           <!-- <link rel="stylesheet" href="welcome-style.css"> -->
+
         <title>SERVE</title>
     </head>
     <body>
-        <?php require('welcomeheader.php'); ?>
+        <?php require('welcomeHeader.php'); ?>
         <h1>Welcome</h1>
         <main class='dashboard'>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
