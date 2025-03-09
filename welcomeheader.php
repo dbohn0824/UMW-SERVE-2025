@@ -12,19 +12,22 @@
 ?>
 
 <head>
-    <link rel="stylesheet" href="header-style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <header>
 
-<header>
-    <nav>
-        <div id="nav-top" class="container">
-            <div class="logo">
-                <img src="images/stepvalogo.png" alt="Logo">
-                <span id="vms-logo">SERVE</span>
-            </div>
-        </div>
-    </nav>
+    <?PHP
+        echo '
+        <nav>
+            <span id="nav-top">
+                <span class="logo">
+                    <img src="images/stepvalogo.png">
+                    <span id="vms-logo">  SERVE </span>
+                </span>
+            </span>
+        </nav>';
+
+    ?>
 </header>
