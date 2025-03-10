@@ -12,12 +12,26 @@
 ?>
 
 <head>
-    <link rel="stylesheet" href="header-style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <header>
 
+    <?PHP
+        echo '
+        <nav>
+            <span id="nav-top">
+                <span class="logo">
+                    <img src="images/SERVE_logo.png">
+                    <span id="vms-logo">  SERVE </span>
+                </span>
+            </span>
+        </nav>';
+
+    ?>
+</header>
+<!--
 <header>
     <nav>
         <div id="nav-top" class="container">
@@ -27,4 +41,4 @@
             </div>
         </div>
     </nav>
-</header>
+</header>  --> 
