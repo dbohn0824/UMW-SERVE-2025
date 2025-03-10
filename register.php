@@ -31,13 +31,8 @@
 
             // required fields
             $required = array(
-                'first_name', 'last_name', 'birthdate',
-                'street_address', 'city', 'state', 'zip', 
-                'email', 'phone', 'phone_type', 'emergency_contact_first_name',
-                'emergency_contact_last_name',
-                'emergency_contact_relation', 'emergency_contact_phone', 'tshirt_size',
-                'school_affiliation', 'username', 'password',
-                'volunteer_or_participant', 'photo_release', 'photo_release_notes'
+                'first_name', 'last_name', 
+                'email', 'phone', 'court_hours', 'minor'
             );
             
             // Capture the volunteer_or_participant value from the form
@@ -80,11 +75,11 @@
             }
             $first_name = $args['first_name'];
             $last_name = $args['last_name'];
-            $birthday = validateDate($args['birthdate']);
+            /* $birthday = validateDate($args['birthdate']);
             if (!$birthday) {
                 $errors = true;
                 echo 'bad dob';
-            }
+            } */
 
             $street_address = $args['street_address'];
             $city = $args['city'];
@@ -132,7 +127,7 @@
                 echo 'bad phone type';
             }
 
-            $tshirt_size = $args['tshirt_size'];
+            /*$tshirt_size = $args['tshirt_size'];
             $school_affiliation = $args['school_affiliation'];
             $photo_release = $args['photo_release'];
             if (!valueConstrainedTo($photo_release, array('Restricted', 'Not Restricted'))) {
@@ -158,15 +153,15 @@
                 $errors = true;
             } else {
                 $password = password_hash($args['password'], PASSWORD_BCRYPT);
-            } 
+            } */
 
-            $how_you_heard_of_stepva = $args['how_you_heard_of_stepva'];
+            /* $how_you_heard_of_stepva = $args['how_you_heard_of_stepva'];
             // Safely access preferred_feedback_method
             $preferred_feedback_method = $args['preferred_feedback_method'];
 
             $hobbies = $args['hobbies'];
             $professional_experience = $args['professional_experience'];
-            $disability_accomodation_needs = $args['disability_accomodation_needs'];
+            $disability_accomodation_needs = $args['disability_accomodation_needs']; */
 
             $training_complete = isset($args['training_complete']) ? (int)$args['training_complete'] : 0;
             $training_date = isset($args['training_date']) ? $args['training_date'] : null;
