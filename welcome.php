@@ -7,22 +7,20 @@
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
     // Get date?
-    //if (isset($_SESSION['_id'])) {
-        //$person = retrieve_person($_SESSION['_id']);
-    //}
-    //$notRoot = $person->get_id() != 'vmsroot';
+    if (isset($_SESSION['_id'])) {
+        $person = retrieve_person($_SESSION['_id']);
+    }
+    $notRoot = $person->get_id() != 'vmsroot';
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <?php require('universal.inc'); ?>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-           <!-- <link rel="stylesheet" href="welcome-style.css"> -->
-
+        <link rel="stylesheet" href="welcome-style.css">
         <title>SERVE</title>
     </head>
     <body>
-        <?php require('welcomeHeader.php'); ?>
+        <?php require('welcomeheader.php'); ?>
         <h1>Welcome</h1>
         <main class='dashboard'>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
