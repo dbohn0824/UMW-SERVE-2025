@@ -15,11 +15,11 @@
             <label for="last_name"><em>* </em>Last Name</label>
             <input type="text" id="last_name" name="last_name" required placeholder="Enter volunteer last name">
 
-            <label for="email"><em>* </em>Email</label>
+            <!-- <label for="email"><em>* </em>Email</label>
             <input type="email" id="email" name="email" required placeholder="Enter volunteer email address">
 
             <label for="phone"><em>* </em>Phone Number</label>
-            <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
+            <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555"> -->
 
             <label><em>* </em>Court Mandated Hours</label>
             <div class="radio-group">
@@ -105,12 +105,12 @@
             <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
         </fieldset>
 
-        <!-- <fieldset class="section-box">
+        <fieldset class="section-box">
             <legend>Contact Information</legend>
 
-            <p>The following information will help us determine the best way to contact you.</p>
-            <label for="email"><em>* </em>E-mail</label>
-            <input type="email" id="email" name="email" required placeholder="Enter your e-mail address">
+            <!-- <p>The following information will help us determine the best way to contact you.</p> -->
+            <label for="email"><em>* </em>Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email address">
 
             <label for="phone"><em>* </em>Phone Number</label>
             <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
@@ -122,7 +122,7 @@
                 <input type="radio" id="phone-type-work" name="phone_type" value="work" required><label for="phone-type-work">Work</label>
             </div>
 
-        </fieldset> -->
+        </fieldset>
 
         <fieldset class="section-box">
             <legend>Emergency Contact</legend>
