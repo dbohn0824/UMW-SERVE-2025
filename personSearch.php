@@ -120,12 +120,12 @@
                     echo '<h3>Search Again</h3>';
                 }
             ?>
-            <p>Use the form below to find a volunteer or participant. At least one search criterion is required.</p>
+            <p>Use the form below to find a volunteer or participant. <!-- At least one search criterion is required.</p>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name">
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> -->
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-           
+           <!--
 		<label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
             
@@ -152,7 +152,7 @@
                     <option value="Not Restricted" <?php if (isset($photo_release) && $photo_release == 'Not Restricted') echo 'selected' ?>>Not Restricted</option>
                     <option value="Restricted" <?php if (isset($photo_release) && $photo_release == 'Restricted') echo 'selected' ?>>Restricted</option>
                 </select>
-
+            -->
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
             <a class="button cancel" href="index.php">Return to Dashboard</a>
