@@ -118,10 +118,10 @@
                                     </tbody>
                                 </table>
                             </div>';
-                            echo '
+                           /* echo '
                             <label>Result Mailing List</label>
                             <p>' . $mailingList . '</p>
-                            ';
+                            ';*/
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
