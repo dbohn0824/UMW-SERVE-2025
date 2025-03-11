@@ -32,9 +32,15 @@
             // required fields
             $required = array(
                 'first_name', 'last_name', 
-                'email', 'phone', 'court_hours', 'minor'
+                'email', 'phone', 'court_hours', 'isMinor'
             );
-            
+
+            if ($court_hours = "Yes") {
+                array_push($required, 'hours_needed');
+            } else {
+                array_push($optional, 'hours_needed');
+            }
+
             // Capture the volunteer_or_participant value from the form
             $volunteer_or_participant = isset($_POST['volunteer_or_participant']) ? $_POST['volunteer_or_participant'] : null;  
 
@@ -107,11 +113,11 @@
                 $errors = true;
                 echo 'bad phone';
             }
-            $phone1type = $args['phone_type'];
+            /* $phone1type = $args['phone_type'];
             if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
                 $errors = true;
                 echo 'bad phone type';
-            }
+            } */
 
             $emergency_contact_first_name = $args['emergency_contact_first_name'];
             $emergency_contact_last_name = $args['emergency_contact_last_name'];
@@ -121,11 +127,11 @@
                 $errors = true;
                 echo 'bad e-contact phone';
             }
-            $emergency_contact_phone_type = $args['emergency_contact_phone_type'];
+            /* $emergency_contact_phone_type = $args['emergency_contact_phone_type'];
             if (!valueConstrainedTo($emergency_contact_phone_type, array('cellphone', 'home', 'work'))) {
                 $errors = true;
                 echo 'bad phone type';
-            }
+            } */
 
             /*$tshirt_size = $args['tshirt_size'];
             $school_affiliation = $args['school_affiliation'];
@@ -181,42 +187,44 @@
             
             
             $newperson = new Person(
-                $id, // (id = username)
-                $password,
+                //$id, // (id = username)
+                //$password,
                 date("Y-m-d"),
                 $first_name,
                 $last_name,
-                $birthday,
+                //$birthday,
                 $street_address,
                 $city,
                 $state,
                 $zip_code,
                 $phone1,
-                $phone1type,
+                //$phone1type,
                 $email,
                 $emergency_contact_first_name,
                 $emergency_contact_last_name,
                 $emergency_contact_phone,
-                $emergency_contact_phone_type,
+                //$emergency_contact_phone_type,
                 $emergency_contact_relation,
-                $tshirt_size,
+                /* $tshirt_size,
                 $school_affiliation,
                 $photo_release,
-                $photo_release_notes,
-                $type, // admin or volunteer or participant...
-                $status,
-                $archived,
-                $how_you_heard_of_stepva,
-                $preferred_feedback_method,
-                $hobbies,
-                $professional_experience,
-                $disability_accomodation_needs,
-                $training_complete,
-                $training_date,
+                $photo_release_notes, */
+                //$type, // admin or volunteer or participant...
+                //$status,
+                //$archived,
+                //$how_you_heard_of_stepva,
+                //$preferred_feedback_method,
+                //$hobbies,
+                //$professional_experience,
+                //$disability_accomodation_needs,
+                //$training_complete,
+                //$training_date,
                 $orientation_complete,
                 $orientation_date,
                 $background_complete,
-                $background_date
+                $background_date,
+                $isMinor,
+                $total_hours
             );
 
             $result = add_person($newperson);
