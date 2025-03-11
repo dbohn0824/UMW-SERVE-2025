@@ -9,9 +9,11 @@
     // Get date?
     if (isset($_SESSION['_id'])) {
         $person = retrieve_person($_SESSION['_id']);
+    } else {
+        $person = retrieve_person('aaa');
     }
 
-    $notRoot = $person->get_id() != 'vmsroot';
+    //$notRoot = $person->get_id() != 'vmsroot';
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +28,7 @@
         <main class='dashboard'>
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
+            <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
             <div id="dashboard">
                 <?php
                     require_once('database/dbMessages.php');
