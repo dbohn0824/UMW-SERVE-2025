@@ -1,16 +1,18 @@
 <?php
-    session_cache_expire(30);
-    session_start();
-
     date_default_timezone_set("America/New_York");
         
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
-    // Get date?
-    if (isset($_SESSION['_id'])) {
-        $person = retrieve_person($_SESSION['_id']);
-    } else {
-        $person = retrieve_person('aaa');
+
+    if (isset($_GET['id'])) {
+        require_once('include/input-validation.php');
+        require_once('database/dbPersons.php');
+        $args = sanitize($_GET);
+        if ($args['id']) {
+            $person = retrieve_person($args['id']);
+        } else {
+            $person = retrieve_person('aaa');
+        }
     }
 
     //$notRoot = $person->get_id() != 'vmsroot';
