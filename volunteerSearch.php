@@ -1,6 +1,4 @@
 <?php
-    // Template for new VMS pages. Base your new page on this one
-
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
     session_cache_expire(30);
@@ -9,13 +7,6 @@
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
-    /*if (isset($_SESSION['_id'])) {
-        $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
-        $accessLevel = $_SESSION['access_level'];
-        $userID = $_SESSION['_id'];
-    }*/
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,16 +39,14 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name'/*, 'id', 'phone', 'zip', 'role', 'status', 'photo_release'*/];
-                    //var_dump($args);
+                    $required = ['name'];
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
                     }
                     $name = $args['name'];
-                    //$id = $args['id'];
                     $phone = preg_replace("/[^0-9]/", "", $args['phone']);
 					echo "<h3>Search Results</h3>";
-                    $persons = find_self($name/*, $id, $phone, $zip, $role, $status, $photo_release*/);
+                    $persons = find_self($name);
                     require_once('include/output.php');
                     if (count($persons) > 0) {
                         echo '
@@ -79,20 +68,19 @@
                                 $notFirst = true;
                                 }
                                 echo '
-                                        <tr>
-                                            <td>' . $person->get_first_name() . '</td>
-                                            <td>' . $person->get_last_name() . '</td>
-                                            <td><a href="volunteerDashboard.php?id=' . $person->get_id() . '">That\'s Me!</a></td>
-                                        </a></tr>';
+                                    <tr>
+                                        <td>' . $person->get_first_name() . '</td>
+                                        <td>' . $person->get_last_name() . '</td>
+                                        <td><a href="volunteerDashboard.php?id=' . $person->get_id() . '">That\'s Me!</a></td>
+                                    </a></tr>';
                             }
                             echo '
-                                    </tbody>
-                                </table>
-                            </div>';
-                        } else {
-                            echo '<div class="error-toast">Your search returned no results.</div>';
-                        }
-                    //}
+                                </tbody>
+                            </table>
+                        </div>';
+                    } else {
+                        echo '<div class="error-toast">Your search returned no results.</div>';
+                    }
                 }
             ?>
         </form>

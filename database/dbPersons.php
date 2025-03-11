@@ -58,34 +58,6 @@ function add_person($person) {
             $person->get_emergency_contact_last_name() . '","' .
             $person->get_emergency_contact_phone() . '","' .
             $person->get_emergency_contact_relation() . '","'
-            //$person->get_start_date() . '","' .
-            //"n/a" . '","' . /* ("venue", we don't use this) */
-            //$person->get_phone1type() . '","' .
-            //$person->get_emergency_contact_phone_type() . '","' .
-            //$person->get_birthday() . '","' .
-            //'n/a' . '","' . /* ("contact_num", we don't use this) */
-            //'n/a' . '","' . /* ("contact_method", we don't use this) */
-            //$person->get_status() . '","' .
-            //'n/a' . '","' . /* ("profile_pic", we don't use this) */
-            //'gender' . '","' .
-            //$person->get_tshirt_size() . '","' .
-            //$person->get_how_you_heard_of_stepva() . '","' .
-            //'sensory_sensitivities' . '","' .
-            //$person->get_disability_accomodation_needs() . '","' .
-            //$person->get_school_affiliation() . '","' .
-            //'race' . '","' .
-            //$person->get_preferred_feedback_method() . '","' .
-            //$person->get_hobbies() . '","' .
-            //$person->get_professional_experience() . '","' .
-            //$person->get_archived() . '","' .
-            //$person->get_photo_release() . '","' .
-            //$person->get_photo_release_notes() . '","' .
-            //$person->get_training_complete() . '","' .
-            //$person->get_training_date() . '","' .
-            //$person->get_orientation_complete() . '","' .
-            //$person->get_orientation_date() . '","' .
-            //$person->get_background_complete() . '","' .
-            //$person->get_background_date() . '");'
         );
         mysqli_close($con);
         return true;
@@ -174,13 +146,13 @@ function update_hours($id, $new_hours) {
     return $result;
 }
 
-function update_birthday($id, $new_birthday) {
+/*function update_birthday($id, $new_birthday) {
 	$con=connect();
 	$query = 'UPDATE dbpersons SET birthday = "' . $new_birthday . '" WHERE id = "' . $id . '"';
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
-}
+}*/
 
 /* update volunteer hours */ /* $original_start_time, $original_end_time,  */
 function update_volunteer_hours($eventname, $username, $new_start_time, $new_end_time) {
@@ -285,20 +257,20 @@ function delete_check_in($userID, $eventID, $start_time, $end_time) {
  * id.
 */
 
-function update_profile_pic($id, $link) {
+/*function update_profile_pic($id, $link) {
   $con = connect();
   $query = 'UPDATE dbpersons SET profile_pic = "'.$link.'" WHERE id ="'.$id.'"';
   $result = mysqli_query($con, $query);
   mysqli_close($con);
   return $result;
-}
+}*/
 
 /*
  * Returns the age of the person by subtracting the 
  * person's birthday from the current date
 */
 
-function get_age($birthday) {
+/*function get_age($birthday) {
 
   $today = date("Ymd");
   // If month-day is before the person's birthday,
@@ -314,7 +286,7 @@ function update_start_date($id, $new_start_date) {
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
-}
+}*/
 
 /*
  * @return all rows from dbPersons table ordered by last name
@@ -483,7 +455,7 @@ function getall_type($t) {
  *   get all active volunteers and subs of $type who are available for the given $frequency,$week,$day,and $shift
  */
 
-function getall_available($type, $day, $shift, $venue) {
+/*function getall_available($type, $day, $shift, $venue) {
     $con=connect();
     $query = "SELECT * FROM dbpersons WHERE (type LIKE '%" . $type . "%' OR type LIKE '%sub%')" .
             " AND availability LIKE '%" . $day .":". $shift .
@@ -505,7 +477,7 @@ function getvolunteers_byevent($id){
    }
    mysqli_close($con);
    return $thePersons;
-}
+}*/
 
 
 // retrieve only those persons that match the criteria given in the arguments
@@ -537,8 +509,8 @@ function phone_edit($phone) {
 function get_people_for_export($attr, $first_name, $last_name, $type, $status, $start_date, $city, $zip, $phone, $email) {
 	$first_name = "'".$first_name."'";
 	$last_name = "'".$last_name."'";
-	$status = "'".$status."'";
-	$start_date = "'".$start_date."'";
+	//$status = "'".$status."'";
+	//$start_date = "'".$start_date."'";
 	$city = "'".$city."'";
 	$zip = "'".$zip."'";
 	$phone = "'".$phone."'";
@@ -562,8 +534,8 @@ function get_people_for_export($attr, $first_name, $last_name, $type, $status, $
     			first_name REGEXP ". $first_name . 
     			" and last_name REGEXP ". $last_name . 
     			" and (type REGEXP ". $type_query .")". 
-    			" and status REGEXP ". $status . 
-    			" and (start_date REGEXP ". $start_date . ")" .
+    			//" and status REGEXP ". $status . 
+    			//" and (start_date REGEXP ". $start_date . ")" .
     			" and city REGEXP ". $city .
     			" and zip REGEXP ". $zip .
     			" and (phone1 REGEXP ". $phone ." or phone2 REGEXP ". $phone . " )" .
@@ -672,12 +644,12 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $query = "update dbpersons set 
             first_name='$first_name', last_name='$last_name', birthday='$birthday',
             street_address='$street_address', city='$city', state='$state',
-            zip_code='$zip_code', email='$email', phone1='$phone1', phone1type='$phone1type', 
+            zip_code='$zip_code', email='$email', phone1='$phone1'" . /*", phone1type='$phone1type'" .*/ ", 
             emergency_contact_first_name='$emergency_contact_first_name', 
             emergency_contact_last_name='$emergency_contact_last_name', 
-            emergency_contact_phone='$emergency_contact_phone', 
-            emergency_contact_phone_type='$emergency_contact_phone_type', 
-            emergency_contact_relation='$emergency_contact_relation', type='$type',
+            emergency_contact_phone='$emergency_contact_phone', " . /*"
+            emergency_contact_phone_type='$emergency_contact_phone_type', " .*/ "
+            emergency_contact_relation='$emergency_contact_relation', type='$type', " . /*"
             school_affiliation='$school_affiliation', tshirt_size='$tshirt_size',
             how_you_heard_of_stepva='$how_you_heard_of_stepva', preferred_feedback_method='$preferred_feedback_method',
             hobbies='$hobbies', professional_experience='$professional_experience',
@@ -685,7 +657,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             training_complete='$training_complete', training_date='$training_date', orientation_complete='$orientation_complete',
             orientation_date='$orientation_date', background_complete='$background_complete', background_date='$background_date',
             photo_release='$photo_release',
-            photo_release_notes='$photo_release_notes'
+            photo_release_notes='$photo_release_notes'" .*/ "
             where id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);
@@ -702,7 +674,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
      * Eligibility criteria: availability falls within event start/end time
      * and start date falls before or on the volunteer's start date.
      */
-    function get_unassigned_available_volunteers($eventID) {
+    /*function get_unassigned_available_volunteers($eventID) {
         $connection = connect();
         $query = "select * from dbEvents where id='$eventID'";
         $result = mysqli_query($connection, $query);
@@ -738,7 +710,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         }
         mysqli_close($connection);
         return $thePersons;
-    }
+    }*/
 
     function find_self($name){
         $where = 'where ';
@@ -926,7 +898,7 @@ function find_user_names($name) {
     }
     date_default_timezone_set("America/New_York");
 
-    function get_events_attended_by($personID) {
+    /*function get_events_attended_by($personID) {
         $today = date("Y-m-d");
         $query = "select * from dbeventpersons, dbevents
                   where userID='$personID' and eventID=id
@@ -972,14 +944,14 @@ function find_user_names($name) {
             mysqli_close($connection);
             return null;  // Return null if there is no result
         }
-    }
+    }*/
     
 
     /* @@@ Thomas
      * 
      * This funcion returns a list of eventIDs that a given user has attended.
      */
-    function get_attended_event_ids($personID) {
+    /*function get_attended_event_ids($personID) {
         $con=connect();
         $query = "SELECT DISTINCT eventID FROM dbpersonhours WHERE personID = '" .$personID. "' ORDER BY eventID DESC";            
         $result = mysqli_query($con, $query);
@@ -1017,11 +989,11 @@ function find_user_names($name) {
             mysqli_close($con);
             return []; // Return an empty array if no results are found
         }
-    }
+    }*/
     /*@@@ end Thomas */
 
     
-    function get_events_attended_by_2($personID) {
+    /*function get_events_attended_by_2($personID) {
         // Prepare the SQL query to select rows where personID matches
         $query = "SELECT personID, eventID, start_time, end_time FROM dbpersonhours WHERE personID = ?";
         
@@ -1048,7 +1020,7 @@ function find_user_names($name) {
             mysqli_close($connection);
             return [];
         }
-    }
+    }*/
     
     
 

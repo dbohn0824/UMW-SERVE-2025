@@ -41,7 +41,7 @@
                     }
                 ?>
                 
-                <div class="dashboard-item" data-link="inbox.php">
+                <div class="dashboard-item" data-link="inbox.php?id=<?php echo $person->get_id(); ?>">
                     <img src="images/<?php echo $inboxIcon ?>">
                     <span>Notifications<?php 
                         if ($unreadMessageCount > 0) {
