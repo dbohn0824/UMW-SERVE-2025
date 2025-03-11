@@ -472,7 +472,7 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date']*/
+        $result_row['background_date']
     );
 
     return $thePerson;
