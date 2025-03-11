@@ -15,25 +15,19 @@
             <label for="last_name"><em>* </em>Last Name</label>
             <input type="text" id="last_name" name="last_name" required placeholder="Enter volunteer last name">
 
-            <!-- <label for="email"><em>* </em>Email</label>
-            <input type="email" id="email" name="email" required placeholder="Enter volunteer email address">
-
-            <label for="phone"><em>* </em>Phone Number</label>
-            <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555"> -->
-
             <label><em>* </em>Court Mandated Hours</label>
             <div class="radio-group">
                 <input type="radio" id="Yes" name="court_hours" value="Yes" required><label for="court_hours">Yes</label>
                 <input type="radio" id="No" name="court_hours" value="No" required><label for="court_hours">No</label>
             </div>
 
-            <label for="hours_needed"><em> </em>Hours Needed</label>
+            <label for="hours_needed"> Hours Needed</label>
             <input type="text" id="hours_needed" name="hours_needed" required placeholder="Enter number of hours needed">
 
             <label><em>* </em>Minor</label>
             <div class="radio-group">
-                <input type="radio" id="Yes" name="minor" value="Yes" required><label for="minor">Yes</label>
-                <input type="radio" id="No" name="minor" value="No" required><label for="minor">No</label>
+                <input type="radio" id="Yes" name="isMinor" value="Yes" required><label for="isMinor">Yes</label>
+                <input type="radio" id="No" name="isMinor" value="No" required><label for="isMinor">No</label>
             </div>
 
             <!--<label for="birthdate"><em>* </em>Date of Birth</label> -->
@@ -115,12 +109,12 @@
             <label for="phone"><em>* </em>Phone Number</label>
             <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-            <label><em>* </em>Phone Type</label>
+            <!-- <label><em>* </em>Phone Type</label>
             <div class="radio-group">
                 <input type="radio" id="phone-type-cellphone" name="phone_type" value="cellphone" required><label for="phone-type-cellphone">Cell</label>
                 <input type="radio" id="phone-type-home" name="phone_type" value="home" required><label for="phone-type-home">Home</label>
                 <input type="radio" id="phone-type-work" name="phone_type" value="work" required><label for="phone-type-work">Work</label>
-            </div>
+            </div> -->
 
         </fieldset>
 
@@ -140,12 +134,12 @@
             <label for="emergency_contact_phone"><em>* </em>Contact Phone Number</label>
             <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Enter emergency contact phone number. Ex. (555) 555-5555">
 
-            <label><em>* </em>Contact Phone Type</label>
+            <!-- <label><em>* </em>Contact Phone Type</label>
             <div class="radio-group">
                 <input type="radio" id="phone-type-cellphone" name="emergency_contact_phone_type" value="cellphone" required><label for="phone-type-cellphone">Cell</label>
                 <input type="radio" id="phone-type-home" name="emergency_contact_phone_type" value="home" required><label for="phone-type-home">Home</label>
                 <input type="radio" id="phone-type-work" name="emergency_contact_phone_type" value="work" required><label for="phone-type-work">Work</label>
-            </div>
+            </div> -->
         </fieldset>
 
         <!-- <fieldset class="section-box">
