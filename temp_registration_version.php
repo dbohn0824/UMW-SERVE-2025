@@ -31,21 +31,33 @@
 
             // required fields
             $required = array(
-                'first_name', 'last_name', 
-                'email', 'phone', 'court_hours', 'isMinor'
+                'first_name', 'last_name', /*'street_address', 'city', 'state', 'zip', 
+                'email', 'phone', 'phone_type', 'emergency_contact_first_name',
+                'emergency_contact_last_name', 'emergency_contact_relation',
+                'emergency_contact_phone',*/ 'court_hours', 'isMinor'
+
+                /*'first_name', 'last_name', 'birthdate',
+                'street_address', 'city', 'state', 'zip', 
+                'email', 'phone', 'phone_type', 'emergency_contact_first_name',
+                'emergency_contact_last_name',
+                'emergency_contact_relation', 'emergency_contact_phone', 'tshirt_size',
+                'school_affiliation', 'username', 'password',
+                'volunteer_or_participant', 'photo_release', 'photo_release_notes'*/
             );
+
+            $optional = array();
 
             if ($court_hours = "Yes") {
                 array_push($required, 'hours_needed');
             } else {
                 array_push($optional, 'hours_needed');
             }
-
+            
             // Capture the volunteer_or_participant value from the form
             $volunteer_or_participant = isset($_POST['volunteer_or_participant']) ? $_POST['volunteer_or_participant'] : null;  
 
             
-            if ($volunteer_or_participant == 'v') {
+            /*if ($volunteer_or_participant == 'v') {
                 // Check for the training_complete and training_date fields
                 if (empty($_POST['training_complete']) || empty($_POST['training_date'])) {
                     $errors[] = "Training complete and training date are required for volunteers.";
@@ -60,10 +72,10 @@
                 if (empty($_POST['background_complete']) || empty($_POST['background_date'])) {
                     $errors[] = "Background check complete and background check date are required for volunteers.";
                 }
-            }
+            }*/
             
 
-            $optional = array(
+            /*$optional = array(
                 'how_you_heard_of_stepva', 'preferred_feedback_method', 'hobbies',
                 'skills', 'professional_experience', 'disability_accomodation_needs'
             );
@@ -74,9 +86,11 @@
             $hobbies = isset($args['hobbies']) ? $args['hobbies'] : '';
             $professional_experience = isset($args['professional_experience']) ? $args['professional_experience'] : '';
             $disability_accomodation_needs = isset($args['disability_accomodation_needs']) ? $args['disability_accomodation_needs'] : '';
+            */
 
             $errors = false;
             if (!wereRequiredFieldsSubmitted($args, $required)) {
+                echo 'not all submitted';
                 $errors = true;
             }
             $first_name = $args['first_name'];
@@ -95,16 +109,19 @@
                     'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM',
                     'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX',
                     'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY'))) {
+                echo 'need state';
                 $errors = true;
             }
             $zip_code = $args['zip'];
             if (!validateZipcode($zip_code)) {
+                array_push($error, 'need zip');
                 $errors = true;
                 echo 'bad zip';
             }
             $email = strtolower($args['email']);
             $email = validateEmail($email);
             if (!$email) {
+                array_push($error, 'need email');
                 $errors = true;
                 echo 'bad email';
             }
@@ -169,14 +186,14 @@
             $professional_experience = $args['professional_experience'];
             $disability_accomodation_needs = $args['disability_accomodation_needs']; */
 
-            $training_complete = isset($args['training_complete']) ? (int)$args['training_complete'] : 0;
-            $training_date = isset($args['training_date']) ? $args['training_date'] : null;
+            //$training_complete = isset($args['training_complete']) ? (int)$args['training_complete'] : 0;
+            //$training_date = isset($args['training_date']) ? $args['training_date'] : null;
 
-            $orientation_complete = isset($args['orientation_complete']) ? (int)$args['orientation_complete'] : 0;
-            $orientation_date = isset($args['orientation_date']) ? $args['orientation_date'] : null;
+            //$orientation_complete = isset($args['orientation_complete']) ? (int)$args['orientation_complete'] : 0;
+            //$orientation_date = isset($args['orientation_date']) ? $args['orientation_date'] : null;
 
-            $background_complete = isset($args['background_complete']) ? (int)$args['background_complete'] : 0;
-            $background_date = isset($args['background_date']) ? $args['background_date'] : null;
+            //$background_complete = isset($args['background_complete']) ? (int)$args['background_complete'] : 0;
+            //$background_date = isset($args['background_date']) ? $args['background_date'] : null;
 
             if ($errors) {
                 echo '<p>Your form submission contained unexpected input.</p>';
@@ -186,7 +203,7 @@
             $status = "Active";
             $checked_in = false;
             $id = $first_name . $last_name;
-            $isMinor = $args['isMinor'];
+            $minor = $args['isMinor'];
             $total_hours = 0;
             $notes = '';
             $type = 'v';
@@ -198,44 +215,64 @@
             }
             
             $newperson = new Person(
-                //$id, // (id = username)
-                //$password,
+                $id, // (id = username)
+	            $first_name,
+	            $last_name,
+            	$minor,
+            	$total_hours,
+	            $remaining_mandated_hours,
+	            $checked_in,
+            	$phone1,
+            	$email,
+            	$notes,
+            	$type, // admin or volunteer or participant...
+            	$password,
+	            $street_address,
+            	$city,
+            	$state,
+            	$zip_code,
+	            $emergency_contact_first_name,
+	            $emergency_contact_last_name,
+	            $emergency_contact_phone,
+                $emergency_contact_relation
+
+
+                /*$id, // (id = username)
+                $password,
                 date("Y-m-d"),
                 $first_name,
                 $last_name,
-                //$birthday,
+                $birthday,
                 $street_address,
                 $city,
                 $state,
                 $zip_code,
                 $phone1,
-                //$phone1type,
+                $phone1type,
                 $email,
                 $emergency_contact_first_name,
                 $emergency_contact_last_name,
                 $emergency_contact_phone,
-                //$emergency_contact_phone_type,
+                $emergency_contact_phone_type,
                 $emergency_contact_relation,
-                /* $tshirt_size,
+                $tshirt_size,
                 $school_affiliation,
                 $photo_release,
-                $photo_release_notes, */
-                //$type, // admin or volunteer or participant...
-                //$status,
-                //$archived,
-                //$how_you_heard_of_stepva,
-                //$preferred_feedback_method,
-                //$hobbies,
-                //$professional_experience,
-                //$disability_accomodation_needs,
-                //$training_complete,
-                //$training_date,
+                $photo_release_notes,
+                $type, // admin or volunteer or participant...
+                $status,
+                $archived,
+                $how_you_heard_of_stepva,
+                $preferred_feedback_method,
+                $hobbies,
+                $professional_experience,
+                $disability_accomodation_needs,
+                $training_complete,
+                $training_date,
                 $orientation_complete,
                 $orientation_date,
                 $background_complete,
-                $background_date,
-                $isMinor,
-                $total_hours
+                $background_date*/
             );
 
             $result = add_person($newperson);

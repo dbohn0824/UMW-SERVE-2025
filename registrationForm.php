@@ -22,7 +22,7 @@
             </div>
 
             <label for="hours_needed"> Hours Needed</label>
-            <input type="text" id="hours_needed" name="hours_needed" required placeholder="Enter number of hours needed">
+            <input type="text" id="hours_needed" name="hours_needed" placeholder="Enter number of hours needed">
 
             <label><em>* </em>Minor</label>
             <div class="radio-group">
