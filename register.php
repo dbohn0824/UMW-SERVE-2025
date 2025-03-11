@@ -188,7 +188,6 @@
 
             $status = "Active";
             $checked_in = false;
-            $id = $first_name . $last_name;
             $isMinor = $args['isMinor'];
             $total_hours = 0;
             $notes = '';
