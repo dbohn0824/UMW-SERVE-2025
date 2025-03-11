@@ -37,30 +37,30 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status', 'photo_release'];
+                    $required = ['name', /*'id', 'phone', 'zip', 'role', 'status', 'photo_release'*/];
                     //var_dump($args);
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
                     }
                     $name = $args['name'];
                     $id = $args['id'];
-                    $phone = preg_replace("/[^0-9]/", "", $args['phone']);
+                    /*$phone = preg_replace("/[^0-9]/", "", $args['phone']); 
 					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
-                    $photo_release = $args['photo_release'];
+                    $photo_release = $args['photo_release']; */
                     if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
-                    } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
+                    } /*else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
-                    }
+                    } */
                      else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id, $phone, $zip, $role, $status, $photo_release);
+                        $persons = find_users($name, $id/*, $phone, $zip, $role, $status, $photo_release*/);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
@@ -99,7 +99,7 @@
 											<td>' . "zip" . '</td>
                                             <td>' . "release" .'</td>
                                             <td>' . ucfirst($person->get_type()) . '</td>
-                                            <td>' . ucfirst($person->get_status()) . '</td>
+                                            
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
                                             <td><a href="modifyUserRole.php?id=' . $person->get_id() . '">Archive</a></td>
 
@@ -120,9 +120,9 @@
                     echo '<h3>Search Again</h3>';
                 }
             ?>
-            <p>Use the form below to find a volunteer or participant. <!-- At least one search criterion is required.</p>
+            <p>Use the form below to find a volunteer or participant.  At least one search criterion is required.</p>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> -->
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
            <!--
