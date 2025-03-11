@@ -449,7 +449,7 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date']
+        $result_row['background_date']*/
     );
 
     return $thePerson;
@@ -740,9 +740,9 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $thePersons;
     }
 
-    function find_users($name, $id, $phone, $zip, $type, $status, $photo_release) {
+    function find_users($name, $id /*, $phone, $zip, $type, $status, $photo_release*/) {
         $where = 'where ';
-        if (!($name || $id || $phone || $zip || $type || $status || $photo_release)) {
+        if (!($name || $id /*|| $phone || $zip || $type || $status || $photo_release*/)) {
             return [];
         }
         $first = true;
@@ -764,6 +764,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             $where .= "id like '%$id%'";
             $first = false;
         }
+        /*
         if ($phone) {
             if (!$first) {
                 $where .= ' and ';
@@ -799,6 +800,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             $where .= "photo_release='$photo_release'";
             $first = false;
         }
+            */
         $query = "select * from dbpersons $where order by last_name, first_name";
         // echo $query;
         $connection = connect();
