@@ -9,6 +9,9 @@
             <legend>Volunteer Information</legend>
 
             <!-- <p>The following information will help us identify you within our system.</p> -->
+            <label for="user_id"><em>* </em>Username</label>
+            <input type="text" id="id" name="id" required placeholder="Enter volunteer username">
+
             <label for="first_name"><em>* </em>First Name</label>
             <input type="text" id="first_name" name="first_name" required placeholder="Enter volunteer first name">
 

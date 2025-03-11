@@ -79,6 +79,9 @@
             if (!wereRequiredFieldsSubmitted($args, $required)) {
                 $errors = true;
             }
+            $id = $args['id'];
+            $password = "v";
+            var_dump($id);
             $first_name = $args['first_name'];
             $last_name = $args['last_name'];
             /* $birthday = validateDate($args['birthdate']);
@@ -197,7 +200,30 @@
                 $remaining_mandated_hours = 0;
             }
             
+
             $newperson = new Person(
+                    $id,
+                    $password,
+                    $first_name,
+                    $last_name,
+                    $street_address,
+                    $city,
+                    $state,
+                    $zip_code,
+                    $notes,
+                    $phone1,
+                    $email,
+                    $isMinor,
+                    $total_hours,
+                    $remaining_mandated_hours,
+                    $emergency_contact_first_name,
+                    $emergency_contact_last_name,
+                    $emergency_contact_phone,
+                    $emergency_contact_relation,
+                    $type
+            );
+
+            /*$newperson = new Person(
                 //$id, // (id = username)
                 //$password,
                 date("Y-m-d"),
@@ -230,13 +256,13 @@
                 //$disability_accomodation_needs,
                 //$training_complete,
                 //$training_date,
-                $orientation_complete,
-                $orientation_date,
-                $background_complete,
-                $background_date,
-                $isMinor,
-                $total_hours
-            );
+              //  $orientation_complete,
+                //$orientation_date,
+                //$background_complete,
+                //$background_date,
+               // $isMinor,
+                //$total_hours
+            //);
 
             $result = add_person($newperson);
             if (!$result) {
