@@ -146,7 +146,8 @@
                 <?php
                     // Check the person's status and check the radio to signal the current status
                     // Display the current and other available statuses as well to change the status
-		            $currentStatus = $thePerson->get_status();
+		            //$currentStatus = $thePerson->get_status();
+                    /*
                     if ($currentStatus == "Active") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked><label for="makeActive" class="checkbox-label">Active</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive"><label for="makeInactive" class="checkbox-label">Inactive</label>';
@@ -154,6 +155,7 @@
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active"><label for="makeActive" class="checkbox-label">Active</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked><label for="makeInactive" class="checkbox-label">Inactive</label>';
                     }
+                        */
 		?>
 		</div>
 		
