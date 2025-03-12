@@ -14,6 +14,16 @@
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
+    } else if (isset($_GET['id'])) {
+        $loggedIn = false;
+        require_once('include/input-validation.php');
+        require_once('database/dbPersons.php');
+        $args = sanitize($_GET);
+        if ($args['id']) {
+            $userID = $args['id'];
+        } else {
+            $userID = 'aaa';
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -162,7 +172,17 @@
                 <p class="no-messages standout">You currently have no unread messages.</p>
             <?php endif ?>
             <!-- <button>Compose New Message</button> -->
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <?php
+                if($loggedIn){
+                    echo '
+                        <a class="button cancel" href="staffDashboard.php">Return to Dashboard</a>
+                    ';
+                } else {
+                    echo '
+                        <a class="button cancel" href="volunteerDashboard.php?id=' . $userID . '">Return to Dashboard</a>
+                    ';
+                }
+            ?>
         </main>
     </body>
 </html>
