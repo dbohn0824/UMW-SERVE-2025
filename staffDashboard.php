@@ -112,6 +112,10 @@
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
                     </div>
+                    <div class="dashboard-item" data-link="register.php">
+                        <img src="images/delete.svg">
+                        <span>Remove Volunteer</span>
+                    </div>
                     <div class="dashboard-item" data-link="editHours.php">
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
