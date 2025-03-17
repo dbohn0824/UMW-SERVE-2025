@@ -31,8 +31,8 @@ session_start();
         <nav>
             <span id="nav-top">
                 <span class="logo">
-                    <img src="images/stepvalogo.png">
-                        <span id="vms-logo"> Step VA Volunteer </span>
+                    <img src="images/SERVE_logo.png">
+                        <span id="vms-logo"> SERVE Volunteer </span>
                         </span>
                     <img id="menu-toggle" src="images/menu.png">
                 </span>

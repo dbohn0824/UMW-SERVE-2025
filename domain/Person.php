@@ -21,52 +21,95 @@ class Person {
 	
 	// REQUIRED FIELDS
 	private $id; // (username)
-	private $password;
-	private $start_date; // (dete of account creation)
 	private $first_name;
 	private $last_name;
-	private $birthday;
+	private $minor;
+	private $total_hours;
+	private $remaining_mandated_hours;
+	private $checked_in;
+	private $phone1;
+	private $email;
+	private $notes;
+	private $type; // admin or volunteer or participant...
+	private $password;
 	private $street_address;
 	private $city;
 	private $state;
 	private $zip_code;
-	private $phone1;
-	private $phone1type;
-	private $email;
 	private $emergency_contact_first_name;
 	private $emergency_contact_last_name;
 	private $emergency_contact_phone;
-	private $emergency_contact_phone_type;
 	private $emergency_contact_relation;
-	private $tshirt_size;
-	private $school_affiliation;
-	private $photo_release;
-	private $photo_release_notes;
-	private $type; // admin or volunteer or participant...
-	private $status;
-	private $archived;
+	//private $start_date; // (dete of account creation)
+	//private $phone1type;
+	//private $birthday;
+	//private $emergency_contact_phone_type;
+	//private $tshirt_size;
+	//private $school_affiliation;
+	//private $photo_release;
+	//private $photo_release_notes;
+	//private $status;
+	//private $archived;
 
 	// TRAINING REQS
-	private $training_complete;
-	private $training_date;
-	private $orientation_complete;
-	private $orientation_date;
-	private $background_complete;
-	private $background_date;
+	//private $training_complete;
+	//private $training_date;
+	//private $orientation_complete;
+	//private $orientation_date;
+	//private $background_complete;
+	//private $background_date;
 
 	// OPTIONAL FIELDS
-	private $how_you_heard_of_stepva;
-    private $preferred_feedback_method;
-    private $hobbies;
-    private $professional_experience;
-    private $disability_accomodation_needs;
+	//private $how_you_heard_of_stepva;
+    //private $preferred_feedback_method;
+    //private $hobbies;
+    //private $professional_experience;
+    //private $disability_accomodation_needs;
 
 	/*
-	 * This is a temporary mini constructor for testing purposes. It will be expanded later.
+	 * The trimmed down version of the original constructor
 	 */
 	function __construct(
+						$id, $password, $first_name, $last_name, $street_address, $city, $state, $zip_code, $notes,
+						$phone1, $email, $minor, $total_hours, $remaining_mandated_hours, $emergency_contact_first_name,
+						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type,
+						) {
+		$this->id = $id; // (username)
+		$this->first_name = $first_name;
+		$this->last_name = $last_name;
+		$this->minor = $minor;
+		$this->total_hours = $total_hours;
+		$this->remaining_mandated_hours = $remaining_mandated_hours;
+		$this->checked_in = false;
+		$this->phone1 = $phone1;
+		$this->email = $email;
+		$this->notes = $notes;
+		$this->password = $password;
+		$this->street_address = $street_address;
+		$this->city = $city;
+		$this->state = $state;
+		$this->zip_code = $zip_code;
+		$this->emergency_contact_first_name = $emergency_contact_first_name;
+		$this->emergency_contact_last_name = $emergency_contact_last_name;
+		$this->emergency_contact_phone = $emergency_contact_phone;
+		$this->emergency_contact_relation = $emergency_contact_relation;
+		$this->type = $type; // volunteer or participant...
+
+		// access_level = 1 for users, and = 3 for admin
+		if ($id == 'vmsroot') {
+			$this->access_level = 3;
+		} else {
+			$this->access_level = 1;
+		}
+	}
+
+
+	/*
+	 * The old constructor
+	 */
+	/*function __construct(
 						$id, $password, $start_date, $first_name, $last_name, $birthday, $street_address, $city,
-						$state, $zip_code, $phone1, $phone1type, $email, $emergency_contact_first_name,
+						$state, $zip_code, $phone1, $phone1type, $email, $minor, $total_hours, $remaining_mandated_hours, $emergency_contact_first_name,
 						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_phone_type,
 						$emergency_contact_relation, $tshirt_size, $school_affiliation, $photo_release, $photo_release_notes, $type, $status, $archived,
 						$how_you_heard_of_stepva, $preferred_feedback_method, $hobbies, $professional_experience, $disability_accomodation_needs, 
@@ -86,6 +129,9 @@ class Person {
 		$this->phone1 = $phone1;
 		$this->phone1type = $phone1type;
 		$this->email = $email;
+		$this->minor = $minor;
+		$this->total_hours = $total_hours;
+		$this->remaining_mandated_hours = $remaining_mandated_hours;
 		$this->emergency_contact_first_name = $emergency_contact_first_name;
 		$this->emergency_contact_last_name = $emergency_contact_last_name;
 		$this->emergency_contact_phone = $emergency_contact_phone;
@@ -116,9 +162,7 @@ class Person {
 		} else {
 			$this->access_level = 1;
 		}
-	}
-
-
+	}*/
 
 	function get_id() {
 		return $this->id;
@@ -128,9 +172,9 @@ class Person {
 		return $this->password;
 	}
 
-	function get_start_date() {
+	/*function get_start_date() {
 		return $this->start_date;
-	}
+	}*/
 
 	function get_first_name() {
 		return $this->first_name;
@@ -140,9 +184,25 @@ class Person {
 		return $this->last_name;
 	}
 
-	function get_birthday() {
-		return $this->birthday;
+	function isMinor() {
+		return $this->minor;
 	}
+
+	function get_total_hours() {
+		return $this->total_hours;
+	}
+
+	function get_remaining_mandated_hours() {
+		return $this->remaining_mandated_hours;
+	}
+
+	function get_checked_in(){
+
+	}
+
+	/*function get_birthday() {
+		return $this->birthday;
+	}*/
 
 	function get_street_address() {
 		return $this->street_address;
@@ -164,9 +224,9 @@ class Person {
 		return $this->phone1;
 	}
 
-	function get_phone1type() {
+	/*function get_phone1type() {
 		return $this->phone1type;
-	}
+	}*/
 
 	function get_email() {
 		return $this->email;
@@ -184,15 +244,15 @@ class Person {
 		return $this->emergency_contact_phone;
 	}
 
-	function get_emergency_contact_phone_type() {
+	/*function get_emergency_contact_phone_type() {
 		return $this->emergency_contact_phone_type;
-	}
+	}*/
 
 	function get_emergency_contact_relation() {
 		return $this->emergency_contact_relation;
 	}
 
-	function get_tshirt_size() {
+	/*function get_tshirt_size() {
 		return $this->tshirt_size;
 	}
 
@@ -206,25 +266,25 @@ class Person {
 
 	function get_photo_release_notes() {
 		return $this->photo_release_notes;
-	}
+	}*/
 
 	function get_type() {
 		return $this->type;
 	}
 
-	function get_status() {
+	/*function get_status() {
 		return $this->status;
-	}
+	}*/
 
-	function get_archived() {
+	/*function get_archived() {
 		return $this->archived;
-	}
+	}*/
 
 	function get_access_level() {
 		return $this->access_level;
 	}
 
-	function get_how_you_heard_of_stepva() {
+	/*function get_how_you_heard_of_stepva() {
 		return $this->how_you_heard_of_stepva;
 	}
 
@@ -266,6 +326,6 @@ class Person {
 	
 	function get_background_date() {
 		return $this->background_date;
-	}
+	}*/
 
 }

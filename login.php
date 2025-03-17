@@ -12,7 +12,7 @@
 
     // redirect to index if already logged in
     if (isset($_SESSION['_id'])) {
-        header('Location: index.php');
+        header('Location: staffDashboard.php');
         die();
     }
     $badLogin = false;
@@ -45,7 +45,7 @@
                 // hard code root privileges
                 if ($user->get_id() == 'vmsroot') {
                     $_SESSION['access_level'] = 3;
-                    header('Location: index.php');
+                    header('Location: staffDashboard.php');
                 }
                 //if ($changePassword) {
                 //    $_SESSION['access_level'] = 0;
@@ -54,7 +54,7 @@
                 //    die();
                 //} 
                 else {
-                    header('Location: index.php');
+                    header('Location: staffDashboard.php');
                     die();
                 }
                 die();
@@ -70,12 +70,12 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Step VA Volunteer System | Log In</title>
+        <title>SERVE Volunteer System | Log In</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
         <main class="login">
-            <h1>Step VA Volunteer System Login</h1>
+            <h1>SERVE Volunteer System Login</h1>
             <?php if (isset($_GET['registerSuccess'])): ?>
                 <div class="happy-toast">
                     Your registration was successful! Please log in below.
@@ -98,7 +98,7 @@
             </form>
             <p></p>
             <p>Don't have an account? <a href = "/stepvarepo/register.php">Sign Up</a>!</p>
-            <p>Looking for <a href="https://www.stepva.org/">Step VA</a>?</p>
+            <p>Looking for <a href="https://serve-helps.org/">SERVE</a>?</p>
         </main>
     </body>
 </html>

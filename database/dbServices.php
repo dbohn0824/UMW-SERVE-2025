@@ -29,7 +29,7 @@ include_once(dirname(__FILE__).'/../domain/Service.php');
  * add an event to dbEvents table: if already there, return false
  */
 
-function add_Animal($animal) {
+/*function add_Animal($animal) {
     if (!$animal instanceof Animal)
         die("Error: add_event type mismatch");
     $con=connect();
@@ -50,7 +50,7 @@ function add_Animal($animal) {
     }
     mysqli_close($con);
     return false;
-}
+}*/
 
 /*
  * remove an event from dbEvents table.  If already there, return false
@@ -103,22 +103,22 @@ function update_event_date($id, $new_event_date) {
 
 
 
-function make_an_event($result_row) {
+/*function make_an_event($result_row) {
 	/*
 	 ($en, $v, $sd, $description, $ev))
 	 */
-    $theEvent = new Event(
+    /*$theEvent = new Event(
                     $result_row['event_name'],
                     $result_row['venue'],                   
                     $result_row['event_date'],
                     $result_row['description'],
                     $result_row['event_id']);  
     return $theEvent;
-}
+}*/
 
 
 // retrieve only those events that match the criteria given in the arguments
-function getonlythose_dbEvents($name, $day, $venue) {
+/*function getonlythose_dbEvents($name, $day, $venue) {
    $con=connect();
    $query = "SELECT * FROM dbEvents WHERE event_name LIKE '%" . $event_name . "%'" .
            " AND event_name LIKE '%" . $name . "%'" .
@@ -132,7 +132,7 @@ function getonlythose_dbEvents($name, $day, $venue) {
    }
    mysqli_close($con);
    return $theEvents;
-}
+}*/
 
 function fetch_events_in_date_range($start_date, $end_date) {
     $connection = connect();

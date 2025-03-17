@@ -7,7 +7,7 @@
     <html>
         <head>
             <?php require_once('universal.inc') ?>
-            <title>Step VA | Sign-Up for Event</title>
+            <title>SERVE | Sign-Up for Event</title>
         </head>
         <body>
             <style>

@@ -54,7 +54,7 @@
     <head>
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
-        <title>Step VA | View User</title>
+        <title>SERVE | View User</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
     <body>
@@ -118,7 +118,7 @@
                     <p><?php echo $user->get_first_name() ?> <?php echo $user->get_last_name() ?></p>
                 </div>
 
-                <div class="field-pair">
+                <!--<div class="field-pair">
                     <label>Date of Birth</label>
                     <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 </div>
@@ -126,7 +126,7 @@
                 <div class="field-pair">
                     <label>Address</label>
                     <p><?php echo $user->get_street_address() . ', ' . $user->get_city() . ', ' . $user->get_state() . ' ' . $user->get_zip_code() ?></p>
-                </div>
+                </div>-->
 
             </fieldset>
 
@@ -143,13 +143,13 @@
                     <p><a href="tel:<?php echo $user->get_phone1() ?>"><?php echo formatPhoneNumber($user->get_phone1()) ?></a> (<?php echo ucfirst($user->get_phone1type()) ?>)</p>
                 </div>
 
-                <div class="field-pair">
+                <!--<div class="field-pair">
                     <label>Preferred Feedback Method</label>
                     <p><?php echo ucfirst($user->get_preferred_feedback_method()) ?></p>
-                </div>
+                </div>-->
             </fieldset>
 
-            <fieldset class="section-box">
+            <!--<fieldset class="section-box">
                 <legend>Emergency Contact</legend>
 
                 <div class="field-pair">
@@ -166,9 +166,9 @@
                     <label>Phone Number</label>
                     <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> (<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)</p>
                 </div>
-            </fieldset>
+            </fieldset>-->
 
-            <fieldset class="section-box">
+            <!--<fieldset class="section-box">
                 <legend>Volunteer Training</legend>
 
                 <p>Details about the volunteer's training status.</p>
@@ -194,9 +194,9 @@
                         </p>
                     </div>
                 <?php endif; ?>
-            </fieldset>
+            </fieldset>-->
 
-            <fieldset class="section-box">
+            <!--<fieldset class="section-box">
                 <legend>Volunteer Orientation</legend>
 
                 <p>Details about the volunteer's orientation status.</p>
@@ -222,9 +222,9 @@
                         </p>
                     </div>
                 <?php endif; ?>
-            </fieldset>
+            </fieldset>-->
 
-            <fieldset class="section-box">
+            <!--<fieldset class="section-box">
                 <legend>Volunteer Background Check</legend>
 
                 <p>Details about the volunteer's background check status.</p>
@@ -250,11 +250,11 @@
                         </p>
                     </div>
                 <?php endif; ?>
-            </fieldset>
+            </fieldset>-->
 
 
-            <fieldset class="section-box">
-                <legend>Volunteer Information</legend>
+            <!--<fieldset class="section-box">
+                <legend>Volunteer Information</legend>-->
                 
                 <!--
                 Volunteer or participant
@@ -264,7 +264,7 @@
                 </div>
                 -->
 
-                <div class="field-pair">
+                <!--<div class="field-pair">
                     <label>School Affiliation</label>
                     <p><?php echo $user->get_school_affiliation() ?></p>
                 </div>
@@ -290,12 +290,12 @@
                 </div>
 
                 <div class="field-pair">
-                    <label>How You Heard of StepVA</label>
+                    <label>How You Heard of SERVE</label>
                     <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
-                </div>
+                </div>-->
 
                 <!-- Adding Photo Release Information -->
-                <div class="field-pair">
+                <!--<div class="field-pair">
                     <label>Photo Release Restrictions</label>
                     <p><?php echo ucfirst($user->get_photo_release()) ?></p>
                 </div>
@@ -304,9 +304,9 @@
                     <label>Photo Release Notes</label>
                     <p><?php echo ucfirst($user->get_photo_release_notes() ?: "Not specified") ?></p>
                 </div>
-            </fieldset>
+            </fieldset>-->
 
-            <fieldset class="section-box">
+            <!--<fieldset class="section-box">
                 <legend>Emergency Contact Information</legend>
 
                 <div class="field-pair">
@@ -333,7 +333,7 @@
                     <label>Emergency Contact Relation</label>
                     <p><?php echo ucfirst($user->get_emergency_contact_relation()) ?></p>
                 </div>
-            </fieldset>
+            </fieldset>-->
 
 
 
