@@ -124,6 +124,10 @@
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Export Volunteer Data</center></span>
                     </div>
+                    <div class="dashboard-item" data-link="vizualizeData.php">
+                        <img src="images/bargraph.svg">
+                        <span>Vizualize Data</span>
+                    </div>
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->
