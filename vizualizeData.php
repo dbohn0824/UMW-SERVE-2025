@@ -12,7 +12,6 @@
 
    $past_month = date('F', strtotime('-4 months'));
 
-   var_dump($todays_month, $past_month);
 
 
 
@@ -68,7 +67,7 @@
  convert the data to JSON format. Fixe the labels in the graph, fix formatting
 -->
 <script src="chartScript.js"> </script>
-        <p style="text-align: center;"> Displaying volunteering data from <?php echo $past_month; ?> to <?php echo $todays_month; ?> </p>
+        <p style="text-align: center;">  Total unique volunteers and total volunteer hours from <?php echo $past_month; ?> to <?php echo $todays_month; ?> </p>
 
         </main>
     </body>

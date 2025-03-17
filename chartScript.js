@@ -13,7 +13,7 @@ fetch("chartScript.php")
 
 function createChart(chartData, type){
   new Chart(ctx, {
-    type: 'bar',
+    type: type,
     data: {
       labels: chartData.map(row => row.month),
       datasets: [
