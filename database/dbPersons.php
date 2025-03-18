@@ -37,30 +37,7 @@ function add_person($person) {
             $person->get_email() . '","' .
             $person->get_password() . '");'
         );*/
-
-        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
-            $person->get_id() . '","' . 
-            $person->get_first_name() . '","' .
-            $person->get_last_name() . '","' .
-            $person->isMinor() . '","' .
-            $person->get_total_hours() . '","' .
-            $person->get_remaining_mandated_hours() . '","' .
-            $person->get_checked_in() . '","' .
-            $person->get_phone1() . '","' .
-            $person->get_email() . '","' .
-            'n/a' . '","' .
-            $person->get_type() . '","' .
-            $person->get_password() . '","' .
-            $person->get_street_address() . '","' .
-            $person->get_city() . '","' .
-            $person->get_state() . '","' .
-            $person->get_zip_code() . '","' .
-            $person->get_emergency_contact_first_name() . '","' .
-            $person->get_emergency_contact_last_name() . '","' .
-            $person->get_emergency_contact_phone() . '","' .
-            $person->get_emergency_contact_relation() . '")'
-            );
-        /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
+        mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
             $person->get_id() . '","' . 
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
@@ -71,16 +48,16 @@ function add_person($person) {
             $person->get_phone1() . '","' .
             $person->get_email() . '","' .
             'n/a' . '","' . /* ("notes", we don't use this) */
-         //   $person->get_type() . '","' .
-           // $person->get_password() . '","' .
-            //$person->get_street_address() . '","' .
-            //$person->get_city() . '","' .
-            //$person->get_state() . '","' .
-            //$person->get_zip_code() . '","' .
-           // $person->get_emergency_contact_first_name() . '","' .
-           // $person->get_emergency_contact_last_name() . '","' .
-           // $person->get_emergency_contact_phone() . '","' .
-           // $person->get_emergency_contact_relation() . '","'
+            $person->get_type() . '","' .
+            $person->get_password() . '","' .
+            $person->get_street_address() . '","' .
+            $person->get_city() . '","' .
+            $person->get_state() . '","' .
+            $person->get_zip_code() . '","' .
+            $person->get_emergency_contact_first_name() . '","' .
+            $person->get_emergency_contact_last_name() . '","' .
+            $person->get_emergency_contact_phone() . '","' .
+            $person->get_emergency_contact_relation() . '","'
             //$person->get_start_date() . '","' .
             //"n/a" . '","' . /* ("venue", we don't use this) */
             //$person->get_phone1type() . '","' .
@@ -109,7 +86,7 @@ function add_person($person) {
             //$person->get_orientation_date() . '","' .
             //$person->get_background_complete() . '","' .
             //$person->get_background_date() . '");'
-      //  );
+        );
         mysqli_close($con);
         return true;
     }
@@ -191,7 +168,7 @@ function reset_password($id, $newPass) {
 
 function update_hours($id, $new_hours) {
     $con=connect();
-    $query = 'UPDATE dbpersons SET hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
+    $query = 'UPDATE dbpersons SET total_hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
     mysqli_close($con);
     return $result;
@@ -551,8 +528,7 @@ function make_a_person($result_row) {
         $result_row['orientation_complete'],
         $result_row['orientation_date'],
         $result_row['background_complete'],
-        $result_row['background_date']
-        */
+        $result_row['background_date']*/
     );
 
     return $thePerson;
