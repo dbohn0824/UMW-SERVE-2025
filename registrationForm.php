@@ -9,6 +9,9 @@
             <legend>Volunteer Information</legend>
 
             <!-- <p>The following information will help us identify you within our system.</p> -->
+            <label for="user_id"><em>* </em>Username</label>
+            <input type="text" id="id" name="id" required placeholder="Enter volunteer username">
+
             <label for="first_name"><em>* </em>First Name</label>
             <input type="text" id="first_name" name="first_name" required placeholder="Enter volunteer first name">
 
@@ -22,7 +25,7 @@
             </div>
 
             <label for="hours_needed"> Hours Needed</label>
-            <input type="text" id="hours_needed" name="hours_needed" required placeholder="Enter number of hours needed">
+            <input type="text" id="hours_needed" name="hours_needed" placeholder="Enter number of hours needed">
 
             <label><em>* </em>Minor</label>
             <div class="radio-group">
