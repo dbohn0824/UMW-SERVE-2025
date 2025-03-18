@@ -89,6 +89,11 @@
                             $mailingList = '';
                             $notFirst = false;
                             foreach ($persons as $person) {
+
+                                if (array_key_exists('edit_hours',$args)){
+                                    update_hours($person->get_id(),$args['edit_hours']);
+                                }
+
                                 if ($notFirst) {
                                     $mailingList .= ', ';
                                 } else {
@@ -134,7 +139,9 @@
             <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-           <!--
+            <label for="edit_hours">Edit Hours</label>
+            <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_GET['edit_hours']) ?>" placeholder="Edit user hours">
+           <!-- Commented out by Jackson
 		<label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
             
