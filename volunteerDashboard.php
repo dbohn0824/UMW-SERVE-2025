@@ -55,10 +55,12 @@
                     <img src="images/volunteer-history.svg">
                     <span><center>View Volunteering Report</center></span>
                 </div>
-                <div class="dashboard-item" data-link="volunteerDashboard.php">
+
+                <div class="dashboard-item" data-link="checkInCheckOut.php?id=<?php echo $person->get_id(); ?>">
                     <img src="images/add-person.svg">
-                    <span><center>Check In/Out</center></span>
+                    <span><center>Check In/Check Out</center></span>
                 </div>
+
                 <div class="dashboard-item" data-link="editHours.php">
                     <img src="images/add-person.svg">
                     <span><center>Request Hours Change</center></span>

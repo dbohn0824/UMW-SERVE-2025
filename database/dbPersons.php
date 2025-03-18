@@ -218,19 +218,55 @@ function update_volunteer_hours($eventname, $username, $new_start_time, $new_end
 /*@@@ Thomas */
 
 /* Check-in a user by adding a new row and with start_time to dbpersonhours */
-function check_in($personID, $eventID, $start_time) {
+function check_in($personID, $start_time) {
     $con=connect();
-    $query = "INSERT INTO dbpersonhours (personID, eventID, start_time) VALUES ( '" .$personID. "', '" .$eventID. "', '" .$start_time. "')";
+
+    $query = "UPDATE dbPersons 
+              SET checked_in = 1 
+              WHERE id = '" . $personID . "'";
+    mysqli_query($con, $query);
+
+    $query = "INSERT INTO dbpersonhours (id, start_time) 
+              VALUES ( '" .$personID. "', '" .$start_time. "')";
+
     $result = mysqli_query($con,$query);
+
     mysqli_close($con);
     return $result;
 }
 
 /* Check-out a user by adding their end_time to dbpersonhours */
-function check_out($personID, $eventID, $end_time) {
+function check_out($personID, $end_time) {
     $con=connect();
-    $query = "UPDATE dbpersonhours SET end_time = '" . $end_time . "' WHERE eventID = '" .$eventID. "' AND personID = '" .$personID. "' and end_time IS NULL";
-    $result = mysqli_query($con,$query);
+
+    // sets get_checked_in value
+    $query = "UPDATE dbPersons 
+              SET checked_in = 0 
+              WHERE id = '" . $personID . "'";
+    mysqli_query($con, $query);
+
+    // updates end time
+    $query = "UPDATE dbpersonhours 
+              SET end_time = '" . $end_time . "' 
+              WHERE id = '" . $personID . "' 
+              AND end_time IS NULL";
+    mysqli_query($con, $query);
+
+    // calculates total hours
+    $query = "SELECT TIMESTAMPDIFF(SECOND, start_time, end_time) AS total_seconds 
+              FROM dbpersonhours 
+              WHERE id = '" . $personID . "' 
+              AND end_time = '" . $end_time . "'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+    $hours_worked = round($row['total_seconds'] / 3600, 2);
+
+    // updates total hours
+    $query = "UPDATE dbPersons 
+              SET total_hours = total_hours + " . $hours_worked . " 
+              WHERE id = '" . $personID . "'";
+    mysqli_query($con, $query);
+
     mysqli_close($con);
     return $result;
 }
@@ -275,8 +311,12 @@ function can_check_out($personID, $event_info) {
 /* Return number of seconds a volunteer worked for a specific event */
 function fetch_volunteering_hours($personID, $eventID) {
     $con=connect();
-    $query = "SELECT start_time, end_time FROM dbpersonhours WHERE personID = '" .$personID. "' AND eventID = '" .$eventID. "' AND end_time IS NOT NULL";
+    $query = "SELECT start_time, end_time 
+              FROM dbpersonhours 
+              WHERE personID = '" . $personID . "' 
+              AND end_time IS NOT NULL";
     $result = mysqli_query($con, $query);
+
     $total_time = 0;
 
     if ($result) {
