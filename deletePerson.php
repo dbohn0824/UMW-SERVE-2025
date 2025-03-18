@@ -76,7 +76,7 @@ $loggedIn = false;
         </nav>
         <main>
 
-                <p class="happy-toast centered">This <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?> has been deleted.</p>
+                <p class="happy-toast centered"><?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?> has been deleted.</p>
                 <?php
                 remove_person($user->get_id());
                 ?>
