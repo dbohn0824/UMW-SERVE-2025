@@ -3,7 +3,7 @@ date_default_timezone_set("America/New_York");
 
 include_once(__DIR__ . '/database/dbinfo.php');  // Include dbinfo.php from the 'database' folder
 include_once(__DIR__ . '/domain/Person.php');  // Include Person.php from the root folder
-include_once('dbPersons.php');
+include_once(__DIR__ . '/database/dbPersons.php');
 
 
 if (isset($_GET['id'])) {
