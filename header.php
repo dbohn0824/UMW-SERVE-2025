@@ -70,6 +70,7 @@
         $permission_array['viewnotification.php'] = 1;
         $permission_array['volunteerreport.php'] = 1;
         $permission_array['viewmyupcomingevents.php'] = 1;
+        $permission_array['volunteerdashboard.php'] = 1;
         //pages only managers can view
         $permission_array['viewallevents.php'] = 0;
         $permission_array['personsearch.php'] = 2;
@@ -114,6 +115,7 @@
         $permission_array['eventfailurebaddeparturetime.php'] = 1;
         $permission_array['exportdata.php'] = 1; 
         $permission_array['staffdashboard.php'] = 1;
+        $permission_array['vizualizedata.php'] = 1;
 
 
         

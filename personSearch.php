@@ -64,7 +64,7 @@
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
-                            <div class="table-wrapper">
+                            <div style="overflow-x: auto;" class="table-wrapper">
                                 <table class="general">
                                     <thead>
                                         <tr>
@@ -118,10 +118,10 @@
                                     </tbody>
                                 </table>
                             </div>';
-                            echo '
+                           /* echo '
                             <label>Result Mailing List</label>
                             <p>' . $mailingList . '</p>
-                            ';
+                            ';*/
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
