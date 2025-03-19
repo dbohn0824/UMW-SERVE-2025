@@ -29,7 +29,7 @@
             <p>Select if you are a volunteer or if you are staff.</p>
             
             <div id="dashboard"> 
-                <div class="dashboard-item" data-link="personSearch.php">
+                <div class="dashboard-item" data-link="volunteerSearch.php">
                     <img src="images/new-event.svg"> 
                     <span>Volunteer</span>
                 </div>
