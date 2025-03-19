@@ -63,7 +63,7 @@
                         $notFirst = false;
                         foreach ($persons as $person) {
                             if ($notFirst) {
-                                $mailingList .= ', ';
+                                //$mailingList .= ', ';
                             } else {
                                 $notFirst = true;
                                 }

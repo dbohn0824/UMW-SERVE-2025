@@ -623,7 +623,7 @@ function get_people_for_export($attr, $first_name, $last_name, $type, $status, $
 	$phone = "'".$phone."'";
 	$email = "'".$email."'";
 	$select_all_query = "'.'";
-	if ($start_date == $select_all_query) $start_date = $start_date." or start_date=''";
+	//if ($start_date == $select_all_query) $start_date = $start_date." or start_date=''";
 	if ($email == $select_all_query) $email = $email." or email=''";
     
 	$type_query = "";
@@ -633,7 +633,7 @@ function get_people_for_export($attr, $first_name, $last_name, $type, $status, $
     	$type_query = "'.*($type_query).*'";
     }
     
-    error_log("query for start date is ". $start_date);
+    //error_log("query for start date is ". $start_date);
     error_log("query for type is ". $type_query);
     
    	$con=connect();
