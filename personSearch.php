@@ -37,53 +37,63 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status', 'photo_release'];
+                    $required = ['name', /*'id', 'phone', 'zip', 'role', 'status', 'photo_release'*/];
                     //var_dump($args);
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
                     }
                     $name = $args['name'];
                     $id = $args['id'];
-                    $phone = preg_replace("/[^0-9]/", "", $args['phone']);
+                    /*$phone = preg_replace("/[^0-9]/", "", $args['phone']); 
 					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
-                    $photo_release = $args['photo_release'];
+                    $photo_release = $args['photo_release']; */
                     if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
-                    } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
+                    } /*else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
-                    }
+                    } */
                      else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id, $phone, $zip, $role, $status, $photo_release);
+                        $persons = find_users($name, $id,null, null, null,null, null);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
-                            <div class="table-wrapper">
+                            <div style="overflow-x: auto;" class="table-wrapper">
                                 <table class="general">
                                     <thead>
                                         <tr>
+                                            <th>Username</th>
                                             <th>First</th>
                                             <th>Last</th>
-                                            <th>Username</th>
+                                            <th>Minor</th>
+                                            <th>Total Hours Volunteered</th>
+                                            <th>Mandated Hours Remaining</th>
+                                            <th>Checked in?</th>
                                             <th>Phone Number</th>
+                                            <th>Email</th> 
+                                            <th>Address</th>
+                                            <th>State</th>
 											<th>Zip Code</th>
-                                            <th>Photo Release</th>
-                                            <th>Role</th>
-                                            <th>Archive Status</th>
-                                            <th>Profile</th>
-                                            <th>Archive</th>
+                                            <th>Emergency First Name</th>
+                                            <th>Emergency Last Name</th>
+                                            <th>Emergency Phone</th>
                                         </tr>
                                     </thead>
                                     <tbody class="standout">';
                             $mailingList = '';
                             $notFirst = false;
                             foreach ($persons as $person) {
+
+                                if (array_key_exists('edit_hours',$args)){
+                                    update_hours($person->get_id(),$args['edit_hours']);
+                                }
+
                                 if ($notFirst) {
                                     $mailingList .= ', ';
                                 } else {
@@ -92,27 +102,31 @@
                                 $mailingList .= $person->get_email();
                                 echo '
                                         <tr>
+                                            <td>' . $person->get_id() . '</td>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
-                                            <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
-                                            <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
-											<td>' . "zip" . '</td>
-                                            <td>' . "release" .'</td>
-                                            <td>' . ucfirst($person->get_type()) . '</td>
-                                            <td>' . ucfirst($person->get_status()) . '</td>
-                                            <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
-                                            <td><a href="modifyUserRole.php?id=' . $person->get_id() . '">Archive</a></td>
-
+                                            <td>' . $person->isMinor() . '</td>
+                                            <td>' . $person->get_total_hours() . '</td>
+                                            <td>' . $person->get_remaining_mandated_hours() . '</td>
+                                            <td>' . $person->get_checked_in() . '</td>
+                                            <td>' . $person->get_phone1() . '</td>
+                                            <td>' . $person->get_email() . '</td>
+                                            <td>' . $person->get_street_address() . '</td>
+                                            <td>' . $person->get_state() . '</td>
+                                            <td>' . $person->get_zip_code() . '</td>
+                                            <td>' . $person->get_emergency_contact_first_name() . '</td>
+                                            <td>' . $person->get_emergency_contact_last_name() . '</td>
+                                            <td>' . $person->get_emergency_contact_phone() . '</td>
                                         </a></tr>';
                             }
                             echo '
                                     </tbody>
                                 </table>
                             </div>';
-                            echo '
+                           /* echo '
                             <label>Result Mailing List</label>
                             <p>' . $mailingList . '</p>
-                            ';
+                            ';*/
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
@@ -120,12 +134,14 @@
                     echo '<h3>Search Again</h3>';
                 }
             ?>
-            <p>Use the form below to find a volunteer or participant. At least one search criterion is required.</p>
+            <p>Use the form below to find a volunteer or participant.</p>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name">
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-           
+            <label for="edit_hours">Edit Hours</label>
+            <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_GET['edit_hours']) ?>" placeholder="Edit user hours">
+           <!-- Commented out by Jackson
 		<label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
             
@@ -152,7 +168,7 @@
                     <option value="Not Restricted" <?php if (isset($photo_release) && $photo_release == 'Not Restricted') echo 'selected' ?>>Not Restricted</option>
                     <option value="Restricted" <?php if (isset($photo_release) && $photo_release == 'Restricted') echo 'selected' ?>>Restricted</option>
                 </select>
-
+            -->
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
             <a class="button cancel" href="index.php">Return to Dashboard</a>

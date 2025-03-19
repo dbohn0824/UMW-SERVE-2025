@@ -14,9 +14,8 @@
  * @version March 1, 2012
  * @author Oliver Radwan and Allen Tucker
  */
-include_once('dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/Person.php');
-
+include_once(__DIR__ . '/database/dbinfo.php');  // Correct path to dbinfo.php
+include_once(__DIR__ . '/domain/Person.php');
 /*
  * add a person to dbPersons table: if already there, return false
  */
@@ -38,9 +37,9 @@ function add_person($person) {
             $person->get_password() . '");'
         );*/
         mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
-            $person->get_id() . '","' .
-            $person->get_start_date() . '","' .
-            "n/a" . '","' . /* ("venue", we don't use this) */
+            //$person->get_id() . '","' .
+            //$person->get_start_date() . '","' .
+            //"n/a" . '","' . /* ("venue", we don't use this) */
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
             $person->get_street_address() . '","' .
@@ -48,36 +47,38 @@ function add_person($person) {
             $person->get_state() . '","' .
             $person->get_zip_code() . '","' .
             $person->get_phone1() . '","' .
-            $person->get_phone1type() . '","' .
+            //$person->get_phone1type() . '","' .
             $person->get_emergency_contact_phone() . '","' .
-            $person->get_emergency_contact_phone_type() . '","' .
-            $person->get_birthday() . '","' .
+            //$person->get_emergency_contact_phone_type() . '","' .
+            //$person->get_birthday() . '","' .
             $person->get_email() . '","' .
             $person->get_emergency_contact_first_name() . '","' .
-            'n/a' . '","' . /* ("contact_num", we don't use this) */
+            //'n/a' . '","' . /* ("contact_num", we don't use this) */
             $person->get_emergency_contact_relation() . '","' .
-            'n/a' . '","' . /* ("contact_method", we don't use this) */
+            //'n/a' . '","' . /* ("contact_method", we don't use this) */
             $person->get_type() . '","' .
-            $person->get_status() . '","' .
-            'n/a' . '","' . /* ("notes", we don't use this) */
-            $person->get_password() . '","' .
-            'n/a' . '","' . /* ("profile_pic", we don't use this) */
-            'gender' . '","' .
-            $person->get_tshirt_size() . '","' .
-            $person->get_how_you_heard_of_stepva() . '","' .
-            'sensory_sensitivities' . '","' .
-            $person->get_disability_accomodation_needs() . '","' .
-            $person->get_school_affiliation() . '","' .
-            'race' . '","' .
-            $person->get_preferred_feedback_method() . '","' .
-            $person->get_hobbies() . '","' .
-            $person->get_professional_experience() . '","' .
-            $person->get_archived() . '","' .
+            //$person->get_status() . '","' .
+            //'n/a' . '","' . /* ("notes", we don't use this) */
+            //$person->get_password() . '","' .
+            //'n/a' . '","' . /* ("profile_pic", we don't use this) */
+            //'gender' . '","' .
+            //$person->get_tshirt_size() . '","' .
+            //$person->get_how_you_heard_of_stepva() . '","' .
+            //'sensory_sensitivities' . '","' .
+            //$person->get_disability_accomodation_needs() . '","' .
+            //$person->get_school_affiliation() . '","' .
+            //'race' . '","' .
+            //$person->get_preferred_feedback_method() . '","' .
+            //$person->get_hobbies() . '","' .
+            //$person->get_professional_experience() . '","' .
+            //$person->get_archived() . '","' .
             $person->get_emergency_contact_last_name() . '","' .
-            $person->get_photo_release() . '","' .
-            $person->get_photo_release_notes() . '","' .
-            $person->get_training_complete() . '","' .
-            $person->get_training_date() . '");'
+            //$person->get_photo_release() . '","' .
+            //$person->get_photo_release_notes() . '","' .
+            //$person->get_training_complete() . '","' .
+            //$person->get_training_date() . '");'
+            $person->isMinor() . '","' . 
+            $person->get_total_hours() . '");'
         );
         mysqli_close($con);
         return true;
@@ -187,65 +188,144 @@ function update_volunteer_hours($eventname, $username, $new_start_time, $new_end
 /*@@@ Thomas */
 
 /* Check-in a user by adding a new row and with start_time to dbpersonhours */
-function check_in($personID, $eventID, $start_time) {
-    $con=connect();
-    $query = "INSERT INTO dbpersonhours (personID, eventID, start_time) VALUES ( '" .$personID. "', '" .$eventID. "', '" .$start_time. "')";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
+function check_in($personID, $start_time) {
+    $con = connect();
+
+    // Check if the user is already checked in
+    if (!can_check_in($personID)) {
+        mysqli_close($con);
+        echo '<script>
+                    alert("Already Checked In");
+                    window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
+                  </script>';
+        return false;
+    }
+
+    // Gets the current date
+    $current_date = date('Y-m-d');
+
+    // Proceed with inserting a new check-in record if no check-in exists
+    $query = "INSERT INTO dbpersonhours (personID, date, Time_in) 
+                VALUES ('$personID', '$current_date', '$start_time')"; 
+    $result = mysqli_query($con, $query);
+
+    if ($result) {
+        // Update the dbPersons table to mark the user as checked in
+        $update_query = "UPDATE dbPersons SET checked_in = 1 WHERE id = '$personID'";
+        mysqli_query($con, $update_query);
+
+        mysqli_close($con);
+
+        // Successfully checked in
+        echo '<script>
+                alert("Successfully checked in!");
+                window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
+                </script>';
+        exit();
+    } else {
+        echo "Error: Failed to record check-in time.";
+        mysqli_close($con);
+        return false;
+    }
 }
 
 /* Check-out a user by adding their end_time to dbpersonhours */
-function check_out($personID, $eventID, $end_time) {
-    $con=connect();
-    $query = "UPDATE dbpersonhours SET end_time = '" . $end_time . "' WHERE eventID = '" .$eventID. "' AND personID = '" .$personID. "' and end_time IS NULL";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
+function check_out($personID, $end_time) {
+    $con = connect();
+
+    // Check if the user is currently checked in
+    if (!can_check_out($personID)) {
+        echo '<script>
+                alert("You are not checked in.");
+                window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
+              </script>';
+        mysqli_close($con);
+        return false;  
+    }
+
+    // Proceed to update the check-out time and mark the user as checked out
+    $query = "UPDATE dbpersonhours 
+              SET Time_out = '$end_time' 
+              WHERE personID = '$personID'";  
+    $update_result = mysqli_query($con, $query);
+
+    if ($update_result) {
+        // Update dbPersons to mark user as checked out
+        $update_query = "UPDATE dbPersons 
+                         SET checked_in = 0 
+                         WHERE id = '$personID'";
+        mysqli_query($con, $update_query);
+
+        mysqli_close($con);
+
+        // Successfully checked out
+        echo '<script>
+                alert("Successfully checked out!");
+                window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
+              </script>';
+        exit(); 
+    } else {
+        echo "Error: Failed to check out. Please try again.";
+        mysqli_close($con);
+        return false;
+    }
 }
 
-/* Return true if a given user is currently able to check-in to a given event */
-function can_check_in($personID, $event_info) {
+function can_check_in($personID) {
+    $con = connect();
 
-    if (!(time() > strtotime($event_info['date']) && time() < strtotime($event_info['date']) + 86400)) {
-        // event is not ongoing
-        return False;
+    // Check the `checked_in` field in the dbPersons table to see if the person is already checked in
+    $query = "SELECT checked_in FROM dbPersons WHERE id = '$personID'";
+    $result = mysqli_query($con, $query);
+    $person = mysqli_fetch_assoc($result);
+
+    mysqli_close($con);
+
+    if ($person && $person['checked_in'] == 1) {
+        // User is already checked in
+        return false;
     }
 
-    if (!(check_if_signed_up($event_info['id'], $personID))) {
-        // user is not signed up for this event
-        return False;
-    }
-
-    if (can_check_out($personID, $event_info)) {
-        // user is already checked-in
-        return False;
-    }
-
-    // validation passed
-    return True;
-
+    // All conditions passed, the user can check in
+    return true;
 }
 
 /* Return true if a user is able to check out from a given event (they have already checked in) */
-function can_check_out($personID, $event_info) {
-    $con=connect();
-    $query = "SELECT * FROM dbpersonhours WHERE personID = '" .$personID. "' AND eventID = '" .$event_info['id']. "' AND end_time IS NULL";
+function can_check_out($personID) {
+    $con = connect();
+
+    // Check if the user is currently checked in by looking at the checked_in field in dbPersons
+    $query = "SELECT checked_in FROM dbPersons WHERE id = '$personID'";
     $result = mysqli_query($con, $query);
-    $row = mysqli_fetch_assoc($result);
-    if ($row) {
-        // user is checked-in and can now check-out
-        return True;
+    
+    if ($result) {
+        $person = mysqli_fetch_assoc($result);
+        if ($person && $person['checked_in'] == 1) {
+            // User is checked in, they can check out
+            mysqli_close($con);
+            return true;
+        } else {
+            // User is not checked in
+            echo "No active session found for personID: $personID"; // Debugging output
+        }
+    } else {
+        echo "Error: Query failed to execute.";
     }
-    // user cannot current check-out
-    return False;
+
+    // User cannot check out, as they're not currently checked in
+    mysqli_close($con);
+    return false;
 }
 
 /* Return number of seconds a volunteer worked for a specific event */
-function fetch_volunteering_hours($personID, $eventID) {
+function fetch_volunteering_hours($personID) {
     $con=connect();
-    $query = "SELECT start_time, end_time FROM dbpersonhours WHERE personID = '" .$personID. "' AND eventID = '" .$eventID. "' AND end_time IS NOT NULL";
+    $query = "SELECT start_time, end_time 
+              FROM dbpersonhours 
+              WHERE personID = '" . $personID . "' 
+              AND end_time IS NOT NULL";
     $result = mysqli_query($con, $query);
+
     $total_time = 0;
 
     if ($result) {
