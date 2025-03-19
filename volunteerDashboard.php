@@ -31,6 +31,7 @@
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
+            <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
             <div id="dashboard">
                 <?php
                     require_once('database/dbMessages.php');
@@ -55,10 +56,12 @@
                     <img src="images/volunteer-history.svg">
                     <span><center>View Volunteering Report</center></span>
                 </div>
-                <div class="dashboard-item" data-link="volunteerDashboard.php">
+
+                <div class="dashboard-item" data-link="checkInCheckOut.php?id=<?php echo $person->get_id(); ?>">
                     <img src="images/add-person.svg">
-                    <span><center>Check In/Out</center></span>
+                    <span><center>Check In/Check Out</center></span>
                 </div>
+
                 <div class="dashboard-item" data-link="editHours.php">
                     <img src="images/add-person.svg">
                     <span><center>Request Hours Change</center></span>

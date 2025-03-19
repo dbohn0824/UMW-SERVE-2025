@@ -116,6 +116,7 @@
         $permission_array['exportdata.php'] = 1; 
         $permission_array['staffdashboard.php'] = 1;
         $permission_array['vizualizedata.php'] = 1;
+        $permission_array['volunteersearch.php'] = 1; 
 
 
         
