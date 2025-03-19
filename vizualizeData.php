@@ -7,6 +7,14 @@
     session_start();
     ini_set("display_errors",1);
     error_reporting(E_ALL);
+
+   $todays_month = date('F');
+
+   $past_month = date('F', strtotime('-4 months'));
+
+
+
+
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
@@ -32,32 +40,34 @@
         $viewingSelf = true;
     }
     $volunteer = retrieve_person($id);
+
+   
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <?php require_once('universal.inc') ?>
         <title>SERVE | Volunteer History</title>
+        <link rel="stylesheet" href="css/chart.css">
         <link rel="stylesheet" href="css/hours-report.css">
     </head>
     <body>
         <?php 
             require_once('header.php');
         ?>
-        <h1>Volunteer History Report</h1>
+        <h1>Volunteer Data Analytics</h1>
         <main class="hours-report">
-        
-        <form action="/UMW-SERVE-2025/database/csvExport.php" method="post"> 
-            <label for="startDate"> Export hours starting on:</label>
-            <input type="date" id = "startDate" name="startDate" required>
 
-            <label for="endDate">and ending on:</label>
-            <input type="date" id="endDate" name="endDate" required> 
-            <button type="submit" class="no-print" style="margin-bottom: -.5rem">
-                 Export Data
-            </button>
-        
-        </form>
+<div class="chart">
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- TODO: Create an SQL querry to pull the Relivent data from dbpersons
+ convert the data to JSON format. Fixe the labels in the graph, fix formatting
+-->
+<script src="chartScript.js"> </script>
+        <p style="text-align: center;">  Total unique volunteers and total volunteer hours from <?php echo $past_month; ?> to <?php echo $todays_month; ?> </p>
 
         </main>
     </body>
