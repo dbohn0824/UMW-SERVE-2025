@@ -81,7 +81,7 @@
             }
             $id = $args['id'];
             $password = "v";
-            var_dump($id);
+            //var_dump($id);
             $first_name = $args['first_name'];
             $last_name = $args['last_name'];
             /* $birthday = validateDate($args['birthdate']);

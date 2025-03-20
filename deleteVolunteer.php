@@ -12,11 +12,11 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>SERVE | Volunteer Search</title>
+        <title>SERVE | Delete Volunteer</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Volunteer Search</h1>
+        <h1>Delete Volunteer</h1>
         <form id="person-search" class="general" method="get">
             <?php
                 if (isset($_GET['name'])) {
@@ -25,7 +25,7 @@
                     echo '<h2>Find Volunteer</h2>';
                 }
             ?>
-            <p>Use the form below to find a volunteer or participant. At least one search criterion is required.</p>
+            <p>Use the form below to find a volunteer to remove from the system. At least one search criterion is required.</p>
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name">
 		    <label for="phone">Phone Number</label>
@@ -33,7 +33,7 @@
 
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="staffDashboard.php">Return to Dashboard</a>
             <?php 
                 if (isset($_GET['name'])) {
                     require_once('include/input-validation.php');
@@ -71,7 +71,7 @@
                                     <tr>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
-                                        <td><a href="volunteerDashboard.php?id=' . $person->get_id() . '">That\'s Me!</a></td>
+                                        <td><a href="deletePerson.php?id=' . $person->get_id() . '">Delete Volunteer</a></td>
                                     </a></tr>';
                             }
                             echo '
