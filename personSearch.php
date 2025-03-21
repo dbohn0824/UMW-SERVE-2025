@@ -68,7 +68,7 @@
                                 <table class="general">
                                     <thead>
                                         <tr>
-                                            <th>Username</th>
+                                            <th>ID</th>
                                             <th>First</th>
                                             <th>Last</th>
                                             <th>Minor</th>
@@ -100,15 +100,25 @@
                                     $notFirst = true;
                                 }
                                 $mailingList .= $person->get_email();
+                                $minor = $person->isMinor();
+                                if($minor == 0)
+                                    $minor = "No";
+                                else
+                                    $minor = "Yes";
+                                $check = $person->get_checked_in();
+                                if($check == 0)
+                                    $check = "No";
+                                else
+                                    $check = "Yes";
                                 echo '
                                         <tr>
                                             <td>' . $person->get_id() . '</td>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
-                                            <td>' . $person->isMinor() . '</td>
+                                            <td>' . $minor . '</td>
                                             <td>' . $person->get_total_hours() . '</td>
                                             <td>' . $person->get_remaining_mandated_hours() . '</td>
-                                            <td>' . $person->get_checked_in() . '</td>
+                                            <td>' . $check . '</td>
                                             <td>' . $person->get_phone1() . '</td>
                                             <td>' . $person->get_email() . '</td>
                                             <td>' . $person->get_street_address() . '</td>
