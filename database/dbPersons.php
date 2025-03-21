@@ -372,11 +372,10 @@ function fetch_volunteering_hours($personID) {
 /* Return number of seconds a volunteer worked for a specific date range */
 function get_hours_for_range($personID, $startDate, $endDate) {
     $con=connect();
-    $query = "SELECT Time_in, Time_out 
+    $query = "SELECT date, total_hours
               FROM dbpersonhours 
               WHERE personID = '" . $personID . "' 
-              AND end_time IS NOT NULL
-              AND date BETWEEN" . $startDate . " AND " . $endDate;
+              AND Time_out IS NOT NULL";
     $result = mysqli_query($con, $query);
 
     $total_time = 0;
@@ -384,13 +383,14 @@ function get_hours_for_range($personID, $startDate, $endDate) {
     if ($result) {
         // for each check-in/check-out pair
         while ($row = mysqli_fetch_assoc($result)) {
-            $start_time = strtotime($row['Time_in']);
-            $end_time = strtotime($row['Time_out']);
-            $total_time += $end_time - $start_time; // add time to total
+            if(($row['date'] >= $startDate) && ($row['date'] <= $endDate)){
+                $time = $row['total_hours'];
+                $total_time += $time; // add time to total
+            }
         }
         return $total_time;
     }
-    return 0; // no check-ins found
+    return -1; // no check-ins found
 }
 
 /* Delete a single check-in/check-out pair as defined by the given parameters */

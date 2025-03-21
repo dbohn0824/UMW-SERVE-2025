@@ -58,9 +58,9 @@
                         echo "<p style='margin-top: 20px;'>Please select a valid date range.</p>";
                     } else {
                         $personID = $person->get_id();
-                        $hours = $person->get_city($personID);
+                        $hours = get_hours_for_range($personID, $startDate, $endDate);
                         echo "<p style='margin-top: 20px;'>Total Hours between " . $startDate . " 
-                        and " . $endDate . ": " . "___" . " hours.</p>";
+                        and " . $endDate . ": " . $hours . " hours.</p>";
                     }
                 }
             ?>
