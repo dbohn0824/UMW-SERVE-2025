@@ -52,30 +52,35 @@
                 </div>
 
 
-                <div class="dashboard-item" data-link="volunteerReport.php">
+                <!--<div class="dashboard-item" data-link="volunteerReport.php?id=<?php echo $person->get_id(); ?>">
                     <img src="images/volunteer-history.svg">
                     <span><center>View Volunteering Report</center></span>
-                </div>
+                </div>-->
 
                 <div class="dashboard-item" data-link="checkInCheckOut.php?id=<?php echo $person->get_id(); ?>">
                     <img src="images/add-person.svg">
                     <span><center>Check In/Check Out</center></span>
                 </div>
 
-                <div class="dashboard-item" data-link="editHours.php">
+                <div class="dashboard-item" data-link="volunteerHours.php?id=<?php echo $person->get_id(); ?>">
+                    <img src="images/volunteer-history.svg">
+                    <span><center>View Hours for Date Range</center></span>
+                </div>
+
+                <!--<div class="dashboard-item" data-link="editHours.php">
                     <img src="images/add-person.svg">
                     <span><center>Request Hours Change</center></span>
                 </div>
-
 
                 <div class="dashboard-item" data-link="viewProfile.php">
                     <img src="images/view-profile.svg">
                     <span>View Profile</span>
                 </div>
+
                 <div class="dashboard-item" data-link="editProfile.php">
                     <img src="images/manage-account.svg">
                     <span>Edit Profile</span>
-                </div>
+                </div>-->
                 
                 <!-- autoredirects home as volunteer currently -->
                 <!-- <div class="dashboard-item" data-link="editHours.php">
