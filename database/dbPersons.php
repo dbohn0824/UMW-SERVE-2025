@@ -219,7 +219,6 @@ function update_volunteer_hours($eventname, $username, $new_start_time, $new_end
 /* Check-in a user by adding a new row and with start_time to dbpersonhours */
 function check_in($personID, $start_time) {
     $con = connect();
-
     // Check if the user is already checked in
     if (!can_check_in($personID)) {
         mysqli_close($con);
@@ -261,7 +260,6 @@ function check_in($personID, $start_time) {
 /* Check-out a user by adding their end_time to dbpersonhours */
 function check_out($personID, $end_time) {
     $con = connect();
-
     // Check if the user is currently checked in
     if (!can_check_out($personID)) {
         echo '<script>
