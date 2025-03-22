@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="dashboard-item" data-link="volunteerHours.php?id=<?php echo $person->get_id(); ?>">
-                    <img src="images/volunteer-history.svg">
+                    <img src="images/search.svg">
                     <span><center>View Hours for Date Range</center></span>
                 </div>
 
