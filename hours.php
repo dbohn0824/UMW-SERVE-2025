@@ -3,7 +3,7 @@
 include_once(__DIR__ . '/domain/Person.php');
 include_once(__DIR__ . '/database/dbPersons.php');  // Correct path to dbPersons.php in the root folder
 
-date_default_timezone_set('UTC'); // Set timezone to ensure consistent timestamps
+date_default_timezone_set('America/New_York'); // Set timezone to ensure consistent timestamps
 
 
 
@@ -11,7 +11,7 @@ date_default_timezone_set('UTC'); // Set timezone to ensure consistent timestamp
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $personID = $_POST['personID'];
     $action = $_POST['action']; // 'checkin' or 'checkout'
-
+    $redirect_url = $_SERVER['HTTP_REFERER']; 
 
     if (!$personID) {
         echo "Error: Missing personID.";
@@ -19,9 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-
     $current_date = date('Y-m-d');
-    var_dump( date('Y-m-d H:i:s'));
 
     if ($action === 'checkin') {
         if (can_check_out($personID)) {
@@ -30,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $start_time = date('H:i:s');
             if (check_in($personID, $start_time)) {
                 echo "Successfully checked in at $start_time.";
+                var_dump($redirect_url);
+
+                header("Location: $redirect_url");
             } else {
                 echo "Error: Check-in failed.";
             }
@@ -41,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $end_time = date('H:i:s');
             if (check_out($personID, $end_time)) {
                 echo "Successfully checked out at $end_time.";
+                var_dump($redirect_url);
+
+                header("Location: $redirect_url");
             } else {
                 echo "Error: Check-out failed.";
             }

@@ -224,7 +224,6 @@ function check_in($personID, $start_time) {
         mysqli_close($con);
         echo '<script>
                     alert("Already Checked In");
-                    window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
                   </script>';
         return false;
     }
@@ -247,9 +246,8 @@ function check_in($personID, $start_time) {
         // Successfully checked in
         echo '<script>
                 alert("Successfully checked in!");
-                window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
                 </script>';
-        exit();
+        return true;
     } else {
         echo "Error: Failed to record check-in time.";
         mysqli_close($con);
@@ -264,7 +262,6 @@ function check_out($personID, $end_time) {
     if (!can_check_out($personID)) {
         echo '<script>
                 alert("You are not checked in.");
-                window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
               </script>';
         mysqli_close($con);
         return false;  
@@ -288,9 +285,8 @@ function check_out($personID, $end_time) {
         // Successfully checked out
         echo '<script>
                 alert("Successfully checked out!");
-                window.location.href = "checkInCheckOut.php?id=" + encodeURIComponent("' . $personID . '");
               </script>';
-        exit(); 
+        return true; 
     } else {
         echo "Error: Failed to check out. Please try again.";
         mysqli_close($con);

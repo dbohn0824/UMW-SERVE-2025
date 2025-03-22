@@ -91,9 +91,8 @@
         }
 
         th {
-            border:1px solid black; 
+            border: none; 
             background-color: #f2f2f2;
-            position: sticky;
             top: 0;
         }
 
@@ -130,12 +129,22 @@
                             $isCheckedIn = $volunteer['checked_in'] > 0;
                             $rowClass = $isCheckedIn ? "checked-in" : "checked-out";
                             $status = $isCheckedIn ? "Yes" : "No";
+                            $action = $isCheckedIn ? "checkout" : "checkin";
+                            $buttonText = $isCheckedIn ? "Check out" : "Check In";
                         ?>
                         <tr class="<?= $rowClass ?>">
                             <td><?= htmlspecialchars($volunteer['id']) ?></td>
                             <td><?= htmlspecialchars($volunteer['first_name']) ?></td>
                             <td><?= htmlspecialchars($volunteer['last_name']) ?></td>
                             <td><?= $status ?></td>
+                            <td>
+                           
+                                <form method="POST" action="hours.php">
+                                    <input type="hidden" name="action" value="<?= $action ?>">
+                                    <input type="hidden" name="personID" value="<?php echo $volunteer['id'] ?>">
+                                    <button type="submit"><?= $buttonText ?></button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
