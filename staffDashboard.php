@@ -133,6 +133,10 @@
                         <img src="images/bargraph.svg">
                         <span>Vizualize Data</span>
                     </div>
+                    <div class="dashboard-item" data-link="checkVolunteerStatus.php">
+                        <img src="images/checkStatus.svg">
+                        <span><center>Volunteer Status Report</center></span>
+                    </div>
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->

@@ -258,6 +258,7 @@ function check_in($personID, $start_time) {
 /* Check-out a user by adding their end_time to dbpersonhours */
 function check_out($personID, $end_time) {
     $con = connect();
+    $current_date = date('Y-m-d');
     // Check if the user is currently checked in
     if (!can_check_out($personID)) {
         echo '<script>
@@ -270,7 +271,8 @@ function check_out($personID, $end_time) {
     // Proceed to update the check-out time and mark the user as checked out
     $query = "UPDATE dbpersonhours 
               SET Time_out = '$end_time' 
-              WHERE personID = '$personID'";  
+              WHERE personID = '$personID'
+              AND date = '$current_date'";  
     $update_result = mysqli_query($con, $query);
 
     if ($update_result) {
@@ -280,6 +282,35 @@ function check_out($personID, $end_time) {
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
+        //now update total hours in dbpersons with hours accumilated for the day 
+
+
+        //get total hours for the day
+        $query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
+                  date = ?"; 
+        $stmt = $con->prepare($query);
+
+        $stmt->bind_param('ss', $personID, $current_date);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result(); 
+
+        $totalDailyHours = $result->fetch_assoc(); 
+
+        //*********************************************************************** */
+
+        //now update dbpersons with total daily hours 
+
+        $query = "UPDATE dbpersons SET total_hours = total_hours + ? WHERE id = ?";
+
+        $stmt = $con->prepare($query);
+
+        $stmt->bind_param('is', $totalDailyHours, $personID );
+
+        $stmt->execute();
+
+        //**************************************************************************** */
         mysqli_close($con);
 
         // Successfully checked out
