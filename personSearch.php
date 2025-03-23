@@ -26,7 +26,15 @@
     <head>
         <?php require_once('universal.inc') ?>
         <title>SERVE | Volunteer/Participant Search</title>
-    </head>
+    </head> 
+<!--Style for showing and hiding edit textbox -->
+    <style>
+        #textbox {
+            display: none; /* Hide initially */
+            margin-top: 10px;
+        }
+    </style>
+
     <body>
         <?php require_once('header.php') ?>
         <h1>Volunteer/Participant Search</h1>
@@ -88,10 +96,30 @@
                                     <tbody class="standout">';
                             $mailingList = '';
                             $notFirst = false;
+                        
                             foreach ($persons as $person) {
+                                //print_r($args); used for testing
+                                if ($args["options"] == "minor"){
+                                    print("HERE");
+                                    //update_hours($person->get_id(),$args['textbox']);
+                                }
 
-                                if (array_key_exists('edit_hours',$args)){
-                                    update_hours($person->get_id(),$args['edit_hours']);
+                                if ($args["options"] == "total_hours"){
+                                    update_hours($person->get_id(),$args['textbox']);
+                                }
+
+                                if ($args["options"] == "mandated_hours"){
+                                    print("HERE");
+                                    //update_hours($person->get_id(),$args['textbox']);
+                                }
+
+                                if ($args["options"] == "phone_number"){
+                                    phone_edit($person->get_id(),$args['textbox']);
+                                }
+
+                                if ($args["options"] == "email"){
+                                    print("HERE");
+                                    update_email($person->get_id(),$args['textbox']);
                                 }
 
                                 if ($notFirst) {
@@ -139,9 +167,37 @@
             <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
             <label for="id">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-            <label for="edit_hours">Edit Hours</label>
-            <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_GET['edit_hours']) ?>" placeholder="Edit user hours">
-           <!-- Commented out by Jackson
+
+            
+            <label for="options">Edit a Field:</label>
+            <select id="options" name="options" onchange="showTextbox()">
+                <option name ="none" value = "none">None</option>
+                <option name = "minor" value = "minor">Minor</option>
+                <option name = "total_hours" value = "total_hours">Total Hours</option>
+                <option value = "mandated_hours">Mandated Hours</option>
+                <option value = "phone_number">Phone Number</option>
+                <option value = "email">Email</option>
+            </select>
+         <input type="text" id="textbox" name="textbox" placeholder="Enter value here">
+        <!--JS function for hiding and showing textbox -->
+        <script>
+            function showTextbox() {
+                let select = document.getElementById("options");
+                let textbox = document.getElementById("textbox");
+
+                if (select.value === "none") {
+                    textbox.style.display = "none";
+                } else {
+                    
+                    textbox.style.display = "block";
+                }
+            }
+        </script>
+
+
+
+           <!--  <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_GET['edit_hours']) ?>" placeholder="Edit user hours">
+           Commented out by Jackson
 		<label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
             

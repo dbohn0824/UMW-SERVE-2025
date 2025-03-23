@@ -1381,3 +1381,11 @@ function find_user_names($name) {
         mysqli_close($connection);
         return $row['first_name'] . ' ' . $row['last_name'];
     }
+
+    function update_email($id, $email){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET email = "' . $email . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
