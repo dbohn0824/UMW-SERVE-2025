@@ -100,8 +100,7 @@
                             foreach ($persons as $person) {
                                 //print_r($args); used for testing
                                 if ($args["options"] == "minor"){
-                                    print("HERE");
-                                    //update_hours($person->get_id(),$args['textbox']);
+                                    update_minor_status($person->get_id(),$args['textbox']);
                                 }
 
                                 if ($args["options"] == "total_hours"){
@@ -109,16 +108,14 @@
                                 }
 
                                 if ($args["options"] == "mandated_hours"){
-                                    print("HERE");
-                                    //update_hours($person->get_id(),$args['textbox']);
+                                    update_mandated_hours($person->get_id(),$args['textbox']);
                                 }
 
                                 if ($args["options"] == "phone_number"){
-                                    phone_edit($person->get_id(),$args['textbox']);
+                                    update_phone($person->get_id(),$args['textbox']);
                                 }
 
                                 if ($args["options"] == "email"){
-                                    print("HERE");
                                     update_email($person->get_id(),$args['textbox']);
                                 }
 
@@ -187,11 +184,20 @@
 
                 if (select.value === "none") {
                     textbox.style.display = "none";
+                    textbox.value = ""; // Clear input when hidden
+                    textbox.removeAttribute("oninput"); // Remove validation if not needed
                 } else {
-                    
                     textbox.style.display = "block";
+
+                    if (select.value == "minor" || select.value == "phone_number" || select.value == "total_hours" || select.value == "mandated_hours"){
+                        textbox.setAttribute("oninput", "this.value = this.value.replace(/[^0-9]/g, '')");
+                    }else {
+                        textbox.removeAttribute("oninput"); // Remove restriction for other options
+                    }
+                        
                 }
-            }
+            }    
+            
         </script>
 
 

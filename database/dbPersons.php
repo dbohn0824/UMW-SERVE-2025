@@ -1389,3 +1389,27 @@ function find_user_names($name) {
         mysqli_close($con);
         return True;
     }    
+
+    function update_phone($id, $phone){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET phone1 = "' . $phone . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
+
+    function update_mandated_hours($id, $hours){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET phone1 = "' . $hours . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
+
+    function update_minor_status($id, $status){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET minor = "' . $status . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
