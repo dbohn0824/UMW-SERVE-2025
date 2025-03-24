@@ -369,6 +369,29 @@ function fetch_volunteering_hours($personID) {
     return -1; // no check-ins found
 }
 
+/* Return number of seconds a volunteer worked for a specific date range */
+function get_hours_for_range($personID, $startDate, $endDate) {
+    $con=connect();
+    $query = "SELECT date, total_hours
+              FROM dbpersonhours 
+              WHERE personID = '" . $personID . "' 
+              AND Time_out IS NOT NULL";
+    $result = mysqli_query($con, $query);
+
+    $total_time = 0;
+
+    if ($result) {
+        // for each check-in/check-out pair
+        while ($row = mysqli_fetch_assoc($result)) {
+            if(($row['date'] >= $startDate) && ($row['date'] <= $endDate)){
+                $time = $row['total_hours'];
+                $total_time += $time; // add time to total
+            }
+        }
+        return $total_time;
+    }
+    return -1; // no check-ins found
+}
 
 /* Delete a single check-in/check-out pair as defined by the given parameters */
 function delete_check_in($userID, $eventID, $start_time, $end_time) {
@@ -957,7 +980,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $persons;
     }
 
-function find_user_names($name) {
+    function find_user_names($name) {
         $where = 'where ';
         if (!($name)) {
             return [];
@@ -974,7 +997,7 @@ function find_user_names($name) {
             }
             $first = false;
         }
-	$query = "select * from dbpersons $where order by last_name, first_name";
+	    $query = "select * from dbpersons $where order by last_name, first_name";
         // echo $query;
         $connection = connect();
         $result = mysqli_query($connection, $query);
@@ -1150,10 +1173,8 @@ function find_user_names($name) {
             return [];
         }
     }*/
-    
-    
 
-    function get_events_attended_by_and_date($personID,$fromDate,$toDate) {
+    /*function get_events_attended_by_and_date($personID,$fromDate,$toDate) {
         $today = date("Y-m-d");
         $query = "select * from dbEventVolunteers, dbEvents
                   where userID='$personID' and eventID=id
@@ -1197,9 +1218,9 @@ function find_user_names($name) {
             mysqli_close($connection);
             return [];
         }
-    }
+    }*/
 
-    function get_hours_volunteered_by($personID) {
+    /*function get_hours_volunteered_by($personID) {
         $events = get_events_attended_by($personID);
         $hours = 0;
         foreach ($events as $event) {
@@ -1221,7 +1242,7 @@ function find_user_names($name) {
             }
         }
         return $hours;
-    }
+    }*/
 
     function get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo){
         $con = connect();
