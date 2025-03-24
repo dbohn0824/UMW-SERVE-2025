@@ -32,14 +32,8 @@
             // required fields
             $required = array(
                 'first_name', 'last_name', 
-                'email', 'phone', 'court_hours', 'isMinor'
+                'email', 'phone', 'username', 'password'
             );
-
-            if ($court_hours = "Yes") {
-                array_push($required, 'hours_needed');
-            } else {
-                array_push($optional, 'hours_needed');
-            }
 
             // Capture the volunteer_or_participant value from the form
             $volunteer_or_participant = isset($_POST['volunteer_or_participant']) ? $_POST['volunteer_or_participant'] : null;  
@@ -80,7 +74,7 @@
                 $errors = true;
             }
             $id = $args['id'];
-            $password = "v";
+            $password = $args['password'];
             //var_dump($id);
             $first_name = $args['first_name'];
             $last_name = $args['last_name'];
@@ -116,11 +110,6 @@
                 $errors = true;
                 echo 'bad phone';
             }
-            /* $phone1type = $args['phone_type'];
-            if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
-                $errors = true;
-                echo 'bad phone type';
-            } */
 
             $emergency_contact_first_name = $args['emergency_contact_first_name'];
             $emergency_contact_last_name = $args['emergency_contact_last_name'];
@@ -130,29 +119,6 @@
                 $errors = true;
                 echo 'bad e-contact phone';
             }
-            /* $emergency_contact_phone_type = $args['emergency_contact_phone_type'];
-            if (!valueConstrainedTo($emergency_contact_phone_type, array('cellphone', 'home', 'work'))) {
-                $errors = true;
-                echo 'bad phone type';
-            } */
-
-            /*$tshirt_size = $args['tshirt_size'];
-            $school_affiliation = $args['school_affiliation'];
-            $photo_release = $args['photo_release'];
-            if (!valueConstrainedTo($photo_release, array('Restricted', 'Not Restricted'))) {
-                $errors = true;
-                echo 'bad photo release type';
-            }
-            $photo_release_notes = $args['photo_release_notes'];
-
-            $volunteer_or_participant = $args['volunteer_or_participant'];
-            if ($volunteer_or_participant == 'v') {
-                $type = 'volunteer';
-            } else {
-                $type = 'participant';
-            } */
-
-            /* $archived = 0;
 
             $id = $args['username'];
             // May want to enforce password requirements at this step
@@ -162,15 +128,7 @@
                 $errors = true;
             } else {
                 $password = password_hash($args['password'], PASSWORD_BCRYPT);
-            } */
-
-            /* $how_you_heard_of_stepva = $args['how_you_heard_of_stepva'];
-            // Safely access preferred_feedback_method
-            $preferred_feedback_method = $args['preferred_feedback_method'];
-
-            $hobbies = $args['hobbies'];
-            $professional_experience = $args['professional_experience'];
-            $disability_accomodation_needs = $args['disability_accomodation_needs']; */
+            }
 
             $training_complete = isset($args['training_complete']) ? (int)$args['training_complete'] : 0;
             $training_date = isset($args['training_date']) ? $args['training_date'] : null;
@@ -188,11 +146,11 @@
 
             $status = "Active";
             $checked_in = false;
-            $isMinor = $args['isMinor'];
-            $total_hours = 0;
+            //$isMinor = $args['isMinor'];
+            //$total_hours = 0;
             $notes = '';
-            $type = 'v';
-            $password = "";
+            $type = 'admin';
+            $password = $args['password'];
             if($court_hours = 'Yes'){
                 $remaining_mandated_hours = $args['hours_needed'];
             } else {
