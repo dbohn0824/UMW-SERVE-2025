@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error: Action parameter is missing.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
