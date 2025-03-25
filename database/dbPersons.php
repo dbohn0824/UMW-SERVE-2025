@@ -116,6 +116,44 @@ function add_person($person) {
     return false;
 }
 
+function add_staff($person) {
+    if (!$person instanceof Person)
+        die("Error: add_person type mismatch");
+    $con=connect();
+    $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
+    $result = mysqli_query($con,$query);
+    //if there's no entry for this id, add it
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_query($con, 'INSERT INTO dbPersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
+            $person->get_id() . '","' .
+            $person->get_first_name() . '","' . 
+            $person->get_last_name() . '","' .
+            $person->isMinor() . '","' .
+            0 . '","' .
+            $person->get_remaining_mandated_hours() . '","' .
+            0 . '","' .
+            $person->get_phone1() . '","' . 
+            $person->get_email() . '","' .
+            'n/a' . '","' . 
+            $person->get_type() . '","' .
+            $person->get_password() . '","' . 
+            $person->get_street_address() . '","' .
+            $person->get_city() . '","' .
+            $person->get_state() . '","' . 
+            $person->get_zip_code() . '","' . 
+            $person->get_emergency_contact_first_name() . '","' . 
+            $person->get_emergency_contact_last_name() . '","' . 
+            $person->get_emergency_contact_phone() . '","' . 
+            $person->get_emergency_contact_relation() . '");'
+            );  
+        
+        mysqli_close($con);
+        return true;
+    }
+    mysqli_close($con);
+    return false;
+}
+
 /*
  * remove a person from dbPersons table.  If already there, return false
  */

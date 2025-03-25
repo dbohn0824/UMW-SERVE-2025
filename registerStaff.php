@@ -32,7 +32,7 @@
             // required fields
             $required = array(
                 'first_name', 'last_name', 
-                'email', 'phone', 'username', 'password'
+                'email', 'phone', 'id', 'password'
             );
 
             // Capture the volunteer_or_participant value from the form
@@ -120,7 +120,7 @@
                 echo 'bad e-contact phone';
             }
 
-            $id = $args['username'];
+            $id = $args['id'];
             // May want to enforce password requirements at this step
             //$username = $args['username'];
             $password = isSecurePassword($args['password']);
@@ -147,15 +147,19 @@
             $status = "Active";
             $checked_in = false;
             //$isMinor = $args['isMinor'];
-            //$total_hours = 0;
+            $total_hours = 0;
             $notes = '';
             $type = 'admin';
             $password = $args['password'];
-            if($court_hours = 'Yes'){
+            $isMinor = 0;
+            $total_hours = 0;
+            $court_hours = "No";
+            /* if($court_hours = 'Yes'){
                 $remaining_mandated_hours = $args['hours_needed'];
             } else {
                 $remaining_mandated_hours = 0;
-            }
+            } */
+           $remaining_mandated_hours = 0;
             
 
             $newperson = new Person(
@@ -221,7 +225,7 @@
                 //$total_hours
             //);
 
-            $result = add_person($newperson);
+            $result = add_staff($newperson);
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
