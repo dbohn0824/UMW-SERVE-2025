@@ -1465,3 +1465,35 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($connection);
         return $row['first_name'] . ' ' . $row['last_name'];
     }
+
+    function update_email($id, $email){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET email = "' . $email . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
+
+    function update_phone($id, $phone){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET phone1 = "' . $phone . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
+
+    function update_mandated_hours($id, $hours){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET remaining_mandated_hours = "' . $hours . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
+
+    function update_minor_status($id, $status){
+        $con=connect();
+        $query = 'UPDATE dbpersons SET minor = "' . $status . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }    
