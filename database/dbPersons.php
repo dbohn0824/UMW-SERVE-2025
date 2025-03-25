@@ -1484,7 +1484,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function update_mandated_hours($id, $hours){
         $con=connect();
-        $query = 'UPDATE dbpersons SET phone1 = "' . $hours . '" WHERE id = "' . $id . '"';
+        $query = 'UPDATE dbpersons SET remaining_mandated_hours = "' . $hours . '" WHERE id = "' . $id . '"';
         $result = mysqli_query($con,$query);
         mysqli_close($con);
         return True;
