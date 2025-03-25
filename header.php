@@ -148,7 +148,7 @@
         echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'staffDashboard.php">Home</a></li>');
         //echo('<span class="nav-divider">|</span>');
 
         echo('<li class="nav-item dropdown">');
