@@ -112,7 +112,6 @@
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
                     </div>
-                    <!-- not showing up on my website for some reason -->
                     <div class="dashboard-item" data-link="deleteVolunteer.php">
                         <img src="images/delete.svg">
                         <span>Delete Volunteer</span>
@@ -120,6 +119,10 @@
                     <div class="dashboard-item" data-link="editHours.php">
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
+                    </div>
+                    <div class="dashboard-item" data-link="registerStaff.php">
+                        <img src="images/add-person.svg">
+                        <span>Register Staff</span>
                     </div>
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
