@@ -50,19 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
         <?php require('header.php'); ?>
 
-        <!-- Debugging: Output person ID to check -->
-        <p>Person ID: <?php echo $person->get_id(); ?></p>
+        <div style="width: 70%; margin:auto; padding-top:2%;">
+            <!-- Debugging: Output person ID to check -->
+            <p>Volunteer ID: <?php echo $person->get_id(); ?></p>
 
-        <form method="POST" action="hours.php">
-            <input type="hidden" name="action" value="checkin">
-            <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>"> 
-            <button type="submit">Check In</button>
-        </form>
+            <form method="POST" action="hours.php">
+                <input type="hidden" name="action" value="checkin">
+                <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>"> 
+                <button type="submit">Check In</button>
+            </form>
 
-        <form method="POST" action="hours.php">
-            <input type="hidden" name="action" value="checkout">
-            <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>"> 
-            <button type="submit">Check Out</button>
-        </form>
+            <p></p>
+            
+            <form method="POST" action="hours.php">
+                <input type="hidden" name="action" value="checkout">
+                <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>"> 
+                <button type="submit">Check Out</button>
+            </form>
+        </div>
     </body>
 </html>
