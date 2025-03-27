@@ -71,6 +71,8 @@
         $permission_array['volunteerreport.php'] = 1;
         $permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['volunteerdashboard.php'] = 1;
+        $permission_array['volunteerhours.php'] = 1;
+        $permission_array['checkincheckout.php'] = 1;
         //pages only managers can view
         $permission_array['viewallevents.php'] = 0;
         $permission_array['personsearch.php'] = 2;
@@ -122,8 +124,6 @@
 
         
         // LOWERCASE
-
-
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
