@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set("America/New_York");
 
+session_start();
+
 include_once(__DIR__ . '/database/dbinfo.php');  // Include dbinfo.php from the 'database' folder
 include_once(__DIR__ . '/domain/Person.php');  // Include Person.php from the root folder
 include_once(__DIR__ . '/database/dbPersons.php');
@@ -43,30 +45,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require('universal.inc'); ?>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <title>SERVE Volunteer System | Check In and Check Out</title>
+        <?php require_once('universal.inc') ?>
+        <title>SERVE | Check In/Check Out</title>
     </head>
     <body>
         <?php require('header.php'); ?>
+        <h1>Check In/Check Out</h1>
+        <main class='dashboard'>
+            <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
+            <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
+            <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
+            <div id="dashboard">
+                
 
-        <div style="width: 70%; margin:auto; padding-top:2%;">
-            <!-- Debugging: Output person ID to check -->
-            <p>Volunteer ID: <?php echo $person->get_id(); ?></p>
+                <div class="dashboard-item" onclick="document.getElementById('checkin-form').submit();">
+                    <img src="images/confirm.png" alt="Check In/Out">
+                    <span><center>Check In</center></span>
+                </div>
 
-            <form method="POST" action="hours.php">
-                <input type="hidden" name="action" value="checkin">
-                <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>"> 
-                <button type="submit">Check In</button>
-            </form>
 
-            <p></p>
-            
-            <form method="POST" action="hours.php">
-                <input type="hidden" name="action" value="checkout">
-                <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>"> 
-                <button type="submit">Check Out</button>
-            </form>
-        </div>
+                <form id="checkin-form" method="POST" action="hours.php" style="display: none;">
+                    <input type="hidden" name="action" value="checkin">
+                    <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>">
+                </form>
+
+                <div class="dashboard-item" onclick="document.getElementById('checkout-form').submit();">
+                    <img src="images/close.png" alt="Check In/Out">
+                    <span><center>Check Out</center></span>
+                </div>
+
+                <form id="checkout-form" method="POST" action="hours.php" style="display: none;">
+                    <input type="hidden" name="action" value="checkout">
+                    <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>">
+                </form>
+            </div>
+        </main>
+
     </body>
+
 </html>
