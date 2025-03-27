@@ -101,6 +101,7 @@
         $permission_array['vieweventsignups.php'] = 2;
         $permission_array['viewalleventsignups.php'] = 2;
         $permission_array['resources.php'] = 2;
+        $permission_array['deletevolunteer.php'] = 2;
 
         $permission_array['edithours.php'] = 2;
         $permission_array['eventlist.php'] = 1;
