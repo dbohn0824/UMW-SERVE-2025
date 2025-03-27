@@ -103,6 +103,7 @@
         $permission_array['vieweventsignups.php'] = 2;
         $permission_array['viewalleventsignups.php'] = 2;
         $permission_array['resources.php'] = 2;
+        $permission_array['deletevolunteer.php'] = 2;
 
         $permission_array['edithours.php'] = 2;
         $permission_array['eventlist.php'] = 1;
@@ -148,7 +149,7 @@
         echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'staffDashboard.php">Home</a></li>');
         //echo('<span class="nav-divider">|</span>');
 
         echo('<li class="nav-item dropdown">');

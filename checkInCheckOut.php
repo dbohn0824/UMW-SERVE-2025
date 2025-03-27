@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span><center>Check In</center></span>
                 </div>
 
+
                 <form id="checkin-form" method="POST" action="hours.php" style="display: none;">
                     <input type="hidden" name="action" value="checkin">
                     <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>">
@@ -79,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </div>
         </main>
+
     </body>
 
 </html>
