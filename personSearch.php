@@ -125,16 +125,35 @@
                                     $notFirst = true;
                                 }
                                 $mailingList .= $person->get_email();
+                                
+                                // format value for minor
                                 $minor = $person->isMinor();
                                 if($minor == 0)
                                     $minor = "No";
                                 else
                                     $minor = "Yes";
+
+                                // format value for checked-in/out
                                 $check = $person->get_checked_in();
                                 if($check == 0)
                                     $check = "No";
                                 else
                                     $check = "Yes";
+
+                                // format value for phone number 
+                                $phone = $person->get_phone1();
+                                $phone1 = substr($phone, 0, 3);
+                                $phone2 = substr($phone, 3, 3);
+                                $phone3 = substr($phone, 6, 4);
+                                $phone = '('.$phone1.') '.$phone2.'-'.$phone3;
+
+                                // format value for emergency contact phone number
+                                $ephone = $person->get_emergency_contact_phone();
+                                $ephone1 = substr($phone, 0, 3);
+                                $ephone2 = substr($phone, 3, 3);
+                                $ephone3 = substr($phone, 6, 4);
+
+                                $ephone = '('.$phone1.') '.$phone2.'-'.$phone3;
                                 echo '
                                         <tr>
                                             <td>' . $person->get_id() . '</td>
@@ -144,14 +163,14 @@
                                             <td>' . $person->get_total_hours() . '</td>
                                             <td>' . $person->get_remaining_mandated_hours() . '</td>
                                             <td>' . $check . '</td>
-                                            <td>' . $person->get_phone1() . '</td>
+                                            <td>' . $phone . '</td>
                                             <td>' . $person->get_email() . '</td>
                                             <td>' . $person->get_street_address() . '</td>
                                             <td>' . $person->get_state() . '</td>
                                             <td>' . $person->get_zip_code() . '</td>
                                             <td>' . $person->get_emergency_contact_first_name() . '</td>
                                             <td>' . $person->get_emergency_contact_last_name() . '</td>
-                                            <td>' . $person->get_emergency_contact_phone() . '</td>
+                                            <td>' . $ephone . '</td>
                                         </a></tr>';
                             }
                             echo '
