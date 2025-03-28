@@ -5,9 +5,11 @@ include_once(__DIR__ . '/database/dbinfo.php');  // Include dbinfo.php from the 
 include_once(__DIR__ . '/domain/Person.php');  // Include Person.php from the root folder
 include_once(__DIR__ . '/database/dbPersons.php');
 
+session_cache_expire(30);
+session_start();
 
-if (isset($_GET['id'])) {
-    $personID = $_GET['id'];  // Retrieve the personID from the URL
+if (isset($_SESSION['volunteer_id'])) {
+    $personID = $_SESSION['volunteer_id'];  // Retrieve the personID from the URL
     $person = retrieve_person($personID);  // Fetch the person object from the database
     
     if ($person === null) {

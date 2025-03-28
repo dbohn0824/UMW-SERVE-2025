@@ -179,7 +179,7 @@
                     ';
                 } else {
                     echo '
-                        <a class="button cancel" href="volunteerDashboard.php?id=' . $userID . '">Return to Dashboard</a>
+                        <a class="button cancel" href="volunteerDashboard.php">Return to Dashboard</a>
                     ';
                 }
             ?>

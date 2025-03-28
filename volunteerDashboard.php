@@ -4,15 +4,23 @@
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
 
-    if (isset($_GET['id'])) {
+    session_cache_expire(30);
+    session_start();
+
+    if (isset($_POST['id'])) {
         require_once('include/input-validation.php');
         require_once('database/dbPersons.php');
-        $args = sanitize($_GET);
+        $args = sanitize($_POST);
+        $_SESSION['volunteer_id'] = $args['id'];
         if ($args['id']) {
-            $person = retrieve_person($args['id']);
+            $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
             $person = retrieve_person('aaa');
         }
+    } else if (isset($_SESSION['volunteer_id'])){
+        $person = retrieve_person($_SESSION['volunteer_id']);
+    } else {
+        $person = retrieve_person('aaa');
     }
 
     //$notRoot = $person->get_id() != 'vmsroot';
@@ -42,7 +50,7 @@
                     }
                 ?>
                 
-                <div class="dashboard-item" data-link="inbox.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="inbox.php">
                     <img src="images/<?php echo $inboxIcon ?>">
                     <span>Notifications<?php 
                         if ($unreadMessageCount > 0) {
@@ -51,42 +59,16 @@
                     ?></span>
                 </div>
 
-
-                <!--<div class="dashboard-item" data-link="volunteerReport.php?id=<?php echo $person->get_id(); ?>">
-                    <img src="images/volunteer-history.svg">
-                    <span><center>View Volunteering Report</center></span>
-                </div>-->
-
-                <div class="dashboard-item" data-link="checkInCheckOut.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="checkInCheckOut.php">
                     <img src="images/add-person.svg">
                     <span><center>Check In/Check Out</center></span>
                 </div>
 
-                <div class="dashboard-item" data-link="volunteerHours.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="volunteerHours.php">
                     <img src="images/search.svg">
                     <span><center>View Hours for Date Range</center></span>
                 </div>
 
-                <!--<div class="dashboard-item" data-link="editHours.php">
-                    <img src="images/add-person.svg">
-                    <span><center>Request Hours Change</center></span>
-                </div>
-
-                <div class="dashboard-item" data-link="viewProfile.php">
-                    <img src="images/view-profile.svg">
-                    <span>View Profile</span>
-                </div>
-
-                <div class="dashboard-item" data-link="editProfile.php">
-                    <img src="images/manage-account.svg">
-                    <span>Edit Profile</span>
-                </div>-->
-                
-                <!-- autoredirects home as volunteer currently -->
-                <!-- <div class="dashboard-item" data-link="editHours.php">
-                        <img src="images/add-person.svg">
-                        <span>View & Change Event Hours</span>
-                </div> -->
             </div>
         </main>
     </body>

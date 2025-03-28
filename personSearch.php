@@ -38,13 +38,13 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Volunteer/Participant Search</h1>
-        <form id="person-search" class="general" method="get">
+        <form id="person-search" class="general" method="POST">
             <h2>Find Volunteer/Participant</h2>
             <?php 
-                if (isset($_GET['name'])) {
+                if (isset($_POST['name'])) {
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
-                    $args = sanitize($_GET);
+                    $args = sanitize($_POST);
                     $required = ['name', /*'id', 'phone', 'zip', 'role', 'status', 'photo_release'*/];
                     //var_dump($args);
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
@@ -152,7 +152,6 @@
                                 $ephone1 = substr($phone, 0, 3);
                                 $ephone2 = substr($phone, 3, 3);
                                 $ephone3 = substr($phone, 6, 4);
-
                                 $ephone = '('.$phone1.') '.$phone2.'-'.$phone3;
                                 echo '
                                         <tr>
@@ -190,9 +189,9 @@
             ?>
             <p>Use the form below to find a volunteer or participant.</p>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_POST['name']) ?>" placeholder="Enter the user's first and/or last name"> 
             <label for="id">Username</label>
-            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
+            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_POST['id']) ?>" placeholder="Enter the user's username (login ID)">
 
             
             <label for="options">Edit a Field:</label>
@@ -231,13 +230,13 @@
 
 
 
-           <!--  <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_GET['edit_hours']) ?>" placeholder="Edit user hours">
+           <!--  <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_POST['edit_hours']) ?>" placeholder="Edit user hours">
            Commented out by Jackson
 		<label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
+            <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_POST['phone']) ?>" placeholder="Enter the user's phone number">
             
 		<label for="zip">Zip Code</label>
-			<input type="text" id="zip" name="zip" value="<?php if (isset($zip)) echo htmlspecialchars($_GET['zip']) ?>" placeholder="Enter the user's zip code">
+			<input type="text" id="zip" name="zip" value="<?php if (isset($zip)) echo htmlspecialchars($_POST['zip']) ?>" placeholder="Enter the user's zip code">
 			<label for="role">Role</label>
  
            <select id="role" name="role">
