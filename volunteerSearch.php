@@ -60,18 +60,6 @@
                                     </tr>
                                 </thead>
                                 <tbody class="standout">';
-                                    /*<tr>
-                                        <td>' . $person->get_first_name() . '</td>
-                                        <td>' . $person->get_last_name() . '</td>
-                                        <td>
-                                            <input type="submit" id="' . $person->get_id() . '" name="id" value="' . $person->get_id() . '" style="display: none;">
-                                            <label for="' . $person->get_id() . '">That\'s me!</label>
-                                        </td>
-                                    </tr>
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>';*/
                     $notFirst = false;
                     foreach ($persons as $person) {
                         if ($notFirst) {

@@ -67,22 +67,22 @@
         $permission_array['dashboard.php'] = 1;
         //$permission_array['calendar.php'] = 1;
         //$permission_array['eventsearch.php'] = 1;
-        $permission_array['changepassword.php'] = 2;
-        //$permission_array['editprofile.php'] = 1;
         $permission_array['inbox.php'] = 1;
         //$permission_array['date.php'] = 1;
         //$permission_array['event.php'] = 1;
-        //$permission_array['viewprofile.php'] = 1;
         $permission_array['viewnotification.php'] = 1;
         $permission_array['volunteerreport.php'] = 1;
         //$permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['volunteerdashboard.php'] = 1;
 
-        //pages only managers can view
+        //pages only staff can view
         //$permission_array['viewallevents.php'] = 0;
         $permission_array['register.php'] = 2;
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 2;
+        $permission_array['changepassword.php'] = 2;
+        $permission_array['viewprofile.php'] = 2;
+        $permission_array['editprofile.php'] = 2;
         //$permission_array['viewschedule.php'] = 2;
         //$permission_array['addweek.php'] = 2;
         $permission_array['log.php'] = 2;

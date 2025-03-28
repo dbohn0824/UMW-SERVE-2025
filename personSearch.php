@@ -20,7 +20,18 @@
         header('Location: index.php');
         die();
     }
+
+    if(isset($_POST['volunteer_id'])){
+        //$args = sanitize($_POST);
+        var_dump($_POST['volunteer_id']);
+        // need to redirect to view profile if this exists instead of just going to this page again.
+        $location = "viewProfile.php?id=" . $_POST['volunteer_id'];
+        var_dump($location);
+        header("Location: " . $location);
+        die();
+    }
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -125,51 +136,36 @@
                                     $notFirst = true;
                                 }
                                 $mailingList .= $person->get_email();
-                                
-                                // format value for minor
                                 $minor = $person->isMinor();
                                 if($minor == 0)
                                     $minor = "No";
                                 else
                                     $minor = "Yes";
-
-                                // format value for checked-in/out
                                 $check = $person->get_checked_in();
                                 if($check == 0)
                                     $check = "No";
                                 else
                                     $check = "Yes";
-
-                                // format value for phone number 
-                                $phone = $person->get_phone1();
-                                $phone1 = substr($phone, 0, 3);
-                                $phone2 = substr($phone, 3, 3);
-                                $phone3 = substr($phone, 6, 4);
-                                $phone = '('.$phone1.') '.$phone2.'-'.$phone3;
-
-                                // format value for emergency contact phone number
-                                $ephone = $person->get_emergency_contact_phone();
-                                $ephone1 = substr($phone, 0, 3);
-                                $ephone2 = substr($phone, 3, 3);
-                                $ephone3 = substr($phone, 6, 4);
-                                $ephone = '('.$phone1.') '.$phone2.'-'.$phone3;
                                 echo '
                                         <tr>
-                                            <td>' . $person->get_id() . '</td>
+                                            <td>
+                                                <input type="submit" id="' . $person->get_id() . '" name="volunteer_id" value="' . $person->get_id() . '" style="display: none;">
+                                                <label for="' . $person->get_id() . '">' . $person->get_id() .'</label>
+                                                </td>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
                                             <td>' . $minor . '</td>
                                             <td>' . $person->get_total_hours() . '</td>
                                             <td>' . $person->get_remaining_mandated_hours() . '</td>
                                             <td>' . $check . '</td>
-                                            <td>' . $phone . '</td>
+                                            <td>' . $person->get_phone1() . '</td>
                                             <td>' . $person->get_email() . '</td>
                                             <td>' . $person->get_street_address() . '</td>
                                             <td>' . $person->get_state() . '</td>
                                             <td>' . $person->get_zip_code() . '</td>
                                             <td>' . $person->get_emergency_contact_first_name() . '</td>
                                             <td>' . $person->get_emergency_contact_last_name() . '</td>
-                                            <td>' . $ephone . '</td>
+                                            <td>' . $person->get_emergency_contact_phone() . '</td>
                                         </a></tr>';
                             }
                             echo '
@@ -261,7 +257,7 @@
             -->
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="staffDashboard.php">Return to Dashboard</a>
         </form>
     </body>
 </html>
