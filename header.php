@@ -71,6 +71,8 @@
         $permission_array['volunteerreport.php'] = 1;
         $permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['volunteerdashboard.php'] = 1;
+        $permission_array['volunteerhours.php'] = 1;
+        $permission_array['checkincheckout.php'] = 1;
         //pages only managers can view
         $permission_array['viewallevents.php'] = 0;
         $permission_array['personsearch.php'] = 2;
@@ -101,6 +103,7 @@
         $permission_array['vieweventsignups.php'] = 2;
         $permission_array['viewalleventsignups.php'] = 2;
         $permission_array['resources.php'] = 2;
+        $permission_array['deletevolunteer.php'] = 2;
 
         $permission_array['edithours.php'] = 2;
         $permission_array['eventlist.php'] = 1;
@@ -117,12 +120,11 @@
         $permission_array['staffdashboard.php'] = 1;
         $permission_array['vizualizedata.php'] = 1;
         $permission_array['volunteersearch.php'] = 1; 
+        $permission_array['checkvolunteerstatus.php'] = 1; 
 
 
         
         // LOWERCASE
-
-
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
@@ -147,7 +149,7 @@
         echo('<ul>');
         //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 
-        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'staffDashboard.php">Home</a></li>');
         //echo('<span class="nav-divider">|</span>');
 
         echo('<li class="nav-item dropdown">');
