@@ -197,8 +197,10 @@ class Person {
 	}
 
 	function get_checked_in(){
-
+		return $this->checked_in;
 	}
+
+
 
 	/*function get_birthday() {
 		return $this->birthday;
