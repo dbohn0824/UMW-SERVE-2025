@@ -5,46 +5,57 @@
     <meta charset="UTF-8">
 
     <style>
-        .container {
-            display: flex;
-            align-items: center; /* Align items vertically */
-            justify-content: space-between; /* Pushes items apart */
+        .table-container {
+            width: 100%;
+            border-collapse: collapse;
         }
-
-        .logo {
-            width: 150px; /* Adjust size as needed */
-            height: auto;
+    
+        .logo-cell {
+            width: 30%;
+            text-align: left;
+            vertical-align: top;
         }
-
-        .info {
+    
+        .info-cell {
+            width: 70%;
             text-align: right;
             color: #7E0B07;
-            font-family: Arial, sans-serif;
-            flex: 1; /* Allows text to take remaining space */
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 0.5;
         }
-
+    
         .info a {
             color: #7E0B07; /* Ensure email color matches */
             text-decoration: none;
+        }
+
+
+        hr{
+           width:100%;  
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <img src="images/SERVE_logo.png" alt="SERVE Logo" class="logo">
-        <div class="info">
-            <p><strong><u>Hours of Operations</u></strong><strong>: </strong></p>
-            <p><strong>Monday - Thursday 11:00-4:00</strong></p>
-            <p><strong>Every 2<sup>nd</sup> Wednesday 11:00 AM - 6:30 PM</strong></p>
-            <p><strong>CLOSED Federal &amp; Gov’t Holidays</strong></p>
-            <p><strong><u>Location</u></strong><strong>: </strong></p>
-            <p><strong>15 Upton Ln. Stafford, VA 22554</strong></p>
-            <p><strong>Phone: 540-288-9603</strong></p>
-            <p><strong>Email: </strong><a href="mailto:volunteer@serve-helps.org"><strong>volunteer@serve-helps.org</strong></a></p>
-        </div>
-    </div>
-    <p><strong><u>Volunteer Guidelines</u></strong></p>
+    <table class="table-container">
+        <tr>
+            <td class="logo-cell">
+                <img src="images/SERVE_logo.png" alt="SERVE Logo" width="150">
+            </td>
+            <td class="info-cell">
+                <p><strong><u>Hours of Operations</u></strong><strong>: </strong></p>
+                <p><strong>Monday - Thursday 11:00-4:00</strong></p>
+                <p><strong>Every 2<sup>nd</sup> Wednesday 11:00 AM - 6:30 PM</strong></p>
+                <p><strong>CLOSED Federal &amp; Gov’t Holidays</strong></p>
+                <p><strong><u>Location</u></strong><strong>: </strong></p>
+                <p><strong>15 Upton Ln. Stafford, VA 22554</strong></p>
+                <p><strong>Phone: 540-288-9603</strong></p>
+                <p><strong>Email: </strong><a href="mailto:volunteer@serve-helps.org"><strong>volunteer@serve-helps.org</strong></a></p>
+            </td>
+        </tr>
+    </table>
+    <h2 style="text-align: center;"><strong><u>Volunteer Guidelines</u></strong></h2>
+    <hr> </hr> 
     <p><strong><u>Volunteer Hours: </u></strong></p>
     <p><strong>Monday - Thursday 10:00am - 4:30pm</strong></p>
     <p><strong>Every 2nd Wednesday 10:00am - 6:30pm </strong></p>
@@ -68,6 +79,9 @@
         <li>Cleaning (Sweeping, mopping, rinsing bins, etc)</li>
         <li>Light office data entry</li>
     </ul>
+    <br></br>
+    <br></br>
+
     <p><strong>Intake</strong></p>
     <ul>
         <li>Greeting guests as they pull up</li>
@@ -103,6 +117,9 @@
         traffic hazards and crowded working conditions. Always watch where you are walking. Do not attempt to lift or
         move anything that is too heavy for you. When in the parking lot, stay alert to traffic. Should you discover an
         unsafe situation (broken jars, sharp objects, etc.) report it to a member of the SERVE staff.</p>
+        <br></br>
+        <br></br>
+
     <p>7) <u>BEHAVIOR AND ATTITUDE</u></p>
     <p>Appropriate behavior and attitude are required. In the event a SERVE staff member needs to speak with you about
         either, you may be asked to leave the premises and may be unable to return.</p>
@@ -117,15 +134,7 @@
             assault, battery, drug or paraphernalia possession, child endangerment, or domestic violence.</strong></p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
-    <p><strong><u>Hours of Operations</u></strong><strong>:</strong></p>
-    <p><strong>Monday - Thursday 11:00-4:00</strong></p>
-    <p><strong>Every 2<sup>nd</sup> Wednesday 11:00 AM - 6:30 PM</strong></p>
-    <p><strong>CLOSED Federal &amp; Gov&rsquo;t Holidays</strong></p>
-    <p><strong><u>Location</u></strong><strong>: </strong></p>
-    <p><strong>15 Upton Ln. Stafford, VA 22554</strong></p>
-    <p><strong>Phone: 540-288-9603</strong></p>
-    <p><strong>Email: </strong><a href="mailto:volunteer@serve-helps.org"><strong>volunteer@serve-helps.org</strong></a>
-    </p>
+   
     <p><strong>Volunteer Sign Up</strong></p>
     <p>Full Name ( Please Print): _________________________________________________</p>
     <p>Birthday: __________M/F_______Phone: ____________________________________</p>
