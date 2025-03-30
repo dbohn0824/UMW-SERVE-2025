@@ -1,14 +1,13 @@
 <?php
 date_default_timezone_set("America/New_York");
 
+session_cache_expire(30);
 session_start();
 
 include_once(__DIR__ . '/database/dbinfo.php');  // Include dbinfo.php from the 'database' folder
 include_once(__DIR__ . '/domain/Person.php');  // Include Person.php from the root folder
 include_once(__DIR__ . '/database/dbPersons.php');
 
-session_cache_expire(30);
-session_start();
 
 if (isset($_SESSION['volunteer_id'])) {
     $personID = $_SESSION['volunteer_id'];  // Retrieve the personID from the URL
@@ -39,6 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error: Action parameter is missing.";
     }
 }
+
+// Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+$currentDate = date('Y-m-d');
+$tot = get_hours_for_range($_SESSION['volunteer_id'], 1979-01-01, $currentDate);
+update_hours($_SESSION['volunteer_id'], $tot);
 
 ?>
 

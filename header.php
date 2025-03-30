@@ -74,7 +74,7 @@
         $permission_array['volunteerreport.php'] = 1;
         //$permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['volunteerdashboard.php'] = 1;
-        //$permission_array['volunteerhours.php'] = 1;
+        $permission_array['volunteerhours.php'] = 1;
         $permission_array['checkincheckout.php'] = 1;
       
         //pages only staff can view
@@ -113,12 +113,14 @@
         $permission_array['resources.php'] = 2;
         $permission_array['deletevolunteer.php'] = 2;
 
+        $permission_array['searchhours.php'] = 2;
         $permission_array['edithours.php'] = 2;
+        $permission_array['viewhours.php'] = 2;
         //$permission_array['eventlist.php'] = 1;
         //$permission_array['eventsignup.php'] = 1;
         //$permission_array['eventfailure.php'] = 1;
         $permission_array['signupsuccess.php'] = 2;
-        $permission_array['edittimes.php'] = 1;
+        //$permission_array['edittimes.php'] = 2;
         //$permission_array['adminviewingevents.php'] = 2;
         //$permission_array['signuppending.php'] = 1;
         $permission_array['requestfailed.php'] = 1;
@@ -190,7 +192,8 @@
         echo('<a class="dropdown-item" href="' . $path . 'personSearch.php">Search</a>
             <a class="dropdown-item" href="register.php">Add</a>
             <a class="dropdown-item" href="deleteVolunteer.php">Delete</a>
-            <a class="dropdown-item" href="checkVolunteerStatus.php">Status Report</a>');
+            <a class="dropdown-item" href="checkVolunteerStatus.php">Status Report</a>
+            <a class="dropdown-item" href="searchHours.php">View & Change Hours</a>');
         echo('</div>');
         echo('</li>');
         }
@@ -242,8 +245,9 @@
         }*/
         echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
         echo('<a class="dropdown-item" href="' . $path . 'resources.php">Upload Resources</a>');
-        echo('<a class="dropdown-item" href="' . $path . 'exportData.php">Export Data</a>');
         echo('<a class="dropdown-item" href="' . $path . 'visualizeData.php">Visualize Data</a>');
+        echo('<a class="dropdown-item" href="' . $path . 'exportData.php">Export Data</a>');
+    
         echo('</div>');
         echo('</li>');
 

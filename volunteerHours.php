@@ -1,12 +1,10 @@
 <?php
     date_default_timezone_set("America/New_York");
+    session_cache_expire(30);
     session_start();
         
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
-
-    session_cache_expire(30);
-    session_start();
 
     if (isset($_SESSION['volunteer_id'])) {
         require_once('include/input-validation.php');
@@ -15,6 +13,7 @@
         if ($_SESSION['volunteer_id']) {
             $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
+            echo 'ERROR. VOLUNTEER ID NOT FOUND. DEFAULTING TO "AAA".';
             $person = retrieve_person('aaa');
         }
     }
