@@ -39,6 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+// Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+$currentDate = date('Y-m-d');
+$tot = get_hours_for_range($_SESSION['volunteer_id'], 1979-01-01, $currentDate);
+update_hours($_SESSION['volunteer_id'], $tot);
+
 ?>
 
 <!DOCTYPE html>

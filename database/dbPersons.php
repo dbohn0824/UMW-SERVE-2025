@@ -324,7 +324,7 @@ function check_out($personID, $end_time) {
 
 
         //get total hours for the day
-        $query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
+        /*$query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
                   date = ?"; 
         $stmt = $con->prepare($query);
 
@@ -334,21 +334,26 @@ function check_out($personID, $end_time) {
 
         $result = $stmt->get_result(); 
 
-        $totalDailyHours = $result->fetch_assoc(); 
+        $totalDailyHours = $result->fetch_assoc();*/
 
         //*********************************************************************** */
 
         //now update dbpersons with total daily hours 
 
-        $query = "UPDATE dbpersons SET total_hours = total_hours + ? WHERE id = ?";
+        /*$query = "UPDATE dbpersons SET total_hours = total_hours + ? WHERE id = ?";
 
         $stmt = $con->prepare($query);
 
         $stmt->bind_param('is', $totalDailyHours, $personID );
 
-        $stmt->execute();
+        $stmt->execute();*/
 
         //**************************************************************************** */
+
+        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+        $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
+        update_hours($personID, $tot);
+
         mysqli_close($con);
 
         // Successfully checked out
