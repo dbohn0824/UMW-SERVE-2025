@@ -1,4 +1,5 @@
 <?php
+    session_start();
     // In this section, I've removed code that ensures the user is already logged in.
     // This is because we want users without accounts to be able to create new accounts.
 
@@ -229,11 +230,8 @@
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
-                /*if ($loggedIn) {
-                    echo '<script>document.location = "index.php?registerSuccess";</script>';
-                } else {*/
-                    echo '<script>document.location = "login.php?registerSuccess";</script>';
-                /*}*/
+                $_SESSION['success_message'] = "New staff member registered successfully!";
+                echo '<script>document.location = "confirmStaff.php";</script>';
             }
         } else {
             require_once('registrationFormStaff.php'); 

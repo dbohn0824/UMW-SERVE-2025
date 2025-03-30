@@ -80,7 +80,7 @@ class Person {
 		$this->minor = $minor;
 		$this->total_hours = $total_hours;
 		$this->remaining_mandated_hours = $remaining_mandated_hours;
-		$this->checked_in = false;
+		$this->checked_in = 0;
 		$this->phone1 = $phone1;
 		$this->email = $email;
 		$this->notes = $notes;
@@ -196,8 +196,8 @@ class Person {
 		return $this->remaining_mandated_hours;
 	}
 
-	function get_checked_in(){
-
+	function get_checked_in() {
+		return $this->checked_in;
 	}
 
 	/*function get_birthday() {
