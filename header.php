@@ -74,7 +74,7 @@
         $permission_array['volunteerreport.php'] = 1;
         //$permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['volunteerdashboard.php'] = 1;
-        //$permission_array['volunteerhours.php'] = 1;
+        $permission_array['volunteerhours.php'] = 1;
         $permission_array['checkincheckout.php'] = 1;
       
         //pages only staff can view
