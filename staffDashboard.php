@@ -116,13 +116,17 @@
                         <img src="images/delete.svg">
                         <span>Delete Volunteer</span>
                     </div>
-                    <div class="dashboard-item" data-link="editHours.php">
+                    <!--<div class="dashboard-item" data-link="editHours.php">
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
-                    </div>
+                    </div>-->
                     <div class="dashboard-item" data-link="registerStaff.php">
                         <img src="images/add-person.svg">
                         <span>Register Staff</span>
+                    </div>
+                    <div class="dashboard-item" data-link="deleteStaff.php">
+                        <img src="images/delete.svg">
+                        <span>Delete Staff</span>
                     </div>
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
@@ -132,7 +136,7 @@
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Export Volunteer Data</center></span>
                     </div>
-                    <div class="dashboard-item" data-link="vizualizeData.php">
+                    <div class="dashboard-item" data-link="visualizeData.php">
                         <img src="images/bargraph.svg">
                         <span>Vizualize Data</span>
                     </div>
