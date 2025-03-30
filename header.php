@@ -110,12 +110,14 @@
         //$permission_array['viewalleventsignups.php'] = 2;
         $permission_array['resources.php'] = 2;
 
+        $permission_array['searchhours.php'] = 2;
         $permission_array['edithours.php'] = 2;
+        $permission_array['viewhours.php'] = 2;
         //$permission_array['eventlist.php'] = 1;
         //$permission_array['eventsignup.php'] = 1;
         //$permission_array['eventfailure.php'] = 1;
         $permission_array['signupsuccess.php'] = 2;
-        $permission_array['edittimes.php'] = 1;
+        //$permission_array['edittimes.php'] = 2;
         //$permission_array['adminviewingevents.php'] = 2;
         //$permission_array['signuppending.php'] = 1;
         $permission_array['requestfailed.php'] = 1;

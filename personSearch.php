@@ -187,7 +187,7 @@
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_POST['name']) ?>" placeholder="Enter the user's first and/or last name"> 
             <label for="id">Username</label>
-            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_POST['id']) ?>" placeholder="Enter the user's username (login ID)">
+            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_POST['id']) ?>" placeholder="Enter the user's username/ID">
 
             
             <label for="options">Edit a Field:</label>
@@ -223,8 +223,6 @@
             }    
             
         </script>
-
-
 
            <!--  <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_POST['edit_hours']) ?>" placeholder="Edit user hours">
            Commented out by Jackson
