@@ -192,7 +192,8 @@
         echo('<a class="dropdown-item" href="' . $path . 'personSearch.php">Search</a>
             <a class="dropdown-item" href="register.php">Add</a>
             <a class="dropdown-item" href="deleteVolunteer.php">Delete</a>
-            <a class="dropdown-item" href="checkVolunteerStatus.php">Status Report</a>');
+            <a class="dropdown-item" href="checkVolunteerStatus.php">Status Report</a>
+            <a class="dropdown-item" href="searchHours.php">View & Change Hours</a>');
         echo('</div>');
         echo('</li>');
         }
@@ -244,8 +245,9 @@
         }*/
         echo('<a class="dropdown-item" href="' . $path . 'changePassword.php">Change Password</a>');
         echo('<a class="dropdown-item" href="' . $path . 'resources.php">Upload Resources</a>');
-        echo('<a class="dropdown-item" href="' . $path . 'exportData.php">Export Data</a>');
         echo('<a class="dropdown-item" href="' . $path . 'visualizeData.php">Visualize Data</a>');
+        echo('<a class="dropdown-item" href="' . $path . 'exportData.php">Export Data</a>');
+    
         echo('</div>');
         echo('</li>');
 
