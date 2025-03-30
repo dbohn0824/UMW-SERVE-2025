@@ -97,11 +97,11 @@
         }
 
         .checked-in {
-            background-color: lightgreen;
+            background-color: hsl(33, 87.70%, 77.60%);
         }
 
         .checked-out {
-            background-color: lightcoral;
+            background-color: hsl(188, 66.20%, 86.10%);
         }
         </style>
     </head>

@@ -17,9 +17,9 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Volunteer Search</h1>
-        <form id="person-search" class="general" method="get">
+        <form id="person-search" class="general" method="POST">
             <?php
-                if (isset($_GET['name'])) {
+                if (isset($_POST['name'])) {
                     echo '<h3>Search Again</h3>';
                 } else {
                     echo '<h2>Find Volunteer</h2>';
@@ -27,31 +27,29 @@
             ?>
             <p>Use the form below to find a volunteer or participant. At least one search criterion is required.</p>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter your first and/or last name">
-		    <!--<label for="phone">User ID</label>
-            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter your unique ID">-->
-            <!--<label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">-->
-
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_POST['name']) ?>" placeholder="Enter your first and/or last name">
+		    
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
             <a class="button cancel" href="index.php">Return to Dashboard</a>
-            <?php 
-                if (isset($_GET['name'])) {
-                    require_once('include/input-validation.php');
-                    require_once('database/dbPersons.php');
-                    $args = sanitize($_GET);
-                    $required = ['name'];
-                    if (!wereRequiredFieldsSubmitted($args, $required, true)) {
-                        echo 'Missing expected form elements';
-                    }
-                    $name = $args['name'];
-                    //$phone = preg_replace("/[^0-9]/", "", $args['phone']);
-					echo "<h3>Search Results</h3>";
-                    $persons = find_self($name);
-                    require_once('include/output.php');
-                    if (count($persons) > 0) {
-                        echo '
+        </form>
+        <?php 
+            if (isset($_POST['name'])) {
+                require_once('include/input-validation.php');
+                require_once('database/dbPersons.php');
+                $args = sanitize($_POST);
+                $required = ['name'];
+                if (!wereRequiredFieldsSubmitted($args, $required, true)) {
+                    echo 'Missing expected form elements';
+                }
+                $name = $args['name'];
+				echo "<h3 style='Text-align: center'>Search Results</h3>";
+                $persons = find_self($name);
+                require_once('include/output.php');
+                if (count($persons) > 0) {
+                    $person = $persons[0];
+                    echo '
+                    <form id="person-search" action="volunteerDashboard.php" class="general" method="POST">
                         <div class="table-wrapper">
                             <table class="general">
                                 <thead>
@@ -61,30 +59,33 @@
                                         <th>Select</th>
                                     </tr>
                                 </thead>
-                            <tbody class="standout">';
-                        $notFirst = false;
-                        foreach ($persons as $person) {
-                            if ($notFirst) {
-                                //$mailingList .= ', ';
-                            } else {
-                                $notFirst = true;
-                                }
-                                echo '
+                                <tbody class="standout">';
+                    $notFirst = false;
+                    foreach ($persons as $person) {
+                        if ($notFirst) {
+                            //$mailingList .= ', ';
+                        } else {
+                            $notFirst = true;
+                            }
+                            echo '
                                     <tr>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
-                                        <td><a href="volunteerDashboard.php?id=' . $person->get_id() . '">That\'s Me!</a></td>
-                                    </a></tr>';
-                            }
-                            echo '
-                                </tbody>
-                            </table>
-                        </div>';
-                    } else {
-                        echo '<div class="error-toast">Your search returned no results.</div>';
+                                        <td>
+                                            <input type="submit" id="' . $person->get_id() . '" name="id" value="' . $person->get_id() . '" style="display: none;">
+                                            <label for="' . $person->get_id() . '">That\'s me!</label>
+                                        </td>
+                                    </tr>';
                     }
+                    echo '
+                                </form>
+                            </tbody>
+                        </table>
+                    </div>';
+                } else {
+                    echo '<div class="error-toast">Your search returned no results.</div>';
                 }
-            ?>
-        </form>
+            }
+        ?>
     </body>
 </html>
