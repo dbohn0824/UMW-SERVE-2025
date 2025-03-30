@@ -1,15 +1,19 @@
 <?php
     date_default_timezone_set("America/New_York");
+    session_start();
         
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
 
-    if (isset($_GET['id'])) {
+    session_cache_expire(30);
+    session_start();
+
+    if (isset($_SESSION['volunteer_id'])) {
         require_once('include/input-validation.php');
         require_once('database/dbPersons.php');
-        $args = sanitize($_GET);
-        if ($args['id']) {
-            $person = retrieve_person($args['id']);
+
+        if ($_SESSION['volunteer_id']) {
+            $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
             $person = retrieve_person('aaa');
         }
