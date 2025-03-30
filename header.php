@@ -131,6 +131,7 @@
         $permission_array['checkvolunteerstatus.php'] = 1;
         $permission_array['deletevolunteer.php'] = 2;
         $permission_array['registerstaff.php'] = 2;
+        $permission_array['editvolunteer.php'] = 2;
 
 
         

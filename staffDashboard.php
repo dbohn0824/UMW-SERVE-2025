@@ -141,7 +141,7 @@
                         <img src="images/delete.svg">
                         <span>Delete Staff</span>
                     </div>
->>>>>>> e7a0fe67f871ab21af840fda00abc7498d230259
+
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Upload Resources</center></span>
