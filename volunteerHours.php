@@ -13,7 +13,8 @@
         if ($_SESSION['volunteer_id']) {
             $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
-            $person = retrieve_person('aaa');
+            echo 'ERROR.';
+            //$person = retrieve_person('aaa');
         }
     }
 

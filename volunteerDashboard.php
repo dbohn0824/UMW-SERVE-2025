@@ -11,17 +11,25 @@
         require_once('include/input-validation.php');
         require_once('database/dbPersons.php');
         $args = sanitize($_POST);
-        $_SESSION['volunteer_id'] = $args['id'];
-        if ($args['id']) {
+        $id = $args['id'];
+        $_SESSION['volunteer_id'] = $id;
+        if ($id) {
             $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
-            $person = retrieve_person('aaa');
+            echo 'ERROR.';
+            //$person = retrieve_person('aaa');
         }
     } else if (isset($_SESSION['volunteer_id'])){
         $person = retrieve_person($_SESSION['volunteer_id']);
     } else {
-        $person = retrieve_person('aaa');
+        echo 'ERROR.';
+        //$person = retrieve_person('aaa');
     }
+
+    // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+    $currentDate = date('Y-m-d');
+    $tot = get_hours_for_range($_SESSION['volunteer_id'], 1979-01-01, $currentDate);
+    update_hours($_SESSION['volunteer_id'], $tot);
 
     //$notRoot = $person->get_id() != 'vmsroot';
 ?>
