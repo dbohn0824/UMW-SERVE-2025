@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set("America/New_York");
 
+session_start();
+
 include_once(__DIR__ . '/database/dbinfo.php');  // Include dbinfo.php from the 'database' folder
 include_once(__DIR__ . '/domain/Person.php');  // Include Person.php from the root folder
 include_once(__DIR__ . '/database/dbPersons.php');
@@ -51,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h1>Check In/Check Out</h1>
         <main class='dashboard'>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
-            <!--<p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
-            <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>-->
+            <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
+            <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
             
             <p></p>
 
@@ -109,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="hidden" name="action" value="checkin">
                     <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>">
                 </form>
-
+              
                 <div class="dashboard-item" onclick="document.getElementById('checkout-form').submit();">
                     <img src="images/close.png" alt="Check In/Out">
                     <span><center>Check Out</center></span>

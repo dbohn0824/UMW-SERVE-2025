@@ -74,7 +74,9 @@
         $permission_array['volunteerreport.php'] = 1;
         //$permission_array['viewmyupcomingevents.php'] = 1;
         $permission_array['volunteerdashboard.php'] = 1;
-
+        //$permission_array['volunteerhours.php'] = 1;
+        $permission_array['checkincheckout.php'] = 1;
+      
         //pages only staff can view
         //$permission_array['viewallevents.php'] = 0;
         $permission_array['register.php'] = 2;
@@ -109,6 +111,7 @@
         //$permission_array['vieweventsignups.php'] = 2;
         //$permission_array['viewalleventsignups.php'] = 2;
         $permission_array['resources.php'] = 2;
+        $permission_array['deletevolunteer.php'] = 2;
 
         $permission_array['searchhours.php'] = 2;
         $permission_array['edithours.php'] = 2;
@@ -134,8 +137,6 @@
 
         
         // LOWERCASE
-
-
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));

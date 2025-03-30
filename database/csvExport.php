@@ -16,7 +16,12 @@ $startDate = isset($_POST['startDate']) ? $_POST['startDate'] : '';
 
 $endDate = isset($_POST['endDate']) ? $_POST['endDate'] : ''; 
 
-
+if (strtotime($startDate) > strtotime($endDate)) {
+    session_start();
+    $_SESSION['error'] = "Please enter a valid date range where the start date is before the end date.";
+    header('Location: /UMW-SERVE-2025/exportData.php'); 
+    exit();
+}
 
 //*********************************************************************************************
 
