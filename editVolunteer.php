@@ -20,12 +20,15 @@
         header('Location: index.php');
         die();
     }
+
+
+    
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>SERVE | Volunteer/Participant Search</title>
+        <title>SERVE | Volunteer Edit</title>
     </head> 
 <!--Style for showing and hiding edit textbox -->
     <style>
@@ -37,11 +40,11 @@
 
     <body>
         <?php require_once('header.php') ?>
-        <h1>Volunteer/Participant Search</h1>
+        <h1>Volunteer Edit</h1>
         <form id="person-search" class="general" method="get">
-            <h2>Find Volunteer/Participant</h2>
+            <h2>Edit Volunteer</h2>
             <?php 
-                if (isset($_GET['name'])) {
+                if (isset($_GET['name']) || (isset($_GET['edit']) && $_GET['edit'] === 'Edit')) {
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
@@ -57,9 +60,11 @@
                     $role = $args['role'];
                     $status = $args['status'];
                     $photo_release = $args['photo_release']; */
-                    if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
-                        echo '<div class="error-toast">At least one search criterion is required.</div>';
-                    } /*else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
+                    if(empty($args)){
+                        if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
+                            echo '<div class="error-toast">At least one search criterion is required.</div>';
+                        }
+                     } /*else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
@@ -68,10 +73,12 @@
                     } */
                      else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id,null, null, null,null, null);
+                        //$persons = find_users(null, $id,null, null, null,null, null);
+                        $person = retrieve_person($id);
+                        $persons[] = $person;
                         require_once('include/output.php');
-                        if (count($persons) > 0) {
-                            echo '
+                        if (count($persons) > 0 && retrieve_person($id) != false) {
+                           /* echo '
                             <div style="overflow-x: auto;" class="table-wrapper">
                                 <table class="general">
                                     <thead>
@@ -93,30 +100,75 @@
                                             <th>Emergency Phone</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="standout">';
+                                    <tbody class="standout">'; */
                             $mailingList = '';
                             $notFirst = false;
                         
                             foreach ($persons as $person) {
-                                //print_r($args); used for testing
-                                if ($args["options"] == "minor"){
-                                    update_minor_status($person->get_id(),$args['textbox']);
+                                if(array_key_exists('first_name',$args)){
+                                    update_first_name($person->get_id(),$args['first_name']);
                                 }
 
-                                if ($args["options"] == "total_hours"){
-                                    update_hours($person->get_id(),$args['textbox']);
+                                if(array_key_exists('last_name',$args)){
+                                    update_last_name($person->get_id(),$args['last_name']);
                                 }
 
-                                if ($args["options"] == "mandated_hours"){
-                                    update_mandated_hours($person->get_id(),$args['textbox']);
+                                
+                                if(array_key_exists('minor',$args)){
+                                    if($args['minor'] == 'No'){
+                                        update_minor_status($person->get_id(),0);
+                                    }
+                                    if($args['minor'] == 'Yes'){
+                                            update_minor_status($person->get_id(),1);
+                                    }
+                                    
                                 }
 
-                                if ($args["options"] == "phone_number"){
-                                    update_phone($person->get_id(),$args['textbox']);
+                                if(array_key_exists('total_hours',$args)){
+                                    update_hours($person->get_id(),$args['total_hours']);
                                 }
 
-                                if ($args["options"] == "email"){
-                                    update_email($person->get_id(),$args['textbox']);
+                                if(array_key_exists('remaining_hours',$args)){
+                                    update_mandated_hours($person->get_id(),$args['remaining_hours']);
+                                }
+
+                                if(array_key_exists('phone',$args)){
+                                    update_phone($person->get_id(),$args['phone']);
+                                }
+                              
+                                if(array_key_exists('email',$args)){
+                                    update_email($person->get_id(),$args['email']);
+                                }
+
+                                if(array_key_exists('address',$args)){
+                                    update_address($person->get_id(),$args['address']);
+                                }
+
+                                if(array_key_exists('state',$args)){
+                                    update_state($person->get_id(),$args['state']);
+                                }
+
+                                if(array_key_exists('zip',$args)){
+                                    update_zip($person->get_id(),$args['zip']);
+                                }
+
+                                if(array_key_exists('emergency_first_name',$args)){
+                                    update_emergency_first($person->get_id(),$args['emergency_first_name']);
+                                }
+
+                                if(array_key_exists('emergency_last_name',$args)){
+                                    update_emergency_last($person->get_id(),$args['emergency_last_name']);
+                                }
+
+                                if(array_key_exists('emergency_phone',$args)){
+                                    update_emergency_phone($person->get_id(),$args['emergency_phone']);
+                                }
+
+                                if (isset($_GET['edit']) && $_GET['edit'] === 'Edit') {
+                                    // Redirect to the same page without the query string
+                                    $cleanUrl = strtok($_SERVER["REQUEST_URI"], '?');
+                                    header("Location: $cleanUrl");
+                                    exit();
                                 }
 
                                 if ($notFirst) {
@@ -135,29 +187,75 @@
                                     $check = "No";
                                 else
                                     $check = "Yes";
-                                echo '
-                                        <tr>
-                                            <td>' . $person->get_id() . '</td>
-                                            <td>' . $person->get_first_name() . '</td>
-                                            <td>' . $person->get_last_name() . '</td>
-                                            <td>' . $minor . '</td>
-                                            <td>' . $person->get_total_hours() . '</td>
-                                            <td>' . $person->get_remaining_mandated_hours() . '</td>
-                                            <td>' . $check . '</td>
-                                            <td>' . $person->get_phone1() . '</td>
-                                            <td>' . $person->get_email() . '</td>
-                                            <td>' . $person->get_street_address() . '</td>
-                                            <td>' . $person->get_state() . '</td>
-                                            <td>' . $person->get_zip_code() . '</td>
-                                            <td>' . $person->get_emergency_contact_first_name() . '</td>
-                                            <td>' . $person->get_emergency_contact_last_name() . '</td>
-                                            <td>' . $person->get_emergency_contact_phone() . '</td>
-                                        </a></tr>';
+                                    echo '<div id="results">';
+
+                                    echo '
+                                    <div>
+                                        <label>ID:</label>
+                                        <input type="text" name="id" value="' . $person->get_id() . '" readonly style="background-color: #e9ecef;">
+                                    </div>
+                                    <div>
+                                        <label>First Name:</label>
+                                        <input type="text" name="first_name" value="' . $person->get_first_name() . '">
+                                    </div>
+                                    <div>
+                                        <label>Last Name:</label>
+                                        <input type="text" name="last_name" value="' . $person->get_last_name() . '">
+                                    </div>
+                                    <div>
+                                        <label>Minor:</label>
+                                        <select name="minor">
+                                            <option value="Yes"' . ($minor === "Yes" ? ' selected' : '') . '>Yes</option>
+                                            <option value="No"' . ($minor === "No" ? ' selected' : '') . '>No</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label>Total Hours:</label>
+                                        <input type="text" name="total_hours" value="' . $person->get_total_hours() . '">
+                                    </div>
+                                    <div>
+                                        <label>Remaining Mandated Hours:</label>
+                                        <input type="text" name="remaining_hours" value="' . $person->get_remaining_mandated_hours() . '">
+                                    </div>
+                                   
+                                    <div>
+                                        <label>Phone:</label>
+                                        <input type="text" name="phone" value="' . $person->get_phone1() . '">
+                                    </div>
+                                    <div>
+                                        <label>Email:</label>
+                                        <input type="text" name="email" value="' . $person->get_email() . '">
+                                    </div>
+                                    <div>
+                                        <label>Street Address:</label>
+                                        <input type="text" name="address" value="' . $person->get_street_address() . '">
+                                    </div>
+                                    <div>
+                                        <label>State:</label>
+                                        <input type="text" name="state" value="' . $person->get_state() . '">
+                                    </div>
+                                    <div>
+                                        <label>Zip Code:</label>
+                                        <input type="text" name="zip" value="' . $person->get_zip_code() . '">
+                                    </div>
+                                    <div>
+                                        <label>Emergency Contact First Name:</label>
+                                        <input type="text" name="emergency_first_name" value="' . $person->get_emergency_contact_first_name() . '">
+                                    </div>
+                                    <div>
+                                        <label>Emergency Contact Last Name:</label>
+                                        <input type="text" name="emergency_last_name" value="' . $person->get_emergency_contact_last_name() . '">
+                                    </div>
+                                    <div>
+                                        <label>Emergency Contact Phone:</label>
+                                        <input type="text" name="emergency_phone" value="' . $person->get_emergency_contact_phone() . '">
+                                    </div>';
+
+                                    echo '</div>'; // Close wrapper
+                                    
                             }
-                            echo '
-                                    </tbody>
-                                </table>
-                            </div>';
+                            
                            /* echo '
                             <label>Result Mailing List</label>
                             <p>' . $mailingList . '</p>
@@ -166,50 +264,16 @@
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
                     }
-                    echo '<h3>Search Again</h3>';
                 }
             ?>
+            <div id="search">
             <p>Use the form below to find a volunteer or participant.</p>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
-            <label for="id">Username</label>
+            
+            <input type="hidden" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name"> 
+            <label for="id" id = "id-label">Username</label>
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's username (login ID)">
-
-            
-            <label for="options">Edit a Field:</label>
-            <select id="options" name="options" onchange="showTextbox()">
-                <option name ="none" value = "none">None</option>
-                <option name = "minor" value = "minor">Minor</option>
-                <option name = "total_hours" value = "total_hours">Total Hours</option>
-                <option value = "mandated_hours">Mandated Hours</option>
-                <option value = "phone_number">Phone Number</option>
-                <option value = "email">Email</option>
-            </select>
-         <input type="text" id="textbox" name="textbox" placeholder="Enter value here">
-        <!--JS function for hiding and showing textbox -->
-        <script>
-            function showTextbox() {
-                let select = document.getElementById("options");
-                let textbox = document.getElementById("textbox");
-
-                if (select.value === "none") {
-                    textbox.style.display = "none";
-                    textbox.value = ""; // Clear input when hidden
-                    textbox.removeAttribute("oninput"); // Remove validation if not needed
-                } else {
-                    textbox.style.display = "block";
-
-                    if (select.value == "minor" || select.value == "phone_number" || select.value == "total_hours" || select.value == "mandated_hours"){
-                        textbox.setAttribute("oninput", "this.value = this.value.replace(/[^0-9]/g, '')");
-                    }else {
-                        textbox.removeAttribute("oninput"); // Remove restriction for other options
-                    }
-                        
-                }
-            }    
-            
-        </script>
-
+            </div>
+                
 
 
            <!--  <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_GET['edit_hours']) ?>" placeholder="Edit user hours">
@@ -241,9 +305,83 @@
                     <option value="Restricted" <?php if (isset($photo_release) && $photo_release == 'Restricted') echo 'selected' ?>>Restricted</option>
                 </select>
             -->
+                <!-- script to make certain fields integer input only -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const numericFields = [
+                        "total_hours",
+                        "remaining_hours",
+                        "phone",
+                        "zip",
+                        "emergency_phone"
+                    ];
+
+                    numericFields.forEach(function (fieldName) {
+                        const input = document.getElementsByName(fieldName)[0];
+                        if (input) {
+                            input.addEventListener("input", function () {
+                                this.value = this.value.replace(/[^0-9]/g, "");
+                            });
+                        }
+                    });
+                });
+            </script>
+
+
+
+
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
-            <input type="submit" value="Search">
+            <input type="submit"  id = "actionButton" name="edit" value="Search">
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
+<!-- script for pop up for making edits-->
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("person-search");
+
+        if (form) {
+            form.addEventListener("submit", function (event) {
+                const resultInputs = document.querySelectorAll("#results input[type='text'], #results select");
+
+                // If there are result fields, show a confirmation popup
+                if (resultInputs.length > 0) {
+                    const confirmAction = confirm("You have results loaded. Are you sure you want to edit?");
+                    if (!confirmAction) {
+                        event.preventDefault(); // cancel form submission
+                    }
+                }
+            });
+        }
+    });
+</script>
+<!-- script switch button value -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const results = document.getElementById("results");
+        const actionButton = document.getElementById("actionButton");
+
+        if (results && results.querySelectorAll("input, select").length > 0) {
+            actionButton.value = "Edit";
+        } else {
+            actionButton.value = "Search";
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchDiv = document.getElementById("search");
+        const resultsDiv = document.getElementById("results");
+
+        // If results are shown, hide the search bar
+        if (resultsDiv && resultsDiv.offsetHeight > 0) {
+            searchDiv.style.display = "none";
+        }
+    });
+</script>
+
+
+
+
     </body>
 </html>

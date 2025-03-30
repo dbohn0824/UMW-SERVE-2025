@@ -1468,32 +1468,123 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function update_email($id, $email){
         $con=connect();
-        $query = 'UPDATE dbpersons SET email = "' . $email . '" WHERE id = "' . $id . '"';
-        $result = mysqli_query($con,$query);
+        $stmt = $con->prepare('UPDATE dbpersons SET email = ? WHERE id = ?');
+        $stmt->bind_param('ss', $email, $id); // 'ss' = both strings
+        $stmt->execute();
+
         mysqli_close($con);
         return True;
     }    
 
     function update_phone($id, $phone){
         $con=connect();
-        $query = 'UPDATE dbpersons SET phone1 = "' . $phone . '" WHERE id = "' . $id . '"';
-        $result = mysqli_query($con,$query);
+        $stmt = $con->prepare('UPDATE dbpersons SET phone1 = ? WHERE id = ?');
+        $stmt->bind_param('ss', $phone, $id); // 'ss' = both strings
+        $stmt->execute();
+
         mysqli_close($con);
         return True;
     }    
 
     function update_mandated_hours($id, $hours){
         $con=connect();
-        $query = 'UPDATE dbpersons SET remaining_mandated_hours = "' . $hours . '" WHERE id = "' . $id . '"';
-        $result = mysqli_query($con,$query);
+        $stmt = $con->prepare('UPDATE dbpersons SET remaining_mandated_hours = ? WHERE id = ?');
+        $stmt->bind_param('ss', $hours, $id); // 'ss' = both strings
+        $stmt->execute();
+
         mysqli_close($con);
         return True;
     }    
 
     function update_minor_status($id, $status){
         $con=connect();
-        $query = 'UPDATE dbpersons SET minor = "' . $status . '" WHERE id = "' . $id . '"';
-        $result = mysqli_query($con,$query);
+        $stmt = $con->prepare('UPDATE dbpersons SET minor = ? WHERE id = ?');
+        $stmt->bind_param('ss', $status, $id); // 'ss' = both strings
+        $stmt->execute();
+
         mysqli_close($con);
         return True;
     }    
+
+    function update_first_name($id, $first_name){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET first_name = ? WHERE id = ?');
+        $stmt->bind_param('ss', $first_name, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    }  
+
+    
+
+    function update_last_name($id, $last_name){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET last_name = ? WHERE id = ?');
+        $stmt->bind_param('ss', $last_name, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    }  
+
+    function update_address($id, $address){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET street_address = ? WHERE id = ?');
+        $stmt->bind_param('ss', $address, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    }  
+
+    function update_state($id, $state){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET state = ? WHERE id = ?');
+        $stmt->bind_param('ss', $state, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    } 
+
+    function update_zip($id, $zip){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET zip_code = ? WHERE id = ?');
+        $stmt->bind_param('ss', $zip, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    } 
+
+    function update_emergency_first($id, $first){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET emergency_contact_first_name = ? WHERE id = ?');
+        $stmt->bind_param('ss', $first, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    } 
+
+    function update_emergency_last($id, $last){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET emergency_contact_last_name = ? WHERE id = ?');
+        $stmt->bind_param('ss', $last, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    } 
+
+    function update_emergency_phone($id, $phone){
+        $con=connect();
+        $stmt = $con->prepare('UPDATE dbpersons SET emergency_contact_phone = ? WHERE id = ?');
+        $stmt->bind_param('ss', $phone, $id); // 'ss' = both strings
+        $stmt->execute();
+
+        mysqli_close($con);
+        return True;
+    } 
+

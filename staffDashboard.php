@@ -133,10 +133,7 @@
                         <img src="images/add-person.svg">
                         <span>Register Staff</span>
                     </div>
-<<<<<<< HEAD
 
-
-=======
                     <div class="dashboard-item" data-link="deleteStaff.php">
                         <img src="images/delete.svg">
                         <span>Delete Staff</span>
