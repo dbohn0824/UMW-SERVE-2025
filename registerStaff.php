@@ -76,7 +76,6 @@
             }
             $id = $args['id'];
             $password = $args['password'];
-            //var_dump($id);
             $first_name = $args['first_name'];
             $last_name = $args['last_name'];
             /* $birthday = validateDate($args['birthdate']);
@@ -111,15 +110,10 @@
                 $errors = true;
                 echo 'bad phone';
             }
-
-            $emergency_contact_first_name = $args['emergency_contact_first_name'];
-            $emergency_contact_last_name = $args['emergency_contact_last_name'];
-            $emergency_contact_relation = $args['emergency_contact_relation'];
-            $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);
-            if (!$emergency_contact_phone) {
-                $errors = true;
-                echo 'bad e-contact phone';
-            }
+            $emergency_contact_first_name = "N/A";
+            $emergency_contact_last_name = "N/A";
+            $emergency_contact_relation = "N/A";
+            $emergency_contact_phone = "N/A";
 
             $id = $args['id'];
             // May want to enforce password requirements at this step
@@ -146,8 +140,7 @@
             }
 
             $status = "Active";
-            $checked_in = false;
-            //$isMinor = $args['isMinor'];
+            $checked_in = 0;
             $total_hours = 0;
             $notes = '';
             $type = 'admin';
@@ -155,11 +148,6 @@
             $isMinor = 0;
             $total_hours = 0;
             $court_hours = "No";
-            /* if($court_hours = 'Yes'){
-                $remaining_mandated_hours = $args['hours_needed'];
-            } else {
-                $remaining_mandated_hours = 0;
-            } */
            $remaining_mandated_hours = 0;
             
 
@@ -184,47 +172,6 @@
                     $emergency_contact_relation,
                     $type
             );
-
-            /*$newperson = new Person(
-                //$id, // (id = username)
-                //$password,
-                date("Y-m-d"),
-                $first_name,
-                $last_name,
-                //$birthday,
-                $street_address,
-                $city,
-                $state,
-                $zip_code,
-                $phone1,
-                //$phone1type,
-                $email,
-                $emergency_contact_first_name,
-                $emergency_contact_last_name,
-                $emergency_contact_phone,
-                //$emergency_contact_phone_type,
-                $emergency_contact_relation,
-                /* $tshirt_size,
-                $school_affiliation,
-                $photo_release,
-                $photo_release_notes, */
-                //$type, // admin or volunteer or participant...
-                //$status,
-                //$archived,
-                //$how_you_heard_of_stepva,
-                //$preferred_feedback_method,
-                //$hobbies,
-                //$professional_experience,
-                //$disability_accomodation_needs,
-                //$training_complete,
-                //$training_date,
-              //  $orientation_complete,
-                //$orientation_date,
-                //$background_complete,
-                //$background_date,
-               // $isMinor,
-                //$total_hours
-            //);
 
             $result = add_staff($newperson);
             if (!$result) {
