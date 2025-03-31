@@ -109,26 +109,7 @@
                             $notFirst = false;
                         
                             foreach ($persons as $person) {
-                                //print_r($args); used for testing
-                                if ($args["options"] == "minor"){
-                                    update_minor_status($person->get_id(),$args['textbox']);
-                                }
-
-                                if ($args["options"] == "total_hours"){
-                                    update_hours($person->get_id(),$args['textbox']);
-                                }
-
-                                if ($args["options"] == "mandated_hours"){
-                                    update_mandated_hours($person->get_id(),$args['textbox']);
-                                }
-
-                                if ($args["options"] == "phone_number"){
-                                    update_phone($person->get_id(),$args['textbox']);
-                                }
-
-                                if ($args["options"] == "email"){
-                                    update_email($person->get_id(),$args['textbox']);
-                                }
+                                
 
                                 if ($notFirst) {
                                     $mailingList .= ', ';
@@ -190,39 +171,8 @@
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_POST['id']) ?>" placeholder="Enter the user's username/ID">
 
             
-            <label for="options">Edit a Field:</label>
-            <select id="options" name="options" onchange="showTextbox()">
-                <option name ="none" value = "none">None</option>
-                <option name = "minor" value = "minor">Minor</option>
-                <option name = "total_hours" value = "total_hours">Total Hours</option>
-                <option value = "mandated_hours">Mandated Hours</option>
-                <option value = "phone_number">Phone Number</option>
-                <option value = "email">Email</option>
-            </select>
-         <input type="text" id="textbox" name="textbox" placeholder="Enter value here">
-        <!--JS function for hiding and showing textbox -->
-        <script>
-            function showTextbox() {
-                let select = document.getElementById("options");
-                let textbox = document.getElementById("textbox");
-
-                if (select.value === "none") {
-                    textbox.style.display = "none";
-                    textbox.value = ""; // Clear input when hidden
-                    textbox.removeAttribute("oninput"); // Remove validation if not needed
-                } else {
-                    textbox.style.display = "block";
-
-                    if (select.value == "minor" || select.value == "phone_number" || select.value == "total_hours" || select.value == "mandated_hours"){
-                        textbox.setAttribute("oninput", "this.value = this.value.replace(/[^0-9]/g, '')");
-                    }else {
-                        textbox.removeAttribute("oninput"); // Remove restriction for other options
-                    }
-                        
-                }
-            }    
-            
-        </script>
+           
+        
 
            <!--  <input type="text" id="edit_hours" name="edit_hours" value="<?php if (isset($id)) echo htmlspecialchars($_POST['edit_hours']) ?>" placeholder="Edit user hours">
            Commented out by Jackson

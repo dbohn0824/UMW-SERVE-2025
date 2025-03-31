@@ -108,6 +108,15 @@
                         <i class="fa-solid fa-list"></i>
                         <span>View Events</span>
                     </div>-->
+
+                    
+                    <div class="dashboard-item" data-link="editVolunteer.php">
+                        <img src="images/manage-account.svg">
+                        <span>Edit Volunteer</span>
+                    </div>
+
+
+
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
@@ -124,10 +133,12 @@
                         <img src="images/add-person.svg">
                         <span>Register Staff</span>
                     </div>
+
                     <div class="dashboard-item" data-link="deleteStaff.php">
                         <img src="images/delete.svg">
                         <span>Delete Staff</span>
                     </div>
+
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Upload Resources</center></span>
