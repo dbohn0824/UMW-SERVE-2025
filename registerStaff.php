@@ -177,8 +177,14 @@
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
-                $_SESSION['success_message'] = "New staff member registered successfully!";
-                echo '<script>document.location = "confirmStaff.php";</script>';
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
+                    <main>
+                        <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
+                    </main>
+                </html>
+                <?php
             }
         } else {
             require_once('registrationFormStaff.php'); 

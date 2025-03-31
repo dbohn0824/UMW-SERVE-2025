@@ -233,9 +233,15 @@
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
-                $success_message = "New volunteer, " . $first_name . $last_name . ", registered successfully!";
-                echo '<script>document.location = "confirmVolunteer.php";</script>';
-            }
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
+                    <main>
+                        <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
+                    </main>
+                </html>
+                <?php
+            } 
         } else {
             require_once('registrationForm.php'); 
         }
