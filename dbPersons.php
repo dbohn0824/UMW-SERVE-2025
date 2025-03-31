@@ -87,6 +87,123 @@ function add_person($person) {
     return false;
 }
 
+function add_staff($person) {
+    if (!$person instanceof Person)
+        die("Error: add_person type mismatch");
+    $con=connect();
+    $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
+    $result = mysqli_query($con,$query);
+    //if there's no entry for this id, add it
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_query($con, 'INSERT INTO dbPersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
+            $person->get_id() . '","' .
+            $person->get_first_name() . '","' . 
+            $person->get_last_name() . '","' .
+            $person->isMinor() . '","' .
+            $person->get_total_hours() . '","' .
+            $person->get_remaining_mandated_hours() . '","' .
+            $person->get_checked_in() . '","' .
+            $person->get_phone1() . '","' . 
+            $person->get_email() . '","' .
+            'n/a' . '","' . 
+            $person->get_type() . '","' .
+            $person->get_password() . '","' . 
+            $person->get_street_address() . '","' .
+            $person->get_city() . '","' .
+            $person->get_state() . '","' . 
+            $person->get_zip_code() . '","' . 
+            $person->get_emergency_contact_first_name() . '","' . 
+            $person->get_emergency_contact_last_name() . '","' . 
+            $person->get_emergency_contact_phone() . '","' . 
+            $person->get_emergency_contact_relation() . '");'
+            );  
+        /*mysqli_query($con,'INSERT INTO dbPersons (id, first_name, last_name, birthday, email, password) VALUES("' .
+            $person->get_id() . '","' .
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            $person->get_birthday() . '","' .
+            $person->get_email() . '","' .
+            $person->get_password() . '");'
+        );*/
+        /* mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
+            $person->get_id() . '","' . 
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            $person->isMinor() . '","' .
+            $person->get_total_hours() . '","' .
+            $person->get_remaining_mandated_hours() . '","' .
+            $person->get_checked_in() . '","' .
+            $person->get_phone1() . '","' .
+            $person->get_email() . '","' .
+            'n/a' . '","' .
+            $person->get_type() . '","' .
+            $person->get_password() . '","' .
+            $person->get_street_address() . '","' .
+            $person->get_city() . '","' .
+            $person->get_state() . '","' .
+            $person->get_zip_code() . '","' .
+            $person->get_emergency_contact_first_name() . '","' .
+            $person->get_emergency_contact_last_name() . '","' .
+            $person->get_emergency_contact_phone() . '","' .
+            $person->get_emergency_contact_relation() . '")'
+            );
+        /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
+            $person->get_id() . '","' . 
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            $person->isMinor() . '","' .
+            $person->get_total_hours() . '","' .
+            $person->get_remaining_mandated_hours() . '","' .
+            $person->get_checked_in() . '","' .
+            $person->get_phone1() . '","' .
+            $person->get_email() . '","' .
+            'n/a' . '","' . /* ("notes", we don't use this) */
+         //   $person->get_type() . '","' .
+           // $person->get_password() . '","' .
+            //$person->get_street_address() . '","' .
+            //$person->get_city() . '","' .
+            //$person->get_state() . '","' .
+            //$person->get_zip_code() . '","' .
+           // $person->get_emergency_contact_first_name() . '","' .
+           // $person->get_emergency_contact_last_name() . '","' .
+           // $person->get_emergency_contact_phone() . '","' .
+           // $person->get_emergency_contact_relation() . '","'
+            //$person->get_start_date() . '","' .
+            //"n/a" . '","' . /* ("venue", we don't use this) */
+            //$person->get_phone1type() . '","' .
+            //$person->get_emergency_contact_phone_type() . '","' .
+            //$person->get_birthday() . '","' .
+            //'n/a' . '","' . /* ("contact_num", we don't use this) */
+            //'n/a' . '","' . /* ("contact_method", we don't use this) */
+            //$person->get_status() . '","' .
+            //'n/a' . '","' . /* ("profile_pic", we don't use this) */
+            //'gender' . '","' .
+            //$person->get_tshirt_size() . '","' .
+            //$person->get_how_you_heard_of_stepva() . '","' .
+            //'sensory_sensitivities' . '","' .
+            //$person->get_disability_accomodation_needs() . '","' .
+            //$person->get_school_affiliation() . '","' .
+            //'race' . '","' .
+            //$person->get_preferred_feedback_method() . '","' .
+            //$person->get_hobbies() . '","' .
+            //$person->get_professional_experience() . '","' .
+            //$person->get_archived() . '","' .
+            //$person->get_photo_release() . '","' .
+            //$person->get_photo_release_notes() . '","' .
+            //$person->get_training_complete() . '","' .
+            //$person->get_training_date() . '","' .
+            //$person->get_orientation_complete() . '","' .
+            //$person->get_orientation_date() . '","' .
+            //$person->get_background_complete() . '","' .
+            //$person->get_background_date() . '");'
+      //  ); */
+        mysqli_close($con);
+        return true;
+    }
+    mysqli_close($con);
+    return false;
+}
+
 /*
  * remove a person from dbPersons table.  If already there, return false
  */
@@ -700,7 +817,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $emergency_contact_phone_type, $emergency_contact_relation, $type,
         $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
         $preferred_feedback_method, $hobbies, $professional_experience,
-        $disability_accomodation_needs, $training_complete, $training_date
+        $disability_accomodation_needs, $training_complete, $training_date,
+        $minor, $remaining_mandated_hours 
     ) {
         $query = "update dbpersons set 
             first_name='$first_name', last_name='$last_name', birthday='$birthday',
@@ -716,7 +834,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             hobbies='$hobbies', professional_experience='$professional_experience',
             disability_accomodation_needs='$disability_accomodation_needs',
             training_complete='$training_complete',
-            training_date='$training_date'
+            training_date='$training_date',
+            minor='$minor', remaining_mandated_hours='$remaining_mandated_hours'
             where id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);

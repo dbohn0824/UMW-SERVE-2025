@@ -69,7 +69,7 @@
                     ?></span>
                 </div>
                 
-                <div class="dashboard-item" data-link="calendar.php">
+                <!--<div class="dashboard-item" data-link="calendar.php">
                     <img src="images/view-calendar.svg">
                     <span>View Calendar</span>
                 </div>
@@ -77,14 +77,14 @@
                 <div class="dashboard-item" data-link="viewAllEvents.php">
                     <img src="images/new-event.svg">
                     <span>Sign-Up for Event</span>
-                </div>
+                </div>-->
                 
                 <!-- ADMIN ONLY -->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
-                    <div class="dashboard-item" data-link="addEvent.php">
+                    <!--<div class="dashboard-item" data-link="addEvent.php">
                         <i class="fa-solid fa-plus" font-size: 70px;></i>
                         <span>Create Event</span>
-                    </div>
+                    </div>-->
                     
                     <!-- D.bohn: commented this out becuase it was breaking the dashboard -->
                     <!--
@@ -104,23 +104,41 @@
                         <img src="images/person-search.svg">
                         <span>Find Volunteer</span>
                     </div>
-                    <div class="dashboard-item" data-link="adminViewingEvents.php">
+                    <!--<div class="dashboard-item" data-link="adminViewingEvents.php">
                         <i class="fa-solid fa-list"></i>
                         <span>View Events</span>
+                    </div>-->
+
+                    
+                    <div class="dashboard-item" data-link="editVolunteer.php">
+                        <img src="images/manage-account.svg">
+                        <span>Edit Volunteer</span>
                     </div>
+
+
+
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
                     </div>
-                    <!-- not showing up on my website for some reason -->
                     <div class="dashboard-item" data-link="deleteVolunteer.php">
                         <img src="images/delete.svg">
                         <span>Delete Volunteer</span>
                     </div>
-                    <div class="dashboard-item" data-link="editHours.php">
+                    <!--<div class="dashboard-item" data-link="editHours.php">
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
+                    </div>-->
+                    <div class="dashboard-item" data-link="registerStaff.php">
+                        <img src="images/add-person.svg">
+                        <span>Register Staff</span>
                     </div>
+
+                    <div class="dashboard-item" data-link="deleteStaff.php">
+                        <img src="images/delete.svg">
+                        <span>Delete Staff</span>
+                    </div>
+
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Upload Resources</center></span>
@@ -129,9 +147,17 @@
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Export Volunteer Data</center></span>
                     </div>
-                    <div class="dashboard-item" data-link="vizualizeData.php">
+                    <div class="dashboard-item" data-link="searchHours.php">
+                        <img src="images/search.svg">
+                        <span><center>View & Edit Volunteer Hours</center></span>
+                    </div>
+                    <div class="dashboard-item" data-link="visualizeData.php">
                         <img src="images/bargraph.svg">
                         <span>Vizualize Data</span>
+                    </div>
+                    <div class="dashboard-item" data-link="checkVolunteerStatus.php">
+                        <img src="images/checkStatus.svg">
+                        <span><center>Volunteer Status Report</center></span>
                     </div>
                 <?php endif ?>
 
@@ -145,20 +171,20 @@
                         <img src="images/manage-account.svg">
                         <span>Edit Profile</span>
                     </div>
-                    <div class="dashboard-item" data-link="viewMyUpcomingEvents.php">
+                    <!--<div class="dashboard-item" data-link="viewMyUpcomingEvents.php">
                         <i class="fa-solid fa-list"></i>
                         <span>My Upcoming Events</span>
-                    </div>
+                    </div>-->
                 <?php endif ?>
                 <?php if ($notRoot) : ?>
-                    <div class="dashboard-item" data-link="volunteerReport.php">
+                    <!--<div class="dashboard-item" data-link="volunteerReport.php">
                         <img src="images/volunteer-history.svg">
                         <span><center>View Volunteering Report</center></span>
-                    </div>
-                <div class="dashboard-item" data-link="editHours.php">
+                    </div>-->
+                    <!--<div class="dashboard-item" data-link="editHours.php">
                         <img src="images/add-person.svg">
                         <span><center>View & Change My Event Hours</center></span>
-                    </div>
+                    </div>-->
                 <?php endif ?>
                 <div class="dashboard-item" data-link="changePassword.php">
                     <img src="images/change-password.svg">
@@ -168,11 +194,6 @@
                     <img src="images/logout.svg">
                     <span>Log out</span>
                 </div>
-                <!-- autoredirects home as volunteer currently -->
-                <!-- <div class="dashboard-item" data-link="editHours.php">
-                        <img src="images/add-person.svg">
-                        <span>View & Change Event Hours</span>
-                </div> -->
             </div>
         </main>
     </body>
