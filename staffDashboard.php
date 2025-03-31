@@ -147,6 +147,10 @@
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Export Volunteer Data</center></span>
                     </div>
+                    <div class="dashboard-item" data-link="searchHours.php">
+                        <img src="images/search.svg">
+                        <span><center>View & Edit Volunteer Hours</center></span>
+                    </div>
                     <div class="dashboard-item" data-link="visualizeData.php">
                         <img src="images/bargraph.svg">
                         <span>Vizualize Data</span>
@@ -173,10 +177,10 @@
                     </div>-->
                 <?php endif ?>
                 <?php if ($notRoot) : ?>
-                    <div class="dashboard-item" data-link="volunteerReport.php">
+                    <!--<div class="dashboard-item" data-link="volunteerReport.php">
                         <img src="images/volunteer-history.svg">
                         <span><center>View Volunteering Report</center></span>
-                    </div>
+                    </div>-->
                     <!--<div class="dashboard-item" data-link="editHours.php">
                         <img src="images/add-person.svg">
                         <span><center>View & Change My Event Hours</center></span>
@@ -190,11 +194,6 @@
                     <img src="images/logout.svg">
                     <span>Log out</span>
                 </div>
-                <!-- autoredirects home as volunteer currently -->
-                <!-- <div class="dashboard-item" data-link="editHours.php">
-                        <img src="images/add-person.svg">
-                        <span>View & Change Event Hours</span>
-                </div> -->
             </div>
         </main>
     </body>

@@ -323,7 +323,7 @@ h2 {
 }
 
 .edit-icon:hover {
-    color: #007bff; /* Change color on hover */
+    color: #701a1a; /* Change color on hover */
 }
 
 h3 {
@@ -916,7 +916,7 @@ table.general th, table.general td {
 }
 
 .styled-form .button.primary-button {
-    background-color: #4CAF50;
+    background-color: #7E0B07;
     color: #fff;
     border: none;
 }
