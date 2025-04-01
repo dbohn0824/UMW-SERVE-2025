@@ -7,6 +7,9 @@
     // Description: Registration page for new volunteers
 
     require_once('include/input-validation.php');
+
+    session_cache_expire(30);
+    session_start();
 ?>
 
 <!DOCTYPE html>

@@ -196,9 +196,11 @@ class Person {
 		return $this->remaining_mandated_hours;
 	}
 
-	function get_checked_in() {
+	function get_checked_in(){
 		return $this->checked_in;
 	}
+
+
 
 	/*function get_birthday() {
 		return $this->birthday;

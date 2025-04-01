@@ -38,11 +38,8 @@
         // }
 
         $required = array(
-            'first_name', 'last_name', 'birthday', 'street_address', 'city', 'state',
-            'zip_code', 'email', 'phone1', 'phone1type', 'emergency_contact_first_name',
-            'emergency_contact_last_name', 'emergency_contact_phone',
-            'emergency_contact_phone_type', 'emergency_contact_relation',
-            'school_affiliation', 'tshirt_size'
+            'first_name', 'last_name', 'email', 'phone1', 'phone1type', 'emergency_contact_first_name',
+            'emergency_contact_last_name', 'emergency_contact_phone', 'emergency_contact_relation'
         );
         $errors = false;
         if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -53,11 +50,12 @@
         
         $last_name = $args['last_name'];
         
-        $birthday = validateDate($args['birthday']);
+        $birthday = "";
+        /*$birthday = validateDate($args['birthday']);
         if (!$birthday) {
             $errors = true;
             // echo 'bad dob';
-        }
+        }*/
         
         $street_address = $args['street_address'];
 
@@ -90,11 +88,12 @@
             // echo 'bad phone';
         }
 
-        $phone1type = $args['phone1type'];
+        $phone1type = "";
+        /*$phone1type = $args['phone1type'];
         if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
             $errors = true;
             // echo 'bad phone type';
-        }
+        }*/
         
         /*@
         $contactWhen = $args['contact-when'];
@@ -115,11 +114,12 @@
             // echo 'bad e-contact phone';
         }
 
-        $emergency_contact_phone_type = $args['emergency_contact_phone_type'];
+        $emergency_contact_phone_type = "";
+        /*$emergency_contact_phone_type = $args['emergency_contact_phone_type'];
         if (!valueConstrainedTo($emergency_contact_phone_type, array('cellphone', 'home', 'work'))) {
             $errors = true;
             // echo 'bad phone type';
-        }
+        }*/
 
         $emergency_contact_relation = $args['emergency_contact_relation'];
 
@@ -131,9 +131,25 @@
         }
         @*/
 
-        $type = $args['type'];
+        //$type = $args['type'];
 
-        $school_affiliation = $args['school_affiliation'];
+        $school_affiliation = "";
+        $tshirt_size = "";
+        $how_you_heard_of_stepva = "";
+        $preferred_feedback_method = "";
+        $hobbies = "";
+        $professional_experience = "";
+        $disability_accomodation_needs = "";
+        $training_complete = "";
+        $training_date = "";
+        $type = "";
+        $orientation_complete = "";
+        $orientation_date = "";
+        $background_complete = "";
+        $background_date = "";
+        $photo_release = "";
+        $photo_release_notes = "";
+        /*$school_affiliation = $args['school_affiliation'];
         $photo_release = $args['photo_release'];
             if (!valueConstrainedTo($photo_release, array('Restricted', 'Not Restricted'))) {
                 $errors = true;
@@ -170,8 +186,16 @@
         }
         if ($errors) {
             $updateSuccess = false;
-        }
-        
+        }*/
+
+        $minor = $args['minor'];
+        $remaining_mandated_hours = $args['remaining_mandated_hours'];
+
+        // THIS NEEDS TO BE UPDATED
+        // LIKE MASSIVELY
+        // PLACEHOLDER
+        $warning = "HEY CHECK OUT LINE 178 ONWARD AND EDIT STUFF!!";
+        var_dump($warning);
         $result = update_person_required(
             $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
             $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
@@ -181,7 +205,8 @@
             $preferred_feedback_method, $hobbies, $professional_experience,
             $disability_accomodation_needs, $training_complete, $training_date,
             $orientation_complete, $orientation_date, $background_complete,
-            $background_date, $photo_release, $photo_release_notes
+            $background_date, $photo_release, $photo_release_notes,
+            $minor, $remaining_mandated_hours 
         );
         if ($result) {
             if ($editingSelf) {

@@ -10,6 +10,10 @@
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
+
+
+
+
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
@@ -47,7 +51,7 @@
         <h1>Volunteer History Report</h1>
         <main class="hours-report">
         
-        <form action="/UMW-SERVE-2025/database/csvExport.php" method="post"> 
+        <form action="/database/csvExport.php" method="post"> 
             <label for="startDate"> Export hours starting on:</label>
             <input type="date" id = "startDate" name="startDate" required>
 
@@ -56,8 +60,11 @@
             <button type="submit" class="no-print" style="margin-bottom: -.5rem">
                  Export Data
             </button>
-        
         </form>
+        <?php if (isset($_SESSION['error'])): ?>
+                 <p style="color: red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
+            <?php endif; ?>
+
 
         </main>
     </body>

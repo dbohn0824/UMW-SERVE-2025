@@ -1,19 +1,35 @@
 <?php
     date_default_timezone_set("America/New_York");
+    session_cache_expire(30);
+    session_start();
         
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
 
-    if (isset($_GET['id'])) {
+
+    if (isset($_POST['id'])) {
         require_once('include/input-validation.php');
         require_once('database/dbPersons.php');
-        $args = sanitize($_GET);
-        if ($args['id']) {
-            $person = retrieve_person($args['id']);
+        $args = sanitize($_POST);
+        $id = $args['id'];
+        $_SESSION['volunteer_id'] = $id;
+        if ($id) {
+            $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
-            $person = retrieve_person('aaa');
+            echo 'ERROR.';
+            //$person = retrieve_person('aaa');
         }
+    } else if (isset($_SESSION['volunteer_id'])){
+        $person = retrieve_person($_SESSION['volunteer_id']);
+    } else {
+        echo 'ERROR.';
+        //$person = retrieve_person('aaa');
     }
+
+    // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+    $currentDate = date('Y-m-d');
+    $tot = get_hours_for_range($_SESSION['volunteer_id'], 1979-01-01, $currentDate);
+    update_hours($_SESSION['volunteer_id'], $tot);
 
     //$notRoot = $person->get_id() != 'vmsroot';
 ?>
@@ -21,7 +37,6 @@
 <html>
     <head>
         <?php require('universal.inc'); ?>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>SERVE Volunteer System | Dashboard</title>
     </head>
     <body>
@@ -42,7 +57,7 @@
                     }
                 ?>
                 
-                <div class="dashboard-item" data-link="inbox.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="inbox.php">
                     <img src="images/<?php echo $inboxIcon ?>">
                     <span>Notifications<?php 
                         if ($unreadMessageCount > 0) {
@@ -51,37 +66,16 @@
                     ?></span>
                 </div>
 
-
-                <div class="dashboard-item" data-link="volunteerReport.php">
-                    <img src="images/volunteer-history.svg">
-                    <span><center>View Volunteering Report</center></span>
-                </div>
-
-                <div class="dashboard-item" data-link="checkInCheckOut.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="checkInCheckOut.php">
                     <img src="images/add-person.svg">
                     <span><center>Check In/Check Out</center></span>
                 </div>
 
-                <div class="dashboard-item" data-link="editHours.php">
-                    <img src="images/add-person.svg">
-                    <span><center>Request Hours Change</center></span>
+                <div class="dashboard-item" data-link="volunteerHours.php">
+                    <img src="images/search.svg">
+                    <span><center>View Hours for Date Range</center></span>
                 </div>
 
-
-                <div class="dashboard-item" data-link="viewProfile.php">
-                    <img src="images/view-profile.svg">
-                    <span>View Profile</span>
-                </div>
-                <div class="dashboard-item" data-link="editProfile.php">
-                    <img src="images/manage-account.svg">
-                    <span>Edit Profile</span>
-                </div>
-                
-                <!-- autoredirects home as volunteer currently -->
-                <!-- <div class="dashboard-item" data-link="editHours.php">
-                        <img src="images/add-person.svg">
-                        <span>View & Change Event Hours</span>
-                </div> -->
             </div>
         </main>
     </body>
