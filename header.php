@@ -121,6 +121,7 @@
         $permission_array['vizualizedata.php'] = 1;
         $permission_array['volunteersearch.php'] = 1; 
         $permission_array['checkvolunteerstatus.php'] = 1; 
+        $permission_array['deletestaff.php'] = 1;
 
 
         
