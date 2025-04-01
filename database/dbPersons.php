@@ -350,9 +350,35 @@ function check_out($personID, $end_time) {
 
         //**************************************************************************** */
 
-        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database        
         $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
         update_hours($personID, $tot);
+
+        $query = "SELECT remaining_mandated_hours
+                  FROM dbpersons
+                  WHERE id = '$personID'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $remaining_mandated_hours = $row['remaining_mandated_hours'];
+
+        $query = "SELECT Total_hours
+                  FROM dbpersonhours
+                  WHERE personID = '$personID'
+                  AND date = '$current_date'
+                  ORDER BY Time_in DESC
+                  LIMIT 1";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $hours = $row['Total_hours'];
+
+        $remaining_mandated_hours = $remaining_mandated_hours - $hours;
+        if($remaining_mandated_hours < 0)
+            $remaining_mandated_hours = 0;
+        
+        $update_query = "UPDATE dbpersons 
+                         SET remaining_mandated_hours = '$remaining_mandated_hours' 
+                         WHERE id = '$personID'";
+        mysqli_query($con, $update_query);
 
         mysqli_close($con);
 
@@ -459,6 +485,38 @@ function get_hours_for_range($personID, $startDate, $endDate) {
         return $total_time;
     }
     return -1; // no check-ins found
+}
+
+function get_first_date($personID){
+    $con=connect();
+    $query = "SELECT date
+              FROM dbpersonhours
+              WHERE personID = '" . $personID . "'
+              AND Time_out IS NOT NULL
+              ORDER BY date
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        return $row['date'];
+    } else
+        return -1;
+}
+
+function get_last_date($personID){
+    $con=connect();
+    $query = "SELECT date
+              FROM dbpersonhours
+              WHERE personID = '" . $personID . "'
+              AND Time_out IS NOT NULL
+              ORDER BY date DESC
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        return $row['date'];
+    } else
+        return -1;
 }
 
 /* Delete a single check-in/check-out pair as defined by the given parameters */

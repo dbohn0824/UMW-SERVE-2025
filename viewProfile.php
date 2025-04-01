@@ -128,15 +128,33 @@
                     ?></p>
                 </div>
 
-                <div class="field-pair">
-                    <label>Total Hours</label>
-                    <p><?php echo $user->get_total_hours() ?></p>
-                </div>
+                <?php
+                    $type = $user->get_type();
+                    if($type == "v" || $type == "volunteer"){
+                        echo '<div class="field-pair">
+                            <label>Total Hours</label>
+                            <p>' . $user->get_total_hours() .'</p>
+                        </div>';
 
-                <div class="field-pair">
-                    <label>Remaining Mandated Hours</label>
-                    <p><?php echo $user->get_remaining_mandated_hours() ?></p>
-                </div>
+                        echo '<div class="field-pair">
+                            <label>Remaining Mandated Hours</label>
+                            <p>' .$user->get_remaining_mandated_hours() . '</p>
+                        </div>';
+
+                        $firstVol = '';
+                        $lastVol = '';
+
+                        echo '<div class="field-pair">
+                            <label>First Date Volunteered</label>
+                            <p>' . get_first_date($user->get_id()) .'</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>Latest Date Volunteered</label>
+                            <p>' . get_last_date($user->get_id()) .'</p>
+                        </div>';
+                    }
+                ?>
 
                 <div class="field-pair">
                     <label>Address</label>
