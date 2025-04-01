@@ -14,15 +14,18 @@
         $id = $args['id'];
         $_SESSION['volunteer_id'] = $id;
         if ($id) {
-            $person = retrieve_person($_SESSION['volunteer_id']);
+            header('Location: volunteerDashboard.php');
+            die();
         } else {
-            echo 'ERROR.';
+            header('Location: volunteerSearch.php');
+            die();
             //$person = retrieve_person('aaa');
         }
     } else if (isset($_SESSION['volunteer_id'])){
         $person = retrieve_person($_SESSION['volunteer_id']);
     } else {
-        echo 'ERROR.';
+        header('Location: volunteerSearch.php');
+        die();
         //$person = retrieve_person('aaa');
     }
 
@@ -46,7 +49,13 @@
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
-            <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
+            <?php
+                $hours = $person->get_remaining_mandated_hours();
+                if($hours > 0){
+                    echo '<p>You must serve ' . $hours . ' remaining court mandated hours.</p>';
+                    echo '<p>Request community service letter here.</p>';
+                }
+            ?>
             <div id="dashboard">
                 <?php
                     require_once('database/dbMessages.php');
