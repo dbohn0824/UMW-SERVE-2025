@@ -27,3 +27,6 @@ $dompdf->render();
 $dompdf->addInfo("Title", "SERVE Volunteer Sign-up");
 
 $dompdf->stream("Community_Service_Letter.pdf", ["Attachment" => 0]); 
+
+
+?> 

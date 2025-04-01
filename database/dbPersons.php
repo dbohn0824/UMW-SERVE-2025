@@ -18,7 +18,7 @@ include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
 
 /*
- * add a person to dbPersons table: if already there, return false
+ * add a person to dbpersons table: if already there, return false
  */
 
 function add_person($person) {
@@ -29,7 +29,7 @@ function add_person($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        /*mysqli_query($con,'INSERT INTO dbPersons (id, first_name, last_name, birthday, email, password) VALUES("' .
+        /*mysqli_query($con,'INSERT INTO dbpersons (id, first_name, last_name, birthday, email, password) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
@@ -124,7 +124,7 @@ function add_staff($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_query($con, 'INSERT INTO dbPersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' . 
             $person->get_last_name() . '","' .
@@ -155,7 +155,7 @@ function add_staff($person) {
 }
 
 /*
- * remove a person from dbPersons table.  If already there, return false
+ * remove a person from dbpersons table.  If already there, return false
  */
 
 function remove_person($id) {
@@ -173,7 +173,7 @@ function remove_person($id) {
 }
 
 /*
- * @return a Person from dbPersons table matching a particular id.
+ * @return a Person from dbpersons table matching a particular id.
  * if not in table, return false
  */
 
@@ -275,8 +275,8 @@ function check_in($personID, $start_time) {
     $result = mysqli_query($con, $query);
 
     if ($result) {
-        // Update the dbPersons table to mark the user as checked in
-        $update_query = "UPDATE dbPersons SET checked_in = 1 WHERE id = '$personID'";
+        // Update the dbpersons table to mark the user as checked in
+        $update_query = "UPDATE dbpersons SET checked_in = 1 WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
         mysqli_close($con);
@@ -314,8 +314,8 @@ function check_out($personID, $end_time) {
     $update_result = mysqli_query($con, $query);
 
     if ($update_result) {
-        // Update dbPersons to mark user as checked out
-        $update_query = "UPDATE dbPersons 
+        // Update dbpersons to mark user as checked out
+        $update_query = "UPDATE dbpersons 
                          SET checked_in = 0 
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
@@ -371,8 +371,8 @@ function check_out($personID, $end_time) {
 function can_check_in($personID) {
     $con = connect();
 
-    // Check the `checked_in` field in the dbPersons table to see if the person is already checked in
-    $query = "SELECT checked_in FROM dbPersons WHERE id = '$personID'";
+    // Check the `checked_in` field in the dbpersons table to see if the person is already checked in
+    $query = "SELECT checked_in FROM dbpersons WHERE id = '$personID'";
     $result = mysqli_query($con, $query);
     $person = mysqli_fetch_assoc($result);
 
@@ -391,8 +391,8 @@ function can_check_in($personID) {
 function can_check_out($personID) {
     $con = connect();
 
-    // Check if the user is currently checked in by looking at the checked_in field in dbPersons
-    $query = "SELECT checked_in FROM dbPersons WHERE id = '$personID'";
+    // Check if the user is currently checked in by looking at the checked_in field in dbpersons
+    $query = "SELECT checked_in FROM dbpersons WHERE id = '$personID'";
     $result = mysqli_query($con, $query);
     
     if ($result) {
@@ -509,11 +509,11 @@ function update_start_date($id, $new_start_date) {
 }*/
 
 /*
- * @return all rows from dbPersons table ordered by last name
+ * @return all rows from dbpersons table ordered by last name
  * if none there, return false
  */
 
-function getall_dbPersons($name_from, $name_to, $venue) {
+function getall_dbpersons($name_from, $name_to, $venue) {
     $con=connect();
     $query = "SELECT * FROM dbpersons";
     $query.= " WHERE venue = '" .$venue. "'"; 
@@ -535,7 +535,7 @@ function getall_dbPersons($name_from, $name_to, $venue) {
 }
 
 /*
-  @return all rows from dbPersons
+  @return all rows from dbpersons
 
 */
 function getall_volunteers() {
@@ -649,14 +649,14 @@ function make_a_person($result_row) {
 
 function getall_names($status, $type, $venue) {
     $con=connect();
-    $result = mysqli_query($con,"SELECT id,first_name,last_name,type FROM dbPersons " .
+    $result = mysqli_query($con,"SELECT id,first_name,last_name,type FROM dbpersons " .
             "WHERE venue='".$venue."' AND status = '" . $status . "' AND TYPE LIKE '%" . $type . "%' ORDER BY last_name,first_name");
     mysqli_close($con);
     return $result;
 }
 
 /*
- * @return all active people of type $t or subs from dbPersons table ordered by last name
+ * @return all active people of type $t or subs from dbpersons table ordered by last name
  */
 
 function getall_type($t) {
@@ -701,7 +701,7 @@ function getvolunteers_byevent($id){
 
 
 // retrieve only those persons that match the criteria given in the arguments
-function getonlythose_dbPersons($type, $status, $name, $day, $shift, $venue) {
+function getonlythose_dbpersons($type, $status, $name, $day, $shift, $venue) {
    $con=connect();
    $query = "SELECT * FROM dbpersons WHERE type LIKE '%" . $type . "%'" .
            " AND status LIKE '%" . $status . "%'" .
@@ -1336,17 +1336,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         elseif(($type=="general_volunteer_report" || $type == "total_vol_hours") && ($dateFrom && $dateTo && $lastFrom && $lastTo)){
             $today = date("Y-m-d");
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbpersons.status='$stats' GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";            
 	    else
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+                $query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
 		WHERE date >= '$dateFrom' AND date<='$dateTo'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
                 $result = mysqli_query($con,$query);
                 try {
@@ -1376,17 +1376,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             }
             elseif(($type == "general_volunteer_report" ||$type == "total_vol_hours") && ($dateFrom && $dateTo && $lastFrom == NULL  && $lastTo == NULL)){
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-                $query = $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+                $query = $query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbpersons.status='$stats' GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
 	    else
-		$query = $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = $query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE date >= '$dateFrom' AND date<='$dateTo'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
                 $result = mysqli_query($con,$query);
                 try {
@@ -1414,19 +1414,19 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             }
             elseif(($type == "general_volunteer_report" ||$type == "total_vol_hours") && ($dateFrom == NULL && $dateTo ==NULL && $lastFrom && $lastTo)){
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+                WHERE dbpersons.status='$stats'
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
 	    else
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name,dbPersons.last_name
+                GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
-                //$query = "SELECT * FROM dbPersons WHERE dbPersons.status='$stats'";
+                //$query = "SELECT * FROM dbpersons WHERE dbpersons.status='$stats'";
                 $result = mysqli_query($con,$query);
                 $nameRange = range($lastFrom,$lastTo);
                 $totHours = array();
@@ -1448,7 +1448,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function remove_profile_picture($id) {
         $con=connect();
-        $query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $query = 'UPDATE dbpersons SET profile_pic="" WHERE id="'.$id.'"';
         $result = mysqli_query($con,$query);
         mysqli_close($con);
         return True;
