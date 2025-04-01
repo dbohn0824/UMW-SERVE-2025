@@ -815,7 +815,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $emergency_contact_phone_type, $emergency_contact_relation, $type,
         $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
         $preferred_feedback_method, $hobbies, $professional_experience,
-        $disability_accomodation_needs, $training_complete, $training_date
+        $disability_accomodation_needs, $training_complete, $training_date,
+        $minor, $remaining_mandated_hours 
     ) {
         $query = "update dbpersons set 
             first_name='$first_name', last_name='$last_name', birthday='$birthday',
@@ -831,7 +832,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             hobbies='$hobbies', professional_experience='$professional_experience',
             disability_accomodation_needs='$disability_accomodation_needs',
             training_complete='$training_complete',
-            training_date='$training_date'
+            training_date='$training_date',
+            minor='$minor', remaining_mandated_hours='$remaining_mandated_hours'
             where id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);

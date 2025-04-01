@@ -84,29 +84,44 @@
         <br>
 	<p>An asterisk (<em>*</em>) indicates a required field.</p>
     
-        <fieldset class="section-box">
-            <legend>Login Credentials</legend>
-            <label>Username</label>
-            <p><?php echo $person->get_id() ?></p>
-
-            <!--<label>Password</label>-->
-                <p><a href='changePassword.php'>Change Password</a></p>
-        </fieldset>
+        <?php
+            if($editingSelf){
+                echo '
+                    <fieldset class="section-box">
+                        <legend>Login Credentials</legend>
+                        <label>Username</label>
+                            <p><?php echo $person->get_id() ?>
+                        <!--<label>Password</label>-->
+                            </p><p><a href="changePassword.php">Change Password</a></p>
+                    </fieldset>';
+            }
+        ?>
 
         <fieldset class="section-box">
             <legend>Personal Information</legend>
 
             <p>The following information helps us identify you within our system.</p>
             <label for="first_name"><em>* </em>First Name</label>
-            <input type="text" id="first_name" name="first_name" value="<?php echo hsc($person->get_first_name()); ?>" required placeholder="Enter your first name">
+            <input type="text" id="first_name" name="first_name" value="<?php echo hsc($person->get_first_name()); ?>" required placeholder="Enter first name">
 
             <label for="last_name"><em>* </em>Last Name</label>
-            <input type="text" id="last_name" name="last_name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter your last name">
+            <input type="text" id="last_name" name="last_name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter last name">
 
-            <label for="birthday"><em>* </em>Date of Birth</label>
-            <input type="date" id="birthday" name="birthday" value="<?php echo hsc($person->get_birthday()); ?>" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
+            <label>Minor</label>
+            <?php $minor = $person->isMinor()?>
+            <div class="radio-group">
+                <input type="radio" id="minor" name="minor" value="minor" <?php if ($minor == '1') echo 'checked'; ?> required><label for="type">Minor</label>
+                <input type="radio" id="adult" name="minor" value="adult" <?php if ($minor == '0') echo 'checked'; ?> required><label for="type">Adult</label>
+            </div>
 
+            <div class="field-pair">
+                <label>Total Hours</label>
+                <p><?php echo $person->get_total_hours() ?></p>
+            </div>
 
+            <label for="last_name"><em>* </em>Remaining Mandated Hours</label>
+            <input type="text" id="remaining_mandated_hours" name="remaining_mandated_hours" value="<?php echo hsc($person->get_remaining_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
+            
             <label for="street_address"><em>* </em>Street Address</label>
             <input type="text" id="street_address" name="street_address" value="<?php echo hsc($person->get_street_address()); ?>" required placeholder="Enter your street address">
 
@@ -147,15 +162,6 @@
 
             <label for="phone1"><em>* </em>Phone Number</label>
             <input type="tel" id="phone1" name="phone1" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
-
-            <label><em>* </em>Phone Type</label>
-            <div class="radio-group">
-                <?php $type = $person->get_phone1type(); ?>
-                <input type="radio" id="phone-type-cellphone" name="phone1type" value="cellphone" <?php if ($type == 'cellphone') echo 'checked'; ?> required><label for="phone-type-cellphone">Cell</label>
-                <input type="radio" id="phone-type-home" name="phone1type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
-                <input type="radio" id="phone-type-work" name="phone1type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
-            </div>
-
         </fieldset>
 
         <fieldset class="section-box">
@@ -173,130 +179,20 @@
 
             <label for="emergency_contact_phone"><em>* </em>Phone Number</label>
             <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" value="<?php echo formatPhoneNumber($person->get_emergency_contact_phone()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
-
-            <label><em>* </em>Phone Type</label>
-            <div class="radio-group">
-                <?php $type = $person->get_emergency_contact_phone_type(); ?>
-                <input type="radio" id="phone-type-cellphone" name="emergency_contact_phone_type" value="cellphone" <?php if ($type == 'cellphone') echo 'checked'; ?> required><label for="phone-type-cellphone">Cell</label>
-                <input type="radio" id="phone-type-home" name="emergency_contact_phone_type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
-                <input type="radio" id="phone-type-work" name="emergency_contact_phone_type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
-            </div>
-        
         </fieldset>
 
-        <fieldset class="section-box">
+        <!--<fieldset class="section-box">
             <legend>Volunteer Information</legend>
 
             <label>Account Type</label>
-            
-            <!--
             <?php $account_type = $person->get_type()?>
             <div class="radio-group">
                 <input type="radio" id="volunteer" name="type" value="volunteer" <?php if ($account_type == 'volunteer') echo 'checked'; ?> required><label for="type">Volunteer</label>
                 <input type="radio" id="participant" name="type" value="participant" <?php if ($account_type == 'participant') echo 'checked'; ?> required><label for="type">Participant</label>
             </div>
-            -->
+            
             <input type="hidden" name="type" value="v">
-
-
-            <label for="school_affiliation"><em>* </em>School Affiliation</label>
-            <input type="text" id="school_affiliation" name="school_affiliation" value="<?php echo hsc($person->get_school_affiliation()); ?>" required placeholder="Enter your affiliated school.">
-
-            <label><em>* </em>Tshirt Size</label>
-            <div class="radio-group">
-                <?php $size = $person->get_tshirt_size(); ?>
-                <input type="radio" id="tshirt-size-xs" name="tshirt_size" value="xs" <?php if ($size == 'xs') echo 'checked'; ?> required><label for="tshirt-size-xs">XS</label>
-                <input type="radio" id="tshirt-size-s" name="tshirt_size" value="s" <?php if ($size == 's') echo 'checked'; ?> required><label for="tshirt-size-s">S</label>
-                <input type="radio" id="tshirt-size-m" name="tshirt_size" value="m" <?php if ($size == 'm') echo 'checked'; ?> required><label for="tshirt-size-m">M</label>
-                <input type="radio" id="tshirt-size-l" name="tshirt_size" value="l" <?php if ($size == 'l') echo 'checked'; ?> required><label for="tshirt-size-l">L</label>
-                <input type="radio" id="tshirt-size-xl" name="tshirt_size" value="xl" <?php if ($size == 'xl') echo 'checked'; ?> required><label for="tshirt-size-xl">XL</label>
-            </div>
-
-            <label for="photo_release"><em>* </em>Photo Release Restrictions: Can your photo be taken and used on our website and social media?</label>
-            <div class="radio-group">
-                <?php $photo_release = $person->get_photo_release()?>
-                <input type="radio" id="Restricted" name="photo_release" value="Restricted" <?php if ($photo_release == 'Restricted') echo 'checked'; ?> required><label for="photo_release">Restricted</label>
-                <input type="radio" id="Not Restricted" name="photo_release" value="Not Restricted" <?php if ($photo_release == 'Not Restricted') echo 'checked'; ?> required><label for="photo_release">Not Restricted</label>
-            </div>
-
-            <label for="photo_release_notes"><em>* </em>Photo Release Restriction Notes (or N/A)</label>
-            <input type="text" id="photo_release_notes" name="photo_release_notes" value="<?php echo hsc($person->get_photo_release_notes()); ?>" required placeholder="Do you have any specific notes about your photo release status?">
-        </fieldset>
-
-        <fieldset class="section-box">
-            <legend>Volunteer Training</legend>
-
-            <p>Please provide details about your training status.</p>
-
-            <label for="training_complete"><em>* </em>Training Completed</label>
-            <div class="radio-group">
-                <?php $trainingComplete = $person->get_training_complete(); ?>
-                <input type="radio" id="training-complete-yes" name="training_complete" value="1" 
-                    <?php if ($trainingComplete == '1') echo 'checked'; ?> required>
-                <label for="training-complete-yes">Yes</label>
-                <input type="radio" id="training-complete-no" name="training_complete" value="0" 
-                    <?php if ($trainingComplete == '0') echo 'checked'; ?> required>
-                <label for="training-complete-no">No</label>
-            </div>
-
-            <div id="training-date-container" style="display: none;">
-                <label for="training_date">Training Date</label>
-                <input type="date" id="training_date" name="training_date" 
-                    value="<?php echo hsc($person->get_training_date()); ?>" 
-                    max="<?php echo date('Y-m-d'); ?>" 
-                    placeholder="Enter training date">
-            </div>
-        </fieldset>
-
-        <fieldset class="section-box">
-            <legend>Volunteer Orientation</legend>
-
-            <p>Please provide details about your orientation status.</p>
-
-            <label for="orientation_complete"><em>* </em>Orientation Completed</label>
-            <div class="radio-group">
-                <?php $orientationComplete = $person->get_orientation_complete();?>
-                <input type="radio" id="orientation-complete-yes" name="orientation_complete" value="1" 
-                    <?php if ($orientationComplete == '1') echo 'checked'; ?> required>
-                <label for="orientation-complete-yes">Yes</label>
-                <input type="radio" id="orientation-complete-no" name="orientation_complete" value="0" 
-                    <?php if ($orientationComplete == '0') echo 'checked'; ?> required>
-                <label for="orientation-complete-no">No</label>
-            </div>
-
-            <div id="orientation-date-container" style="display: none;">
-                <label for="orientation_date">Orientation Date</label>
-                <input type="date" id="orientation_date" name="orientation_date" 
-                    value="<?php echo hsc($person->get_orientation_date()); ?>" 
-                    max="<?php echo date('Y-m-d'); ?>" 
-                    placeholder="Enter orientation date">
-            </div>
-        </fieldset>
-
-        <fieldset class="section-box">
-            <legend>Background Check</legend>
-
-            <p>Please provide details about your background check status.</p>
-
-            <label for="background_complete"><em>* </em>Background Check Completed</label>
-            <div class="radio-group">
-                <?php $backgroundComplete = $person->get_background_complete(); ?>
-                <input type="radio" id="background-complete-yes" name="background_complete" value="1" 
-                    <?php if ($backgroundComplete == '1') echo 'checked'; ?> required>
-                <label for="background-complete-yes">Yes</label>
-                <input type="radio" id="background-complete-no" name="background_complete" value="0" 
-                    <?php if ($backgroundComplete == '0') echo 'checked'; ?> required>
-                <label for="background-complete-no">No</label>
-            </div>
-
-            <div id="background-date-container" style="display: none;">
-                <label for="background_date">Background Check Date</label>
-                <input type="date" id="background_date" name="background_date" 
-                    value="<?php echo hsc($person->get_background_date()); ?>" 
-                    max="<?php echo date('Y-m-d'); ?>" 
-                    placeholder="Enter background check date">
-            </div>
-        </fieldset>
+        </fieldset>-->
 
         <script>
             // Function to toggle the visibility and required attribute of the date inputs based on the radio buttons
@@ -346,40 +242,6 @@
             });
         </script>
 
-
-        <fieldset class="section-box">
-            <legend>Optional Information</legend>
-
-            <label>How did you hear about SERVE?</label>
-            <input type="text" id="how_you_heard_of_stepva" name="how_you_heard_of_stepva" value="<?php echo hsc($person->get_how_you_heard_of_stepva()); ?>" placeholder="">
-
-            <label>What is your preferred contact method?</label>
-            <div class="radio-group">
-                <?php $preferred_feedback_method = $person->get_preferred_feedback_method(); ?>
-
-                <input type="radio" id="text" name="preferred_feedback_method" value="text" <?php if ($type == 'text') echo 'checked'; ?> required>
-                <label for="text">Text</label>
-                
-                <input type="radio" id="email" name="preferred_feedback_method" value="email" <?php if ($type == 'email') echo 'checked'; ?> required>
-                <label for="email">Email</label>
-                
-                <input type="radio" id="no-preference" name="preferred_feedback_method" value="no-preference" 
-                <?php if ($preferred_feedback_method == 'no-preference') echo 'checked'; ?> required>
-                <label for="no-preference">No preference</label>
-            </div>
-
-            <label>What are your hobbies? Are there any specific skills/interests you have that you believe could be useful for volunteering at SERVE?</label>
-            <input type="text" id="hobbies" name="hobbies" value="<?php echo hsc($person->get_hobbies()); ?>" placeholder="">
-
-            <label>Do you have any other experience with volunteering?</label>
-            <input type="text" id="professional_experience" name="professional_experience" value="<?php echo hsc($person->get_professional_experience()); ?>" placeholder="">
-
-            <label>Are there any accomodations you may need? Anything we should keep in mind?</label>
-            <input type="text" id="disability_accomodation_needs" name="disability_accomodation_needs" value="<?php echo hsc($person->get_disability_accomodation_needs()); ?>" placeholder="">
-
-        </fieldset>
-
-        <p></p>
         <p></p>
 
         <input type="hidden" name="id" value="<?php echo $id; ?>">

@@ -65,8 +65,6 @@ table, td, tr, th, form, fieldset, em, button, a {
     --accent-color: #CFA118;
     --secondary-accent-color: #CFA118;
   
-
-
     --calendar-event-color: #000000;
     --calendar-event-color-hover: var(--main-color);
     --calendar-today-border: 2px solid var(--secondary-accent-color);

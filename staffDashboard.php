@@ -108,6 +108,15 @@
                         <i class="fa-solid fa-list"></i>
                         <span>View Events</span>
                     </div>-->
+
+                    
+                    <div class="dashboard-item" data-link="editVolunteer.php">
+                        <img src="images/manage-account.svg">
+                        <span>Edit Volunteer</span>
+                    </div>
+
+
+
                     <div class="dashboard-item" data-link="register.php">
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
@@ -116,18 +125,23 @@
                         <img src="images/delete.svg">
                         <span>Delete Volunteer</span>
                     </div>
+
                     <div class="dashboard-item" data-link="deleteStaff.php">
                         <img src="images/delete.svg">
                         <span>Delete Staff</span>
                       </div>
                     <div class="dashboard-item" data-link="editHours.php">
+
+                    <!--<div class="dashboard-item" data-link="editHours.php">
+
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
-                    </div>
+                    </div>-->
                     <div class="dashboard-item" data-link="registerStaff.php">
                         <img src="images/add-person.svg">
                         <span>Register Staff</span>
                     </div>
+
                     <div class="dashboard-item" data-link="resources.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Upload Resources</center></span>
@@ -136,7 +150,11 @@
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                         <span><center>Export Volunteer Data</center></span>
                     </div>
-                    <div class="dashboard-item" data-link="vizualizeData.php">
+                    <div class="dashboard-item" data-link="searchHours.php">
+                        <img src="images/search.svg">
+                        <span><center>View & Edit Volunteer Hours</center></span>
+                    </div>
+                    <div class="dashboard-item" data-link="visualizeData.php">
                         <img src="images/bargraph.svg">
                         <span>Vizualize Data</span>
                     </div>
@@ -163,10 +181,10 @@
                     </div>-->
                 <?php endif ?>
                 <?php if ($notRoot) : ?>
-                    <div class="dashboard-item" data-link="volunteerReport.php">
+                    <!--<div class="dashboard-item" data-link="volunteerReport.php">
                         <img src="images/volunteer-history.svg">
                         <span><center>View Volunteering Report</center></span>
-                    </div>
+                    </div>-->
                     <!--<div class="dashboard-item" data-link="editHours.php">
                         <img src="images/add-person.svg">
                         <span><center>View & Change My Event Hours</center></span>
@@ -180,11 +198,6 @@
                     <img src="images/logout.svg">
                     <span>Log out</span>
                 </div>
-                <!-- autoredirects home as volunteer currently -->
-                <!-- <div class="dashboard-item" data-link="editHours.php">
-                        <img src="images/add-person.svg">
-                        <span>View & Change Event Hours</span>
-                </div> -->
             </div>
         </main>
     </body>
