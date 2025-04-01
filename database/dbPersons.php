@@ -1461,6 +1461,51 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return True;
     }    
 
+
+    function find_staff($name) {
+        $con = connect();
+
+        $searchTerm = '%' . $name . '%';
+        $nameSafe = mysqli_real_escape_string($con, $name);
+
+        $query = "SELECT * FROM dbpersons
+                   WHERE type = 'admin' 
+                   AND (first_name LIKE '%$nameSafe%' OR last_name LIKE '%$nameSafe%')";
+        
+        $result = mysqli_query($con, $query);
+
+        $staff = [];
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $staff[] = new Person(
+                    $row['id'],
+                    $row['password'],
+                    $row['first_name'],
+                    $row['last_name'],
+                    $row['street_address'],
+                    $row['city'],
+                    $row['state'],
+                    $row['zip_code'],
+                    $row['notes'],
+                    $row['phone1'],
+                    $row['email'],
+                    $row['minor'],
+                    $row['total_hours'],
+                    $row['remaining_mandated_hours'],
+                    $row['emergency_contact_first_name'],
+                    $row['emergency_contact_last_name'],
+                    $row['emergency_contact_phone'],
+                    $row['emergency_contact_relation'],
+                    $row['type']
+                );
+            }   
+        }
+
+        mysqli_close($con);
+        return $staff;
+    }
+
     function update_first_name($id, $first_name){
         $con=connect();
         $stmt = $con->prepare('UPDATE dbpersons SET first_name = ? WHERE id = ?');
@@ -1542,4 +1587,5 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($con);
         return True;
     } 
+
 
