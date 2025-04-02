@@ -59,6 +59,56 @@ function add_person($person) {
             $person->get_emergency_contact_phone() . '","' .
             $person->get_emergency_contact_relation() . '")'
             );
+        /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
+            $person->get_id() . '","' . 
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            $person->isMinor() . '","' .
+            $person->get_total_hours() . '","' .
+            $person->get_remaining_mandated_hours() . '","' .
+            $person->get_checked_in() . '","' .
+            $person->get_phone1() . '","' .
+            $person->get_email() . '","' .
+            'n/a' . '","' . /* ("notes", we don't use this) */
+         //   $person->get_type() . '","' .
+           // $person->get_password() . '","' .
+            //$person->get_street_address() . '","' .
+            //$person->get_city() . '","' .
+            //$person->get_state() . '","' .
+            //$person->get_zip_code() . '","' .
+           // $person->get_emergency_contact_first_name() . '","' .
+           // $person->get_emergency_contact_last_name() . '","' .
+           // $person->get_emergency_contact_phone() . '","' .
+           // $person->get_emergency_contact_relation() . '","'
+            //$person->get_start_date() . '","' .
+            //"n/a" . '","' . /* ("venue", we don't use this) */
+            //$person->get_phone1type() . '","' .
+            //$person->get_emergency_contact_phone_type() . '","' .
+            //$person->get_birthday() . '","' .
+            //'n/a' . '","' . /* ("contact_num", we don't use this) */
+            //'n/a' . '","' . /* ("contact_method", we don't use this) */
+            //$person->get_status() . '","' .
+            //'n/a' . '","' . /* ("profile_pic", we don't use this) */
+            //'gender' . '","' .
+            //$person->get_tshirt_size() . '","' .
+            //$person->get_how_you_heard_of_stepva() . '","' .
+            //'sensory_sensitivities' . '","' .
+            //$person->get_disability_accomodation_needs() . '","' .
+            //$person->get_school_affiliation() . '","' .
+            //'race' . '","' .
+            //$person->get_preferred_feedback_method() . '","' .
+            //$person->get_hobbies() . '","' .
+            //$person->get_professional_experience() . '","' .
+            //$person->get_archived() . '","' .
+            //$person->get_photo_release() . '","' .
+            //$person->get_photo_release_notes() . '","' .
+            //$person->get_training_complete() . '","' .
+            //$person->get_training_date() . '","' .
+            //$person->get_orientation_complete() . '","' .
+            //$person->get_orientation_date() . '","' .
+            //$person->get_background_complete() . '","' .
+            //$person->get_background_date() . '");'
+      //  );
         mysqli_close($con);
         return true;
     }

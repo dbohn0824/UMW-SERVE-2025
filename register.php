@@ -1,5 +1,4 @@
 <?php
-    session_start();
     // In this section, I've removed code that ensures the user is already logged in.
     // This is because we want users without accounts to be able to create new accounts.
 
@@ -191,14 +190,8 @@
             }
 
             $status = "Active";
-            $checked_in = 0;
+            $checked_in = false;
             $isMinor = $args['isMinor'];
-            if ($isMinor == "No") {
-                $isMinor = 0;
-            } else {
-                $isMinor = 1;
-            }
-
             $total_hours = 0;
             $notes = '';
             $type = 'v';
@@ -232,19 +225,57 @@
                     $type
             );
 
+            /*$newperson = new Person(
+                //$id, // (id = username)
+                //$password,
+                date("Y-m-d"),
+                $first_name,
+                $last_name,
+                //$birthday,
+                $street_address,
+                $city,
+                $state,
+                $zip_code,
+                $phone1,
+                //$phone1type,
+                $email,
+                $emergency_contact_first_name,
+                $emergency_contact_last_name,
+                $emergency_contact_phone,
+                //$emergency_contact_phone_type,
+                $emergency_contact_relation,
+                /* $tshirt_size,
+                $school_affiliation,
+                $photo_release,
+                $photo_release_notes, */
+                //$type, // admin or volunteer or participant...
+                //$status,
+                //$archived,
+                //$how_you_heard_of_stepva,
+                //$preferred_feedback_method,
+                //$hobbies,
+                //$professional_experience,
+                //$disability_accomodation_needs,
+                //$training_complete,
+                //$training_date,
+              //  $orientation_complete,
+                //$orientation_date,
+                //$background_complete,
+                //$background_date,
+               // $isMinor,
+                //$total_hours
+            //);
+
             $result = add_person($newperson);
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
-                ?>
-                <html>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
-                    <main>
-                        <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
-                    </main>
-                </html>
-                <?php
-            } 
+                /*if ($loggedIn) {
+                    echo '<script>document.location = "index.php?registerSuccess";</script>';
+                } else {*/
+                    echo '<script>document.location = "login.php?registerSuccess";</script>';
+                /*}*/
+            }
         } else {
             require_once('registrationForm.php'); 
         }

@@ -80,7 +80,7 @@ class Person {
 		$this->minor = $minor;
 		$this->total_hours = $total_hours;
 		$this->remaining_mandated_hours = $remaining_mandated_hours;
-		$this->checked_in = 0;
+		$this->checked_in = false;
 		$this->phone1 = $phone1;
 		$this->email = $email;
 		$this->notes = $notes;
