@@ -306,11 +306,23 @@ function check_out($personID, $end_time) {
         return false;  
     }
 
+    // Gets most recent check-in time
+    $query = "SELECT Time_in
+              FROM dbpersonhours
+              WHERE personID = '$personID'
+              AND date = '$current_date'
+              ORDER BY Time_in desc
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+    $Time_in = $row['Time_in'];
+
     // Proceed to update the check-out time and mark the user as checked out
     $query = "UPDATE dbpersonhours 
               SET Time_out = '$end_time' 
               WHERE personID = '$personID'
-              AND date = '$current_date'";  
+              AND date = '$current_date'
+              AND Time_in = '$Time_in'";  
     $update_result = mysqli_query($con, $query);
 
     if ($update_result) {
@@ -320,9 +332,41 @@ function check_out($personID, $end_time) {
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
+        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database        
+        $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
+        update_hours($personID, $tot);
+
+        // Gets remaining court mandated hours
+        $query = "SELECT remaining_mandated_hours
+                  FROM dbpersons
+                  WHERE id = '$personID'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $remaining_mandated_hours = $row['remaining_mandated_hours'];
+
+        // Gets hours for most recent volunteering session
+        $query = "SELECT Total_hours
+                  FROM dbpersonhours
+                  WHERE personID = '$personID'
+                  AND date = '$current_date'
+                  AND Time_in = '$Time_in'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $hours = $row['Total_hours'];
+
+        // Calculates remaining mandated hours after most recent volunteering session
+        $remaining_mandated_hours = $remaining_mandated_hours - $hours;
+        if($remaining_mandated_hours < 0)
+            $remaining_mandated_hours = 0;
+        
+        // Updates remaining mandated hours
+        $update_query = "UPDATE dbpersons 
+                         SET remaining_mandated_hours = '$remaining_mandated_hours' 
+                         WHERE id = '$personID'";
+        mysqli_query($con, $update_query);
+
         //now update total hours in dbpersons with hours accumilated for the day 
-
-
+        
         //get total hours for the day
         /*$query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
                   date = ?"; 
@@ -349,36 +393,6 @@ function check_out($personID, $end_time) {
         $stmt->execute();*/
 
         //**************************************************************************** */
-
-        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database        
-        $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
-        update_hours($personID, $tot);
-
-        $query = "SELECT remaining_mandated_hours
-                  FROM dbpersons
-                  WHERE id = '$personID'";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_fetch_assoc($result);
-        $remaining_mandated_hours = $row['remaining_mandated_hours'];
-
-        $query = "SELECT Total_hours
-                  FROM dbpersonhours
-                  WHERE personID = '$personID'
-                  AND date = '$current_date'
-                  ORDER BY Time_in DESC
-                  LIMIT 1";
-        $result = mysqli_query($con, $query);
-        $row = mysqli_fetch_assoc($result);
-        $hours = $row['Total_hours'];
-
-        $remaining_mandated_hours = $remaining_mandated_hours - $hours;
-        if($remaining_mandated_hours < 0)
-            $remaining_mandated_hours = 0;
-        
-        $update_query = "UPDATE dbpersons 
-                         SET remaining_mandated_hours = '$remaining_mandated_hours' 
-                         WHERE id = '$personID'";
-        mysqli_query($con, $update_query);
 
         mysqli_close($con);
 
