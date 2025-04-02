@@ -127,6 +127,22 @@
                                     $check = "No";
                                 else
                                     $check = "Yes";
+                                $phone = $person->get_phone1();
+
+                                // format value for phone number 
+                                $phone = $person->get_phone1();
+                                $phone1 = substr($phone, 0, 3);
+                                $phone2 = substr($phone, 3, 3);
+                                $phone3 = substr($phone, 6, 4);
+                                $phone = '('.$phone1.') '.$phone2.'-'.$phone3;
+
+                                // format value for emergency contact phone number
+                                $ephone = $person->get_emergency_contact_phone();
+                                $ephone1 = substr($phone, 0, 3);
+                                $ephone2 = substr($phone, 3, 3);
+                                $ephone3 = substr($phone, 6, 4);
+                                $ephone = '('.$phone1.') '.$phone2.'-'.$phone3;
+                                
                                 echo '
                                         <tr>
                                             <td>
