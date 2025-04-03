@@ -9,7 +9,6 @@ fetch("chartScript.php")
     createChart(data, 'bar')
   });
 
-  var_dump(data);
 
 function createChart(chartData, type){
   new Chart(ctx, {

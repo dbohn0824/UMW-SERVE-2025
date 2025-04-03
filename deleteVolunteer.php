@@ -67,6 +67,7 @@
                             } else {
                                 $notFirst = true;
                                 }
+                                /* could probably add something on line 75 for a confirmation message, but idk what tbh */
                                 echo '
                                     <tr>
                                         <td>' . $person->get_first_name() . '</td>
