@@ -43,11 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (check_out($personID, $end_time)) {
                 echo "Successfully checked out at $end_time.";
                 var_dump($redirect_url);
-                
-                // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-                /*$currentDate = date('Y-m-d');
-                $tot = get_hours_for_range($personID, 1979-01-01, $currentDate);
-                update_hours($personID, $tot);*/
 
                 header("Location: $redirect_url");
             } else {

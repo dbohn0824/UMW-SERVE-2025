@@ -14,14 +14,15 @@
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
-    } else if (isset($_GET['id'])) {
+    } else if (isset($_SESSION['volunteer_id'])) {
         $loggedIn = false;
         require_once('include/input-validation.php');
         require_once('database/dbPersons.php');
-        $args = sanitize($_GET);
-        if ($args['id']) {
-            $userID = $args['id'];
+        if ($_SESSION['volunteer_id']) {
+            $userID = $_SESSION['volunteer_id'];
         } else {
+            header('Location: volunteerSearch.php');
+            die();
             $userID = 'aaa';
         }
     }
@@ -43,7 +44,7 @@
                 //$messages = array(); //get_user_messages($userID);
                 $messages = get_user_read_messages($userID);
                 $newMessages = get_user_unread_messages($userID);
-                mark_all_as_read($userID);
+                //mark_all_as_read($userID);
                 if (count($newMessages) > 0): ?>
                     <div class="table-wrapper">
                         <h2>New Notifications</h2>

@@ -131,6 +131,8 @@
                 <?php
                     $type = $user->get_type();
                     if($type == "v" || $type == "volunteer"){
+                        // Re-sum hours just in case there have been any updates/modifications to the database (unlikely, but a failsafe).
+                        synchronize_hours($user->get_id());
                         echo '<div class="field-pair">
                             <label>Total Hours</label>
                             <p>' . $user->get_total_hours() .'</p>
@@ -140,9 +142,6 @@
                             <label>Remaining Mandated Hours</label>
                             <p>' .$user->get_remaining_mandated_hours() . '</p>
                         </div>';
-
-                        $firstVol = '';
-                        $lastVol = '';
 
                         echo '<div class="field-pair">
                             <label>First Date Volunteered</label>

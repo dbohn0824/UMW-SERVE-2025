@@ -59,6 +59,7 @@ function add_person($person) {
             $person->get_emergency_contact_phone() . '","' .
             $person->get_emergency_contact_relation() . '")'
             );
+        // Non-functional/outdated insert query
         /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
             $person->get_id() . '","' . 
             $person->get_first_name() . '","' .
@@ -332,9 +333,8 @@ function check_out($personID, $end_time) {
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
-        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database        
-        $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
-        update_hours($personID, $tot);
+        // Re-sum total hours
+        synchronize_hours($personID);
 
         // Gets remaining court mandated hours
         $query = "SELECT remaining_mandated_hours
@@ -365,8 +365,10 @@ function check_out($personID, $end_time) {
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
+        /* Non-functional/outdated queries to update total hours for day and overall */
+        /*                   vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv                   */
+
         //now update total hours in dbpersons with hours accumilated for the day 
-        
         //get total hours for the day
         /*$query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
                   date = ?"; 
@@ -531,6 +533,15 @@ function get_last_date($personID){
         return $row['date'];
     } else
         return -1;
+}
+
+// Loose function that automatically re-sums total volunteering hours
+function synchronize_hours($personID){
+    $currentDate = date('Y-m-d');
+    $tot = get_hours_for_range($personID, 1979-01-01, $currentDate);
+    update_hours($personID, $tot);
+
+    return -1;
 }
 
 /* Delete a single check-in/check-out pair as defined by the given parameters */
