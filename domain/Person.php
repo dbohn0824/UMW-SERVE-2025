@@ -96,7 +96,9 @@ class Person {
 		$this->type = $type; // volunteer or participant...
 
 		// access_level = 1 for users, and = 3 for admin
-		if ($id == 'vmsroot') {
+		//if ($id == 'vmsroot') {
+		//d.bohn changed this so new staff members will have access to staff features
+		  if ($type == 'admin') {
 			$this->access_level = 3;
 		} else {
 			$this->access_level = 1;
