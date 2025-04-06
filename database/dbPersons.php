@@ -59,6 +59,7 @@ function add_person($person) {
             $person->get_emergency_contact_phone() . '","' .
             $person->get_emergency_contact_relation() . '")'
             );
+
         // Non-functional/outdated insert query
         /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
             $person->get_id() . '","' . 
@@ -121,6 +122,8 @@ function add_staff($person) {
     if (!$person instanceof Person)
         die("Error: add_person type mismatch");
     $con=connect();
+    $password = $person->get_password(); 
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
@@ -137,7 +140,7 @@ function add_staff($person) {
             $person->get_email() . '","' .
             'n/a' . '","' . 
             $person->get_type() . '","' .
-            $person->get_password() . '","' . 
+            $hashed_password . '","' . 
             $person->get_street_address() . '","' .
             $person->get_city() . '","' .
             $person->get_state() . '","' . 

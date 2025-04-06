@@ -26,7 +26,7 @@
         //var_dump($_POST['volunteer_id']);
         // need to redirect to view profile if this exists instead of just going to this page again.
         $location = "viewProfile.php?id=" . $_POST['volunteer_id'];
-        var_dump($location);
+     
         header("Location: " . $location);
         die();
     }
