@@ -5,7 +5,9 @@
         
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
-
+    /*use PHPMailer\PHPMailer\PHPMailer; 
+    use PHPMailer\PHPMailer\SMTP; 
+    use PHPMailer\PHPMailer\Exception;*/
 
     if (isset($_POST['id'])) {
         require_once('include/input-validation.php');
@@ -34,7 +36,8 @@
         $vol_info = $person->get_first_name() . " " . $person->get_last_name() . " (User ID: " . $person->get_id() . ")";
         // FIND A WAY TO ADD SOME SORT OF LINK TO THEIR PROFILE IN MESSAGE IG?
         $message = "A community service letter has been requested by " . $vol_info . ".\nView their profile here: ";
-        send_system_message("vmsroot", "New Community Service Letter Request", $message);
+        $title = "New Community Service Letter Request - " . $vol_info;
+        send_system_message("vmsroot", $title, $message);
         // NEED TO HAVE A MESSAGE SHOW TO THE USER VERIFYING THAT A REQUEST HAS BEEN SENT.
         $currentDate = date("m d, Y");
         $message = "Hello!\nYou have officially requested a community service letter as of " . $currentDate . ". 
@@ -44,6 +47,51 @@
         // FIX ERROR IN WHICH USERS CANNOT VIEW MESSAGE CONTENTS
         // ADD OPTION FOR STAFF TO SEND LETTER THROUGH MESSAGES MAYBE OR CONTACT VOLUNTEER VIA MESSAGES??
         send_system_message($person->get_id(), "Community Service Letter Request Successful", $message);
+
+        /* testing out mailing via phpMailer, though it's not working as of yet */
+        /* current issue: 'Mailer Error: SMTP Error: Could not authenticate. SMTP server error: QUIT command failed' */
+        
+        /*require 'PHPMailer-master/src/PHPMailer.php';
+        require 'PHPMailer-master/src/SMTP.php';
+        require 'PHPMailer-master/src/Exception.php';
+        
+        //Create an instance; passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp-relay.gmail.com';                 //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'advancingtactician@gmail.com';         //SMTP username
+            $mail->Password   = 'Candy!for2';                           //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+            //Recipients
+            $mail->setFrom('advancingtactician@gmail.com', 'Mailer');
+            $mail->addAddress('lintandsoap@proton.me', 'Joe User');     //Add a recipient
+            //$mail->addAddress('ellen@example.com');               //Name is optional
+            //$mail->addReplyTo('info@example.com', 'Information');
+            //$mail->addCC('cc@example.com');
+            //$mail->addBCC('bcc@example.com');
+
+            //Attachments
+            //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML
+            $mail->Subject = 'Here is the subject';
+            $mail->Body    = 'A community service letter has been requested by ' . $vol_info . '\nView their profile here: <a href=""></a>';
+            $mail->AltBody = 'A community service letter has been requested by ' . $vol_info . '\nView their information in the SERVE Volunteer System.';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }*/
     }
 
     // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
