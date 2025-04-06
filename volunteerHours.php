@@ -13,8 +13,9 @@
         if ($_SESSION['volunteer_id']) {
             $person = retrieve_person($_SESSION['volunteer_id']);
         } else {
-            echo 'ERROR. VOLUNTEER ID NOT FOUND. DEFAULTING TO "AAA".';
-            $person = retrieve_person('aaa');
+            echo 'ERROR. VOLUNTEER ID NOT FOUND. REDIRECTING TO PERSON SEARCH.';
+            header('Location: volunteerSearch.php');
+            die();
         }
     }
 

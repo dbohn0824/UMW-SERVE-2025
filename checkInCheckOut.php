@@ -39,10 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-$currentDate = date('Y-m-d');
-$tot = get_hours_for_range($_SESSION['volunteer_id'], 1979-01-01, $currentDate);
-update_hours($_SESSION['volunteer_id'], $tot);
+synchronize_hours($personID);
 
 ?>
 
@@ -105,11 +102,13 @@ update_hours($_SESSION['volunteer_id'], $tot);
             <p></p>
             
             <div id="dashboard">
+
+                <!-- NOTE: NEED TO ADD SOME WAY FOR VOLUNTEERS TO SELECT IF ITS A STT EVENT WHEN ***CHECKING IN*** -->
+
                 <div class="dashboard-item" onclick="document.getElementById('checkin-form').submit();">
                     <img src="images/confirm.png" alt="Check In/Out">
                     <span><center>Check In</center></span>
                 </div>
-
 
                 <form id="checkin-form" method="POST" action="hours.php" style="display: none;">
                     <input type="hidden" name="action" value="checkin">

@@ -3,7 +3,6 @@
     session_start();
 
     date_default_timezone_set("America/New_York");
-    
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
         if (isset($_SESSION['change-password'])) {
             header('Location: changePassword.php');
@@ -125,21 +124,18 @@
                         <img src="images/delete.svg">
                         <span>Delete Volunteer</span>
                     </div>
-
-                    <div class="dashboard-item" data-link="deleteStaff.php">
-                        <img src="images/delete.svg">
-                        <span>Delete Staff</span>
-                      </div>
-                    <div class="dashboard-item" data-link="editHours.php">
-
                     <!--<div class="dashboard-item" data-link="editHours.php">
-
                         <i class="fa-regular fa-clock"></i>
                         <span><center>View & Change Event Hours</center></span>
                     </div>-->
                     <div class="dashboard-item" data-link="registerStaff.php">
                         <img src="images/add-person.svg">
                         <span>Register Staff</span>
+                    </div>
+
+                    <div class="dashboard-item" data-link="deleteStaff.php">
+                        <img src="images/delete.svg">
+                        <span>Delete Staff</span>
                     </div>
 
                     <div class="dashboard-item" data-link="resources.php">
@@ -162,7 +158,6 @@
                         <img src="images/checkStatus.svg">
                         <span><center>Volunteer Status Report</center></span>
                     </div>
-                    
                 <?php endif ?>
 
                 <!-- FOR VOLUNTEERS AND PARTICIPANTS ONLY -->

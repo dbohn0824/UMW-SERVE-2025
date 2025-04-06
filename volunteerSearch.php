@@ -26,7 +26,7 @@
                 }
             ?>
             <p>Use the form below to find a volunteer or participant. At least one search criterion is required.</p>
-            <p>Click <a href="generate_pdf.php">here</a> for a request for Volunteering form.</p>
+            <p>Click <a href="generate_pdf.php">here</a> for a Request to Volunteer form.</p>
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_POST['name']) ?>" placeholder="Enter your first and/or last name">
 		    

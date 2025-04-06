@@ -12,7 +12,7 @@
 ?>
 
 <head>
-    <link rel="stylesheet" href="welcome-style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -36,7 +36,7 @@
     <nav>
         <div id="nav-top" class="container">
             <div class="logo">
-                <img src="images/stepvalogo.png" alt="Logo">
+                <img src="images/SERVE_logo.png" alt="Logo">
                 <span id="vms-logo">SERVE</span>
             </div>
         </div>
