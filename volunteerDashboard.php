@@ -116,11 +116,11 @@
                 $hours = $person->get_remaining_mandated_hours();
                 if($hours > 0){
                     echo '<p>You must serve ' . $hours . ' remaining court mandated hours.</p>';
-                    echo '<form method="POST">
-                              <input type="submit" name="request" value="request" id="request" style="display: none;">
-                              <label for="request">Request community service letter here.</label>
-                          <form>';
                 }
+                echo '<form method="POST">
+                         <input type="submit" name="request" value="request" id="request" style="display: none;">
+                         <label for="request">Request community service letter here.</label>
+                      <form>';
             ?>
             <div id="dashboard">
                 <?php
