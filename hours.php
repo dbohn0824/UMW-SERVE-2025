@@ -37,9 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $end_time = date('H:i:s');
             if (check_out($personID, $end_time)) {
-                $currentDate = date('Y-m-d');
-                $tot = get_hours_for_range($personID, '1979-01-01', $currentDate);
-                update_hours($personID, $tot);
+                echo "Successfully checked out at $end_time.";
+                var_dump($redirect_url);
 
                 header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
