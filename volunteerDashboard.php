@@ -64,14 +64,14 @@
             $mail->isSMTP();                                            //Send using SMTP
             $mail->Host       = 'smtp-relay.gmail.com';                 //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'example@gmail.com';         //SMTP username
-            $mail->Password   = 'example1';                           //SMTP password
+            $mail->Username   = 'advancingtactician@gmail.com';         //SMTP username
+            $mail->Password   = 'Candy!for2';                           //SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
             $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('example@gmail.com', 'Mailer');
-            $mail->addAddress('example@proton.me', 'Joe User');     //Add a recipient
+            $mail->setFrom('advancingtactician@gmail.com', 'Mailer');
+            $mail->addAddress('lintandsoap@proton.me', 'Joe User');     //Add a recipient
             //$mail->addAddress('ellen@example.com');               //Name is optional
             //$mail->addReplyTo('info@example.com', 'Information');
             //$mail->addCC('cc@example.com');
