@@ -59,6 +59,58 @@ function add_person($person) {
             $person->get_emergency_contact_phone() . '","' .
             $person->get_emergency_contact_relation() . '")'
             );
+
+        // Non-functional/outdated insert query
+        /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
+            $person->get_id() . '","' . 
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            $person->isMinor() . '","' .
+            $person->get_total_hours() . '","' .
+            $person->get_remaining_mandated_hours() . '","' .
+            $person->get_checked_in() . '","' .
+            $person->get_phone1() . '","' .
+            $person->get_email() . '","' .
+            'n/a' . '","' . /* ("notes", we don't use this) */
+         //   $person->get_type() . '","' .
+           // $person->get_password() . '","' .
+            //$person->get_street_address() . '","' .
+            //$person->get_city() . '","' .
+            //$person->get_state() . '","' .
+            //$person->get_zip_code() . '","' .
+           // $person->get_emergency_contact_first_name() . '","' .
+           // $person->get_emergency_contact_last_name() . '","' .
+           // $person->get_emergency_contact_phone() . '","' .
+           // $person->get_emergency_contact_relation() . '","'
+            //$person->get_start_date() . '","' .
+            //"n/a" . '","' . /* ("venue", we don't use this) */
+            //$person->get_phone1type() . '","' .
+            //$person->get_emergency_contact_phone_type() . '","' .
+            //$person->get_birthday() . '","' .
+            //'n/a' . '","' . /* ("contact_num", we don't use this) */
+            //'n/a' . '","' . /* ("contact_method", we don't use this) */
+            //$person->get_status() . '","' .
+            //'n/a' . '","' . /* ("profile_pic", we don't use this) */
+            //'gender' . '","' .
+            //$person->get_tshirt_size() . '","' .
+            //$person->get_how_you_heard_of_stepva() . '","' .
+            //'sensory_sensitivities' . '","' .
+            //$person->get_disability_accomodation_needs() . '","' .
+            //$person->get_school_affiliation() . '","' .
+            //'race' . '","' .
+            //$person->get_preferred_feedback_method() . '","' .
+            //$person->get_hobbies() . '","' .
+            //$person->get_professional_experience() . '","' .
+            //$person->get_archived() . '","' .
+            //$person->get_photo_release() . '","' .
+            //$person->get_photo_release_notes() . '","' .
+            //$person->get_training_complete() . '","' .
+            //$person->get_training_date() . '","' .
+            //$person->get_orientation_complete() . '","' .
+            //$person->get_orientation_date() . '","' .
+            //$person->get_background_complete() . '","' .
+            //$person->get_background_date() . '");'
+      //  );
         mysqli_close($con);
         return true;
     }
@@ -70,6 +122,8 @@ function add_staff($person) {
     if (!$person instanceof Person)
         die("Error: add_person type mismatch");
     $con=connect();
+    $password = $person->get_password(); 
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
@@ -86,7 +140,7 @@ function add_staff($person) {
             $person->get_email() . '","' .
             'n/a' . '","' . 
             $person->get_type() . '","' .
-            $person->get_password() . '","' . 
+            $hashed_password . '","' . 
             $person->get_street_address() . '","' .
             $person->get_city() . '","' .
             $person->get_state() . '","' . 
@@ -256,11 +310,23 @@ function check_out($personID, $end_time) {
         return false;  
     }
 
+    // Gets most recent check-in time
+    $query = "SELECT Time_in
+              FROM dbpersonhours
+              WHERE personID = '$personID'
+              AND date = '$current_date'
+              ORDER BY Time_in desc
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+    $Time_in = $row['Time_in'];
+
     // Proceed to update the check-out time and mark the user as checked out
     $query = "UPDATE dbpersonhours 
               SET Time_out = '$end_time' 
               WHERE personID = '$personID'
-              AND date = '$current_date'";  
+              AND date = '$current_date'
+              AND Time_in = '$Time_in'";  
     $update_result = mysqli_query($con, $query);
 
     if ($update_result) {
@@ -270,9 +336,42 @@ function check_out($personID, $end_time) {
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
+        // Re-sum total hours
+        synchronize_hours($personID);
+
+        // Gets remaining court mandated hours
+        $query = "SELECT remaining_mandated_hours
+                  FROM dbpersons
+                  WHERE id = '$personID'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $remaining_mandated_hours = $row['remaining_mandated_hours'];
+
+        // Gets hours for most recent volunteering session
+        $query = "SELECT Total_hours
+                  FROM dbpersonhours
+                  WHERE personID = '$personID'
+                  AND date = '$current_date'
+                  AND Time_in = '$Time_in'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $hours = $row['Total_hours'];
+
+        // Calculates remaining mandated hours after most recent volunteering session
+        $remaining_mandated_hours = $remaining_mandated_hours - $hours;
+        if($remaining_mandated_hours < 0)
+            $remaining_mandated_hours = 0;
+        
+        // Updates remaining mandated hours
+        $update_query = "UPDATE dbpersons 
+                         SET remaining_mandated_hours = '$remaining_mandated_hours' 
+                         WHERE id = '$personID'";
+        mysqli_query($con, $update_query);
+
+        /* Non-functional/outdated queries to update total hours for day and overall */
+        /*                   vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv                   */
+
         //now update total hours in dbpersons with hours accumilated for the day 
-
-
         //get total hours for the day
         /*$query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
                   date = ?"; 
@@ -299,10 +398,6 @@ function check_out($personID, $end_time) {
         $stmt->execute();*/
 
         //**************************************************************************** */
-
-        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-        $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
-        update_hours($personID, $tot);
 
         mysqli_close($con);
 
@@ -409,6 +504,47 @@ function get_hours_for_range($personID, $startDate, $endDate) {
         return $total_time;
     }
     return -1; // no check-ins found
+}
+
+function get_first_date($personID){
+    $con=connect();
+    $query = "SELECT date
+              FROM dbpersonhours
+              WHERE personID = '" . $personID . "'
+              AND Time_out IS NOT NULL
+              ORDER BY date
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        return $row['date'];
+    } else
+        return -1;
+}
+
+function get_last_date($personID){
+    $con=connect();
+    $query = "SELECT date
+              FROM dbpersonhours
+              WHERE personID = '" . $personID . "'
+              AND Time_out IS NOT NULL
+              ORDER BY date DESC
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        return $row['date'];
+    } else
+        return -1;
+}
+
+// Loose function that automatically re-sums total volunteering hours
+function synchronize_hours($personID){
+    $currentDate = date('Y-m-d');
+    $tot = get_hours_for_range($personID, 1979-01-01, $currentDate);
+    update_hours($personID, $tot);
+
+    return -1;
 }
 
 /* Delete a single check-in/check-out pair as defined by the given parameters */

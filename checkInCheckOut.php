@@ -1,6 +1,12 @@
 <?php
 date_default_timezone_set("America/New_York");
 
+$currentTime = date("H:i");
+if ($currentTime >= "16:01") {
+    include_once(__DIR__ . '/autoCheckout.php');
+}
+
+
 session_cache_expire(30);
 session_start();
 
@@ -16,6 +22,24 @@ if (isset($_SESSION['volunteer_id'])) {
     if ($person === null) {
         echo "Error: Person not found.";
         exit();
+    }
+
+    $today = date('Y-m-d');
+    $con = connect();
+    $query = "SELECT * FROM dbpersonhours WHERE personID = '$personID' AND date = '$today' ORDER BY Time_in DESC LIMIT 1";
+    $result = mysqli_query($con, $query);
+    $alreadyCheckedOut = false;
+
+    if (!$result) {
+        die("SQL Error: " . mysqli_error($con));
+    }
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+
+        if (!is_null($row['Time_out']) && $row['Time_out'] !== '00:00:00') {
+            $alreadyCheckedOut = true;
+        }        
     }
 } else {
     echo "Error: Missing personID.";
@@ -39,10 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-$currentDate = date('Y-m-d');
-$tot = get_hours_for_range($_SESSION['volunteer_id'], 1979-01-01, $currentDate);
-update_hours($_SESSION['volunteer_id'], $tot);
+synchronize_hours($personID);
 
 ?>
 
@@ -105,11 +126,13 @@ update_hours($_SESSION['volunteer_id'], $tot);
             <p></p>
             
             <div id="dashboard">
+
+                <!-- NOTE: NEED TO ADD SOME WAY FOR VOLUNTEERS TO SELECT IF ITS A STT EVENT WHEN ***CHECKING IN*** -->
+
                 <div class="dashboard-item" onclick="document.getElementById('checkin-form').submit();">
                     <img src="images/confirm.png" alt="Check In/Out">
                     <span><center>Check In</center></span>
                 </div>
-
 
                 <form id="checkin-form" method="POST" action="hours.php" style="display: none;">
                     <input type="hidden" name="action" value="checkin">

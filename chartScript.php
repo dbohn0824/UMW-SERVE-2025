@@ -1,5 +1,5 @@
 <?php
-include_once('database\dbinfo.php');
+include_once('database/dbinfo.php');
 
 
 $con = connect(); 
