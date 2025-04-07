@@ -6,7 +6,7 @@ include_once(__DIR__ . '/database/dbPersons.php');
 
 $endTime = date('D M Y');
 
-$result = check_out("Thall1", $endTime ); 
+$result = check_out("Notindatabase", $endTime ); 
 
 var_dump($result); 
 ?> 
