@@ -1,6 +1,12 @@
 <?php
 date_default_timezone_set("America/New_York");
 
+$currentTime = date("H:i");
+if ($currentTime >= "16:01") {
+    include_once(__DIR__ . '/autoCheckout.php');
+}
+
+
 session_cache_expire(30);
 session_start();
 
@@ -16,6 +22,24 @@ if (isset($_SESSION['volunteer_id'])) {
     if ($person === null) {
         echo "Error: Person not found.";
         exit();
+    }
+
+    $today = date('Y-m-d');
+    $con = connect();
+    $query = "SELECT * FROM dbpersonhours WHERE personID = '$personID' AND date = '$today' ORDER BY Time_in DESC LIMIT 1";
+    $result = mysqli_query($con, $query);
+    $alreadyCheckedOut = false;
+
+    if (!$result) {
+        die("SQL Error: " . mysqli_error($con));
+    }
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+
+        if (!is_null($row['Time_out']) && $row['Time_out'] !== '00:00:00') {
+            $alreadyCheckedOut = true;
+        }        
     }
 } else {
     echo "Error: Missing personID.";
