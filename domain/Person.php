@@ -80,7 +80,7 @@ class Person {
 		$this->minor = $minor;
 		$this->total_hours = $total_hours;
 		$this->remaining_mandated_hours = $remaining_mandated_hours;
-		$this->checked_in = false;
+		$this->checked_in = 0;
 		$this->phone1 = $phone1;
 		$this->email = $email;
 		$this->notes = $notes;
@@ -96,7 +96,9 @@ class Person {
 		$this->type = $type; // volunteer or participant...
 
 		// access_level = 1 for users, and = 3 for admin
-		if ($id == 'vmsroot') {
+		//if ($id == 'vmsroot') {
+		//d.bohn changed this so new staff members will have access to staff features
+		  if ($type == 'admin') {
 			$this->access_level = 3;
 		} else {
 			$this->access_level = 1;

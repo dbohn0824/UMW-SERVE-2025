@@ -1,20 +1,35 @@
 <?php
     date_default_timezone_set("America/New_York");
+    session_cache_expire(30);
     session_start();
         
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
 
-    if (isset($_GET['id'])) {
+    if (isset($_POST['id'])) {
         require_once('include/input-validation.php');
         require_once('database/dbPersons.php');
-        $args = sanitize($_GET);
-        if ($args['id']) {
-            $person = retrieve_person($args['id']);
+        $args = sanitize($_POST);
+        $id = $args['id'];
+        if ($id) {
+            $_SESSION['volunteer_id'] = $id;
+            header('Location: volunteerDashboard.php');
+            die();
         } else {
-            $person = retrieve_person('aaa');
+            header('Location: volunteerSearch.php');
+            die();
+            //$person = retrieve_person('aaa');
         }
+    } else if (isset($_SESSION['volunteer_id'])){
+        $person = retrieve_person($_SESSION['volunteer_id']);
+    } else {
+        header('Location: volunteerSearch.php');
+        die();
+        //$person = retrieve_person('aaa');
     }
+
+    // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+    synchronize_hours($_SESSION['volunteer_id']);
 
     //$notRoot = $person->get_id() != 'vmsroot';
 ?>
@@ -31,7 +46,22 @@
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
-            <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
+            <?php
+                $hours = $person->get_remaining_mandated_hours();
+                if($hours > 0){
+                    echo '<p>You must serve ' . $hours . ' remaining court mandated hours.</p>';
+                }
+                /*echo '<form method="POST" style="text-align: center;">
+                         <input type="submit" name="request" value="request" id="request" style="display: none;">
+                         <label for="request">Request community service letter here.</label>
+                      <form>';*/
+                if(isset($_GET['request'])){
+                    $currentDate = date("m d, Y");
+                    $message = "<p style='max-width: 800px; margin-right: auto; margin-left: auto;'>You have officially requested a community service letter as of " . $currentDate . ". 
+                                A notice has been sent to staff, and you should expect a reply within the next two business days.</p>";
+                    echo $message;
+                }
+            ?>
             <div id="dashboard">
                 <?php
                     require_once('database/dbMessages.php');
@@ -42,7 +72,7 @@
                     }
                 ?>
                 
-                <div class="dashboard-item" data-link="inbox.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="inbox.php">
                     <img src="images/<?php echo $inboxIcon ?>">
                     <span>Notifications<?php 
                         if ($unreadMessageCount > 0) {
@@ -51,42 +81,21 @@
                     ?></span>
                 </div>
 
-
-                <!--<div class="dashboard-item" data-link="volunteerReport.php?id=<?php echo $person->get_id(); ?>">
-                    <img src="images/volunteer-history.svg">
-                    <span><center>View Volunteering Report</center></span>
-                </div>-->
-
-                <div class="dashboard-item" data-link="checkInCheckOut.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="checkInCheckOut.php">
                     <img src="images/add-person.svg">
                     <span><center>Check In/Check Out</center></span>
                 </div>
 
-                <div class="dashboard-item" data-link="volunteerHours.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="volunteerHours.php">
                     <img src="images/search.svg">
                     <span><center>View Hours for Date Range</center></span>
                 </div>
 
-                <!--<div class="dashboard-item" data-link="editHours.php">
-                    <img src="images/add-person.svg">
-                    <span><center>Request Hours Change</center></span>
+                <div class="dashboard-item" data-link="letterRequest.php">
+                    <img src="images/inbox-unread.svg">
+                    <span><center>Request Community Service Letter</center></span>
                 </div>
 
-                <div class="dashboard-item" data-link="viewProfile.php">
-                    <img src="images/view-profile.svg">
-                    <span>View Profile</span>
-                </div>
-
-                <div class="dashboard-item" data-link="editProfile.php">
-                    <img src="images/manage-account.svg">
-                    <span>Edit Profile</span>
-                </div>-->
-                
-                <!-- autoredirects home as volunteer currently -->
-                <!-- <div class="dashboard-item" data-link="editHours.php">
-                        <img src="images/add-person.svg">
-                        <span>View & Change Event Hours</span>
-                </div> -->
             </div>
         </main>
     </body>

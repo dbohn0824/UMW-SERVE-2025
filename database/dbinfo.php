@@ -20,10 +20,10 @@ function connect() {
     $database = "servedb";
     $user = "servedb";
     $pass = "servedb";
-    if ($_SERVER['SERVER_NAME'] == 'jenniferp130.sg-host.com') {
-        $user = 'uphzj2ozla5mg';
-        $database = 'dbeq5aamznytup';
-        $pass = "djsernrkrcuf";
+    if ($_SERVER['SERVER_NAME'] == 'jenniferp162.sg-host.com') {
+        $user = 'ug8zrleieegxg';
+        $database = 'dbvgwfhe2tryye';
+        $pass = "4rpycrvzev1n";
     } else if ($_SERVER['SERVER_NAME'] == 'gwynethsgiftvms.org') {
         $user = "uybhc603shfl5";
         $pass = "f11kwvhy4yic";

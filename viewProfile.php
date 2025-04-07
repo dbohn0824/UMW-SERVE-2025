@@ -118,16 +118,47 @@
                     <p><?php echo $user->get_first_name() ?> <?php echo $user->get_last_name() ?></p>
                 </div>
 
-                <!--<div class="field-pair">
-                    <label>Date of Birth</label>
-                    <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
+                <div class="field-pair">
+                    <label>Minor</label>
+                    <p><?php
+                        if($user->isMinor() == 0)
+                            echo 'No';
+                        else
+                            echo 'Yes';
+                    ?></p>
                 </div>
+
+                <?php
+                    $type = $user->get_type();
+                    if($type == "v" || $type == "volunteer"){
+                        // Re-sum hours just in case there have been any updates/modifications to the database (unlikely, but a failsafe).
+                        synchronize_hours($user->get_id());
+                        echo '<div class="field-pair">
+                            <label>Total Hours</label>
+                            <p>' . $user->get_total_hours() .'</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>Remaining Mandated Hours</label>
+                            <p>' .$user->get_remaining_mandated_hours() . '</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>First Date Volunteered</label>
+                            <p>' . get_first_date($user->get_id()) .'</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>Latest Date Volunteered</label>
+                            <p>' . get_last_date($user->get_id()) .'</p>
+                        </div>';
+                    }
+                ?>
 
                 <div class="field-pair">
                     <label>Address</label>
                     <p><?php echo $user->get_street_address() . ', ' . $user->get_city() . ', ' . $user->get_state() . ' ' . $user->get_zip_code() ?></p>
-                </div>-->
-
+                </div>
             </fieldset>
 
             <fieldset class="section-box">
@@ -140,16 +171,11 @@
 
                 <div class="field-pair">
                     <label>Phone Number</label>
-                    <p><a href="tel:<?php echo $user->get_phone1() ?>"><?php echo formatPhoneNumber($user->get_phone1()) ?></a> (<?php echo ucfirst($user->get_phone1type()) ?>)</p>
+                    <p><a href="tel:<?php echo $user->get_phone1() ?>"><?php echo formatPhoneNumber($user->get_phone1()) ?></a></p>
                 </div>
-
-                <!--<div class="field-pair">
-                    <label>Preferred Feedback Method</label>
-                    <p><?php echo ucfirst($user->get_preferred_feedback_method()) ?></p>
-                </div>-->
             </fieldset>
 
-            <!--<fieldset class="section-box">
+            <fieldset class="section-box">
                 <legend>Emergency Contact</legend>
 
                 <div class="field-pair">
@@ -164,147 +190,10 @@
 
                 <div class="field-pair">
                     <label>Phone Number</label>
-                    <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a> (<?php echo ucfirst($user->get_emergency_contact_phone_type()) ?>)</p>
+                    <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a></p>
                 </div>
-            </fieldset>-->
+            </fieldset>
 
-            <!--<fieldset class="section-box">
-                <legend>Volunteer Training</legend>
-
-                <p>Details about the volunteer's training status.</p>
-
-                <div class="field-pair">
-                    <label>Training Completed</label>
-                    <p>
-                        <?php 
-                            $trainingComplete = $user->get_training_complete();
-                            echo ($trainingComplete == '1') ? 'Yes' : 'No'; 
-                        ?>
-                    </p>
-                </div>
-
-                <?php if ($trainingComplete == '1'): ?>
-                    <div class="field-pair" id="training-date-container">
-                        <label>Training Date</label>
-                        <p>
-                            <?php 
-                                $trainingDate = $user->get_training_date();
-                                echo $trainingDate ? date('d/m/Y', strtotime($trainingDate)) : 'Not Provided';
-                            ?>
-                        </p>
-                    </div>
-                <?php endif; ?>
-            </fieldset>-->
-
-            <!--<fieldset class="section-box">
-                <legend>Volunteer Orientation</legend>
-
-                <p>Details about the volunteer's orientation status.</p>
-
-                <div class="field-pair">
-                    <label>Orientation Completed</label>
-                    <p>
-                        <?php 
-                            $orientationComplete = $user->get_orientation_complete();
-                            echo ($orientationComplete == '1') ? 'Yes' : 'No'; 
-                        ?>
-                    </p>
-                </div>
-
-                <?php if ($orientationComplete == '1'): ?>
-                    <div class="field-pair" id="orientation-date-container">
-                        <label>Orientation Date</label>
-                        <p>
-                            <?php 
-                                $orientationDate = $user->get_orientation_date();
-                                echo $orientationDate ? date('d/m/Y', strtotime($orientationDate)) : 'Not Provided';
-                            ?>
-                        </p>
-                    </div>
-                <?php endif; ?>
-            </fieldset>-->
-
-            <!--<fieldset class="section-box">
-                <legend>Volunteer Background Check</legend>
-
-                <p>Details about the volunteer's background check status.</p>
-
-                <div class="field-pair">
-                    <label>Background Check Completed</label>
-                    <p>
-                        <?php 
-                            $backgroundComplete = $user->get_background_complete();
-                            echo ($backgroundComplete == '1') ? 'Yes' : 'No'; 
-                        ?>
-                    </p>
-                </div>
-
-                <?php if ($backgroundComplete == '1'): ?>
-                    <div class="field-pair" id="background-date-container">
-                        <label>Background Check Date</label>
-                        <p>
-                            <?php 
-                                $backgroundDate = $user->get_background_date();
-                                echo $backgroundDate ? date('d/m/Y', strtotime($backgroundDate)) : 'Not Provided';
-                            ?>
-                        </p>
-                    </div>
-                <?php endif; ?>
-            </fieldset>-->
-
-
-            <!--<fieldset class="section-box">
-                <legend>Volunteer Information</legend>-->
-                
-                <!--
-                Volunteer or participant
-                <div class="field-pair">
-                    <label>Role</label>
-                    <p><?php echo ucfirst($user->get_type()) ?></p>
-                </div>
-                -->
-
-                <!--<div class="field-pair">
-                    <label>School Affiliation</label>
-                    <p><?php echo $user->get_school_affiliation() ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>T-Shirt Size</label>
-                    <p><?php echo ucfirst($user->get_tshirt_size() ?: "Not specified") ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>Accommodations</label>
-                    <p><?php echo ucfirst($user->get_disability_accomodation_needs() ?: "Not specified") ?></p>
-                </div>
-                
-                <div class="field-pair">
-                    <label>Professional Experience</label>
-                    <p><?php echo ucfirst($user->get_professional_experience() ?: "Not specified") ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>Hobbies</label>
-                    <p><?php echo ucfirst($user->get_hobbies() ?: "Not specified") ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>How You Heard of SERVE</label>
-                    <p><?php echo ucfirst($user->get_how_you_heard_of_stepva() ?: "Not specified") ?></p>
-                </div>-->
-
-                <!-- Adding Photo Release Information -->
-                <!--<div class="field-pair">
-                    <label>Photo Release Restrictions</label>
-                    <p><?php echo ucfirst($user->get_photo_release()) ?></p>
-                </div>
-
-                <div class="field-pair">
-                    <label>Photo Release Notes</label>
-                    <p><?php echo ucfirst($user->get_photo_release_notes() ?: "Not specified") ?></p>
-                </div>
-            </fieldset>-->
 
             <!--<fieldset class="section-box">
                 <legend>Emergency Contact Information</legend>
@@ -325,11 +214,6 @@
                 </div>
 
                 <div class="field-pair">
-                    <label>Emergency Contact Phone Type</label>
-                    <p><?php echo ucfirst($user->get_emergency_contact_phone_type()) ?></p>
-                </div>
-
-                <div class="field-pair">
                     <label>Emergency Contact Relation</label>
                     <p><?php echo ucfirst($user->get_emergency_contact_relation()) ?></p>
                 </div>
@@ -339,14 +223,14 @@
 
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
-                <?php if (($accessLevel == 2 && $user->get_access_level() == 1) || $accessLevel >= 3): ?>
+                <!--<?php if (($accessLevel == 2 && $user->get_access_level() == 1) || $accessLevel >= 3): ?>
                     <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Reset Password</a>
-                <?php endif ?>
+                <?php endif ?>-->
                 <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
                 <a class="button cancel" href="personSearch.php">Return to User Search</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
-                <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
+                <!--<a class="button" href="volunteerReport.php">View Volunteer Hours</a>-->
                 <a class="button cancel" href="index.php">Return to Dashboard</a>
             <?php endif ?>
         </main>
