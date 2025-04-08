@@ -185,7 +185,7 @@
             } else {
                 ?>
                 <html>
-                    <!-- <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php"> -->
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
                     <main>
                         <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
                     </main>
