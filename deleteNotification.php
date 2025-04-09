@@ -14,6 +14,9 @@
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
+    } else if(isset($_SESSION['volunteer_id'])){
+        $loggedIn = true;
+        $userID = $_SESSION['volunteer_id'];
     }
     if (!isset($_GET['id'])) {
         $result['result'] = false;

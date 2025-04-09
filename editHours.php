@@ -34,7 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" || $accessLevel == 1) {
 
     if(isset($args['id'])){
         $id = $args['id'];
-        //var_dump($id);
         if($id) {
             require_once('database/dbPersons.php');
             $person = retrieve_person($id);
