@@ -98,8 +98,10 @@ class Person {
 		// access_level = 1 for users, and = 3 for admin
 		//if ($id == 'vmsroot') {
 		//d.bohn changed this so new staff members will have access to staff features
-		  if ($type == 'admin') {
+		  if ($type == 'superadmin') {
 			$this->access_level = 3;
+		} elseif ($type == 'admin' ) {
+			$this->access_level = 2;
 		} else {
 			$this->access_level = 1;
 		}

@@ -182,7 +182,7 @@ function message_all_users_of_type($from, $type, $title, $body) {
     foreach ($rows as $row) {
         $to = $row[0];
         $query = "insert into dbmessages (id,senderID, recipientID, title, body, time)
-                  values ('0','$from', '$to', '$title', '$body', '$time')";
+                  values ('$from', '$to', '$title', '$body', '$time')";
         $result = mysqli_query($connection, $query);
     }
     mysqli_close($connection);    
@@ -208,6 +208,10 @@ function message_all_admins($from, $title, $body) {
 
 function system_message_all_admins($title, $body) {
     return message_all_users_of_types('vmsroot', ['"admin"', '"superadmin"'], $title, $body);
+}
+
+function system_message_all_superadmins($title, $body) {
+    return message_all_users_of_types('vmsroot', ['"superadmin"'], $title, $body);
 }
 
 function system_message_all_users_except($except, $title, $body) {
