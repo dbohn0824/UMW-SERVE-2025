@@ -178,6 +178,7 @@ function message_all_users_of_type($from, $type, $title, $body) {
     $stmt->execute();
     $result = $stmt->get_result(); 
     $rows = $result->fetch_assoc(); 
+    var_dump($rows); 
     foreach ($rows as $row) {
         $to = $row[0];
         $query = "insert into dbmessages (id,senderID, recipientID, title, body, time)

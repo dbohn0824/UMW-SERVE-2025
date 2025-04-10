@@ -201,7 +201,7 @@
 
             $total_hours = 0;
             $notes = '';
-            $type = 'v';
+            $type = 'volunteer';
             $password = "";
             if($court_hours = 'Yes'){
                 $remaining_mandated_hours = $args['hours_needed'];
@@ -237,6 +237,7 @@
                 echo '<p>That username is already in use.</p>';
             } else {
                 ?>
+                
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
                     <main>
