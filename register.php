@@ -238,7 +238,7 @@
                 echo '<p>That username is already in use.</p>';
             } else {
 
-                $title = $newperson->get_first_name() . "Has been registered with SERVE!"; 
+                $title = $newperson->get_first_name() . " has been registered with SERVE!"; 
                 $body = "Please make sure to welcome " . $newperson->get_first_name() . " into the SERVE family!";  
                 system_message_all_admins($title, $body)
 
