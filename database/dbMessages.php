@@ -138,6 +138,19 @@ function mark_read($id) {
     return true;
 }
 
+function mark_unread($id) {
+    $query = "update dbmessages set wasRead=0
+              where id='$id'";
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    if (!$result) {
+        mysqli_close($connection);
+        return false;
+    }
+    mysqli_close($connection);
+    return true;
+}
+
 function mark_all_as_read($userID) {
     $query = "update dbmessages set wasRead=1
               where recipientID='$userID'";

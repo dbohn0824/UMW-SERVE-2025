@@ -51,12 +51,8 @@
                 if($hours > 0){
                     echo '<p>You must serve ' . $hours . ' remaining court mandated hours.</p>';
                 }
-                /*echo '<form method="POST" style="text-align: center;">
-                         <input type="submit" name="request" value="request" id="request" style="display: none;">
-                         <label for="request">Request community service letter here.</label>
-                      <form>';*/
                 if(isset($_GET['request'])){
-                    $currentDate = date("m d, Y");
+                    $currentDate = date("M d, Y");
                     $message = "<p style='max-width: 800px; margin-right: auto; margin-left: auto;'>You have officially requested a community service letter as of " . $currentDate . ". 
                                 A notice has been sent to staff, and you should expect a reply within the next two business days.</p>";
                     echo $message;
