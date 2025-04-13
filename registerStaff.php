@@ -1,4 +1,7 @@
 <?php
+
+    session_cache_expire(30);
+
     session_start();
     // In this section, I've removed code that ensures the user is already logged in.
     // This is because we want users without accounts to be able to create new accounts.
@@ -8,8 +11,8 @@
 
     require_once('include/input-validation.php');
 
-    session_cache_expire(30);
-    session_start();
+    //session_cache_expire(30);
+    //session_start();
 ?>
 
 <!DOCTYPE html>
@@ -182,7 +185,7 @@
             } else {
                 ?>
                 <html>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
+                    <!-- <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php"> -->
                     <main>
                         <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
                     </main>
