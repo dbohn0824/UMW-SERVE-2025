@@ -69,6 +69,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
     }
     $entries = get_hours_volunteered_by($id);
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
+    $args = sanitize($_POST, null);
+
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    $entry_id = $args['id'] ?? null;
+    $date = $args['date'] ?? null; 
+    $check_in = $args['check_in'] ?? null;
+    $check_out = $args['check_out'] ?? null;
+
+    if ($entry_id && $date) {
+        if ($check_in !== null && $check_in !== '') {
+            update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
+        }
+
+        if ($check_out !== null && $check_out !== '') {
+            update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
+        }
+
+        header("Location: viewHours.php?id=" . urlencode($id));
+        die();
+    } else {
+        echo '<p class="error-message">Missing ID or entry ID.</p>';
+    }
+
+    $entries = get_hours_volunteered_by($id);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -85,6 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
         <main class="general">
             <?php if($person): ?>
                 <h2><?php echo $person->get_first_name() . ' ' . $person->get_last_name(); ?></h2>
+
                 <div style="overflow-x: auto;" class="table-wrapper">
                     <table class="general">
                         <thead>

@@ -278,6 +278,7 @@ function get_hours_volunteered_by($id) {
             $entries[] = $row;
         }
     }
+    
     mysqli_close($con);
     return $entries;
 }
@@ -623,7 +624,7 @@ function update_start_date($id, $new_start_date) {
 /*
  * @return all rows from dbpersons table ordered by last name
  * if none there, return false
- */
+ 
 
 function getall_dbpersons($name_from, $name_to, $venue) {
     $con=connect();
@@ -645,6 +646,7 @@ function getall_dbpersons($name_from, $name_to, $venue) {
 
     return $thePersons;
 }
+    */
 
 /*
   @return all rows from dbpersons
