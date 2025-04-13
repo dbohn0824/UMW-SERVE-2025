@@ -3,7 +3,7 @@ session_cache_expire(30);
 session_start();  // Start the session
 
 // Check if the user is logged in
-if (!isset($_SESSION['_id']) || empty($_SESSION['_id'])) {
+/*if (!isset($_SESSION['_id']) || empty($_SESSION['_id'])) {
     // User not logged in, redirect to login page
     header('Location: login.php');
     exit();  // Ensure no further code execution
@@ -224,3 +224,4 @@ $pending_events = fetch_my_pending($user_id);
     </main>
 </body>
 </html>
+*/

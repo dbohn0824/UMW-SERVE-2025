@@ -1,7 +1,7 @@
 <?php
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
-    session_cache_expire(30);
+    /*session_cache_expire(30);
     session_start();
 
     ini_set("display_errors",1);
@@ -88,7 +88,7 @@
     $current_services = get_services($id);
     */
 ?>
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
     <head>
         <?php require_once('universal.inc') ?>
@@ -110,7 +110,7 @@
                 <label for="name">Abbreviated Name</label>
                 <input type="text" id="abbrev-name" name="abbrev-name" value="<//?php echo $event['abbrevName'] ?>" maxlength="11"  required placeholder="Enter name that will appear on calendar">
                 --->
-                <label for="name">Date </label>
+                <!--<label for="name">Date </label>
                 <input type="date" id="date" name="date" value="<?php echo $event['date'] ?>" min="<?php echo date('Y-m-d'); ?>" required>
                 <label for="name">Start Time </label>
                 <input type="text" id="start-time" name="start-time" value="<?php echo time24hto12h($event['startTime']) ?>" pattern="([1-9]|10|11|12):[0-5][0-9] ?([aApP][mM])" required placeholder="Enter start time. Ex. 12:00 PM">
@@ -164,7 +164,7 @@
                         // terminate while loop
                     ?>
                 </select>---><p></p>
-                <input type="submit" value="Update Event">
+                <!--<input type="submit" value="Update Event">
                 <a class="button cancel" href="event.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
             </form>
 
@@ -182,4 +182,4 @@
             </script>
         </main>
     </body>
-</html>
+</html>-->

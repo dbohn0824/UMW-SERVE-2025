@@ -1,7 +1,7 @@
 <?php
     session_cache_expire(30);
     session_start();
-    header("refresh:2;url=addEvent.php");
+    /*header("refresh:2;url=addEvent.php");
 ?>
 
     <!DOCTYPE html>
@@ -14,4 +14,4 @@
             <?php require_once('header.php') ?>
             <h1>Event Created!</h1>
         </body>
-    </html>
+    </html>*/

@@ -8,7 +8,7 @@
  */
 ?>
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -72,4 +72,4 @@
 	week on the calendar.
 <p>
 	<B>Step 4:</B> You can return to any other function by selecting it on
-	the navigation bar.
+	the navigation bar.-->

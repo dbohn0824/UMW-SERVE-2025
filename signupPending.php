@@ -1,7 +1,7 @@
 <?php
     session_cache_expire(30);
     session_start();
-    header("refresh:2; url=viewAllEvents.php");
+    /*header("refresh:2; url=viewAllEvents.php");
 ?>
     <!DOCTYPE html>
     <html>
@@ -20,4 +20,4 @@
             <h1>Sign-Up Request Sent!</h1>
             <p class="centered">The administrator will review your request shortly</p>
         </body>
-    </html>
+    </html>*/

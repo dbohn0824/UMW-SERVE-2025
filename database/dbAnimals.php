@@ -20,15 +20,15 @@
  */
 
 
-include_once('dbinfo.php');
+/*include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Event.php');
-include_once(dirname(__FILE__).'/../domain/Animal.php');
+include_once(dirname(__FILE__).'/../domain/Animal.php');*/
 
 /*
  * add an event to dbEvents table: if already there, return false
  */
 
-function add_Animal($animal) {
+/*function add_Animal($animal) {
     if (!$animal instanceof Animal)
         die("Error: add_event type mismatch");
     $con=connect();
@@ -55,7 +55,7 @@ function add_Animal($animal) {
  * remove an event from dbEvents table.  If already there, return false
  */
 
-function remove_event($id) {
+/*function remove_event($id) {
     $con=connect();
     $query = 'SELECT * FROM dbEvents WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
@@ -75,7 +75,7 @@ function remove_event($id) {
  * if not in table, return false
  */
 
-function retrieve_event($id) {
+/*function retrieve_event($id) {
     $con=connect();
     $query = "SELECT * FROM dbEvents WHERE id = '" . $id . "'";
     $result = mysqli_query($con,$query);
@@ -103,7 +103,7 @@ function make_an_event($result_row) {
 	/*
 	 ($en, $v, $sd, $description, $ev))
 	 */
-    $theEvent = new Event(
+    /*$theEvent = new Event(
                     $result_row['event_name'],
                     $result_row['venue'],                   
                     $result_row['event_date'],
@@ -620,7 +620,7 @@ function make_an_animal($result_row) {
 /**
  * Get all appointments that exist for an animal
  */
-function find_animal_appointments($animal_id) {
+/*function find_animal_appointments($animal_id) {
     $connection = connect();
     //$current_date = date("Y-m-d");
     $query = "select * from dbEvents
@@ -635,4 +635,4 @@ function find_animal_appointments($animal_id) {
     mysqli_close($connection);
     return $events;
 }
-?>
+?>*/

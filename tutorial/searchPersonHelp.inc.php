@@ -9,7 +9,7 @@
 ?>
 
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -108,4 +108,4 @@
 
 <p>
 	<B>Step 6:</B> When you finish, you can return to any other function by
-	selecting it on the navigation bar.
+	selecting it on the navigation bar.-->

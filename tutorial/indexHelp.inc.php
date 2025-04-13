@@ -8,7 +8,7 @@
  */
 ?>
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -123,4 +123,4 @@
 		rel="popover"
 		data-img="tutorial/screenshots/indexHelp_inactivevolunteers.png"
 		border="1px" align="center"> </a> <br> This list is helpful in identifying
-		volunteers whose status may be changed to "inactive" or "former."
+		volunteers whose status may be changed to "inactive" or "former."-->

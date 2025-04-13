@@ -7,7 +7,7 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 ?>
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -21,11 +21,11 @@
 			  content: function(){return '<img border="3" src="'+$(this).data('img') + '" width="60%"/>';}
 			});
 	});
-</script>
+</script>-->
 
 <!--//Creating an Event//-->
 
-<p>
+<!--<p>
 	<strong>How to Create an Event</strong>
 <p>
 	<B>Step 1:</B>
@@ -84,4 +84,4 @@
     If successful, you should get a message on screen saying
     <i>"You have successfully added <strong>event_name</strong> to the database"</i>.
     Clicking on the name of the event will take you to a page where you can edit the event's information.
-</p>
+</p>-->

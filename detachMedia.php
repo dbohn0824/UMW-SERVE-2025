@@ -2,7 +2,7 @@
     session_cache_expire(30);
     session_start();
 
-    if ($_SESSION['access_level'] < 2) {
+    /*if ($_SESSION['access_level'] < 2) {
         echo 'forbidden';
         die();
     }
@@ -18,4 +18,4 @@
     $mid = $args['mid'];
     detach_media($mid);
     header('Location: event.php?id=' . $eid . '&removeSuccess');
-?>
+?>*/

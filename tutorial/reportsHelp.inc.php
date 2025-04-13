@@ -7,7 +7,7 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 ?>
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -89,7 +89,7 @@
 	for processing as an Excel or OpenOffice spreadsheet, then check the box labeled <i>"To save the report,
 	check here"</i> and then hit <b>Submit</b> again.
 	<!--For more discussion of this option, please look <a href="?helpPage=rmhp-homebase/dataExport.inc.php">here.-->
-</p>
+<!--</p>
 <p>
 	NOTE: You can only export the reports with a start in their name, such as the ones in step 4.
-</p>
+</p>-->

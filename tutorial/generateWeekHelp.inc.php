@@ -8,7 +8,7 @@
  */
 ?>
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -155,5 +155,4 @@
 	(This is handy when you want to
 	repopulate a future week after making changes to the Master Schedule.)
 	This also allows you to remove the oldest archived weeks from the calendar, one by one.
-	</ul>
-
+	</ul>-->

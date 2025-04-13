@@ -7,7 +7,7 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 ?>
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -25,7 +25,7 @@
 
 <!--//Searching for an Event//-->
 
-<p>
+<!--<p>
 	<strong>How to Search for an Event</strong>
 <p>
 	<B>Step 1:</B>
@@ -76,4 +76,4 @@
 <p>
 <p>
     Clicking on the name of an event will take you to a page where you can edit that event's information.
-</p>
+</p>-->

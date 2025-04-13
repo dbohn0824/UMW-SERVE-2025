@@ -2,7 +2,7 @@
     session_cache_expire(30);
     session_start();
 
-    if ($_SESSION['access_level'] < 2 || $_SERVER['REQUEST_METHOD'] != 'POST') {
+    /*if ($_SESSION['access_level'] < 2 || $_SERVER['REQUEST_METHOD'] != 'POST') {
         header('Location: index.php');
         die();
     }
@@ -19,4 +19,4 @@
         die();
     }
     header('Location: index.php');
-?>
+?>*/

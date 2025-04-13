@@ -6,7 +6,7 @@
     session_cache_expire(30);
     session_start();
 
-    $loggedIn = false;
+    /*$loggedIn = false;
     $accessLevel = 0;
     $userID = null;
     if (isset($_SESSION['_id'])) {
@@ -108,4 +108,4 @@
             <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
         </main>
     </body>
-</html>
+</html>*/

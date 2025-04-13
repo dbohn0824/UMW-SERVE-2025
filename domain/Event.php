@@ -2,7 +2,7 @@
 /**
  * Encapsulated version of a dbEvents entry.
  */
-class Event {
+/*class Event {
     private $id;
     private $name;
     #private $abbrevName;
@@ -92,4 +92,4 @@ class Event {
     #function getAnimalId() {
     #    return $animalId;
     #}
-}
+}*/

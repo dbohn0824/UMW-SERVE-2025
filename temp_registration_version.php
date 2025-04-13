@@ -5,7 +5,7 @@
     // Author: Lauren Knight
     // Description: Registration page for new volunteers
 
-    require_once('include/input-validation.php');
+    /*require_once('include/input-validation.php');
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +34,7 @@
                 'first_name', 'last_name', /*'street_address', 'city', 'state', 'zip', 
                 'email', 'phone', 'phone_type', 'emergency_contact_first_name',
                 'emergency_contact_last_name', 'emergency_contact_relation',
-                'emergency_contact_phone',*/ 'court_hours', 'isMinor'
+                'emergency_contact_phone',*//* 'court_hours', 'isMinor'
 
                 /*'first_name', 'last_name', 'birthdate',
                 'street_address', 'city', 'state', 'zip', 
@@ -42,7 +42,7 @@
                 'emergency_contact_last_name',
                 'emergency_contact_relation', 'emergency_contact_phone', 'tshirt_size',
                 'school_affiliation', 'username', 'password',
-                'volunteer_or_participant', 'photo_release', 'photo_release_notes'*/
+                'volunteer_or_participant', 'photo_release', 'photo_release_notes'*//*
             );
 
             $optional = array();
@@ -86,7 +86,7 @@
             $hobbies = isset($args['hobbies']) ? $args['hobbies'] : '';
             $professional_experience = isset($args['professional_experience']) ? $args['professional_experience'] : '';
             $disability_accomodation_needs = isset($args['disability_accomodation_needs']) ? $args['disability_accomodation_needs'] : '';
-            */
+            *//*
 
             $errors = false;
             if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -99,7 +99,7 @@
             if (!$birthday) {
                 $errors = true;
                 echo 'bad dob';
-            } */
+            } *//*
 
             $street_address = $args['street_address'];
             $city = $args['city'];
@@ -134,7 +134,7 @@
             if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
                 $errors = true;
                 echo 'bad phone type';
-            } */
+            } *//*
 
             $emergency_contact_first_name = $args['emergency_contact_first_name'];
             $emergency_contact_last_name = $args['emergency_contact_last_name'];
@@ -195,7 +195,7 @@
             //$background_complete = isset($args['background_complete']) ? (int)$args['background_complete'] : 0;
             //$background_date = isset($args['background_date']) ? $args['background_date'] : null;
 
-            if ($errors) {
+            /*if ($errors) {
                 echo '<p>Your form submission contained unexpected input.</p>';
                 die();
             }
@@ -272,7 +272,7 @@
                 $orientation_complete,
                 $orientation_date,
                 $background_complete,
-                $background_date*/
+                $background_date*//*
             );
 
             $result = add_person($newperson);
@@ -281,9 +281,9 @@
             } else {
                 /*if ($loggedIn) {
                     echo '<script>document.location = "index.php?registerSuccess";</script>';
-                } else {*/
+                } else {*//*
                     echo '<script>document.location = "login.php?registerSuccess";</script>';
-                /*}*/
+                /*}*//*
             }
         } else {
             require_once('registrationForm.php'); 

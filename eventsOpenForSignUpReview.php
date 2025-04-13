@@ -6,7 +6,7 @@
     session_cache_expire(30);
     session_start();
 
-    $loggedIn = false;
+    /*$loggedIn = false;
     $accessLevel = 0;
     $userID = null;
     if (isset($_SESSION['_id'])) {
@@ -88,9 +88,9 @@
                         </tbody>
                     </table>
                 </div>
-            <?php /* else: */ ?>
+            <?php /* else:  ?>
                 <p class="no-messages standout">You currently have no unread messages.</p>
-            <?php /*endif */ ?>      -->
+            <?php /*endif  ?>      
             <!-- <button>Compose New Message</button> -->
             <a class="button next" href="eventSignUp.php">Sign Up</a>
             <a class="button cancel" href="index.php">Return to Dashboard</a>

@@ -20,7 +20,7 @@
  */
 
 
-include_once('dbinfo.php');
+/*include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Event.php');
 include_once(dirname(__FILE__).'/../domain/Animal.php');
 include_once(dirname(__FILE__).'/../domain/Service.php');
@@ -56,7 +56,7 @@ include_once(dirname(__FILE__).'/../domain/Service.php');
  * remove an event from dbEvents table.  If already there, return false
  */
 
-function remove_event($id) {
+/*function remove_event($id) {
     $con=connect();
     $query = 'SELECT * FROM dbEvents WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
@@ -76,7 +76,7 @@ function remove_event($id) {
  * if not in table, return false
  */
 
-function retrieve_event($id) {
+/*function retrieve_event($id) {
     $con=connect();
     $query = "SELECT * FROM dbEvents WHERE id = '" . $id . "'";
     $result = mysqli_query($con,$query);
@@ -134,7 +134,7 @@ function update_event_date($id, $new_event_date) {
    return $theEvents;
 }*/
 
-function fetch_events_in_date_range($start_date, $end_date) {
+/*function fetch_events_in_date_range($start_date, $end_date) {
     $connection = connect();
     $start_date = mysqli_real_escape_string($connection, $start_date);
     $end_date = mysqli_real_escape_string($connection, $end_date);
@@ -640,7 +640,7 @@ function make_an_animal($result_row) {
 /**
  * Get all appointments that exist for an animal
  */
-function find_animal_appointments($animal_id) {
+/*function find_animal_appointments($animal_id) {
     $connection = connect();
     //$current_date = date("Y-m-d");
     $query = "select * from dbEvents
@@ -654,5 +654,5 @@ function find_animal_appointments($animal_id) {
     $events = mysqli_fetch_all($result, MYSQLI_ASSOC);
     mysqli_close($connection);
     return $events;
-}
+}*/
 ?>

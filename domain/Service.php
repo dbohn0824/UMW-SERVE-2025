@@ -1,6 +1,6 @@
 <?php
 
-$accessLevelsByRole = [
+/*$accessLevelsByRole = [
 	//'volunteer' => 1,
 	'admin' => 2,
 	'superadmin' => 3
@@ -31,7 +31,4 @@ class Service {
 	/*function get_duration() {
 		return $this->gender;
 	}*/
-
-
-
-}
+/*}*/

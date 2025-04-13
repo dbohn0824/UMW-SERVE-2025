@@ -2,7 +2,7 @@
     session_cache_expire(30);
     session_start();
 
-    date_default_timezone_set("America/New_York");
+    /*date_default_timezone_set("America/New_York");
 
     // Ensure user is logged in
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
@@ -216,3 +216,4 @@
         </main>
     </body>
 </html>
+*/

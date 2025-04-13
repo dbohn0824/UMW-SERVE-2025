@@ -1,7 +1,7 @@
 <?php 
   session_cache_expire(30);
   session_start();
-  ini_set("display_errors",1);
+  /*ini_set("display_errors",1);
   error_reporting(E_ALL);
   $loggedIn = false;
   $accessLevel = 0;
@@ -42,7 +42,7 @@
             @media only screen and (min-width: 1024px) {
                 .report_select {
                     /* width: 40%; */
-                    width: 35rem;
+                    /*width: 35rem;
             }
             main.report {
                 display: flex;
@@ -102,3 +102,4 @@
     </body>
 
 </html>
+*/

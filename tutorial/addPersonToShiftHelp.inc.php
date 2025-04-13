@@ -8,7 +8,7 @@
  */
 ?>
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -108,4 +108,4 @@
 		width="10%" border="1px" align="center"> </a> <br> <br> This brings
 	you back to the shift form (Step 2), and the selected volunteer will be
 	displayed. <br> <br>You can return to any other function by selecting
-	it on the navigation bar.
+	it on the navigation bar.-->

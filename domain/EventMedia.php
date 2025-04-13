@@ -1,6 +1,6 @@
 <?php
 
-class EventMedia {
+/*class EventMedia {
     private $eventID;
     private $media;
     private $title;
@@ -26,4 +26,4 @@ class EventMedia {
     function getID() {
         return $id;
     }
-}
+}*/

@@ -2,7 +2,7 @@
 /**
  * Encapsulated version of a dbAppointments entry.
  */
-class Appointment {
+/*class Appointment {
     private $id;
     private $name;
     private $abbrevName;
@@ -60,4 +60,4 @@ class Appointment {
     function getAnimal() {
         return $animal;
     }
-}
+}*/

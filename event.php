@@ -4,7 +4,7 @@
     session_start();
 
     // Ensure user is logged in
-    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+    /*if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
         header('Location: login.php');
         die();
     }
@@ -340,7 +340,7 @@
                 <?php endif ?>
             <?php endif*/ ?>
 
-            <?php if ($access_level >= 2) : ?>
+            <!--<?php /*if ($access_level >= 2) : ?>
 
                 <a href="viewEventSignUps.php?id=<?php echo $id; ?>"class = "button signup">View Event Signups</a>
 
@@ -463,4 +463,4 @@
         </script>
     </main>
 </body>
-</html>
+</html>*/

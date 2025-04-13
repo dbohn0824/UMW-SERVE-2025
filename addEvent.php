@@ -3,7 +3,7 @@
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
 
-    ini_set("display_errors",1);
+    /*ini_set("display_errors",1);
     error_reporting(E_ALL);
 
     $loggedIn = false;
@@ -71,8 +71,8 @@
             system_message_all_users_except($userID, "A new event was created!", "Exciting news!\r\n\r\nThe [$name](event: $id) event at $startTime on $date was added!\r\nSign up today!");
             header("Location: event.php?id=$id&createSuccess");
             */
-            //die();
-        }
+            //die();*/
+        /*}
     }
     $date = null;
     if (isset($_GET['date'])) {
@@ -199,16 +199,16 @@
                 <br/>
                 <p></p>
                 --->
-                <input type="submit" value="Create Event">
+                <!--<input type="submit" value="Create Event">
             </form>
-                <?php if ($date): ?>
+                <?php /*if ($date): ?>
                     <a class="button cancel" href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" style="margin-top: -.5rem">Return to Calendar</a>
                 <?php else: ?>
                     <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
                 <?php endif ?>
 
                 <!-- Require at least one checkbox be checked -->
-                <script type="text/javascript">
+                <!--<script type="text/javascript">
                     $(document).ready(function(){
                         var checkboxes = $('.checkboxes');
                         checkboxes.change(function(){
@@ -222,4 +222,4 @@
                 </script>
         </main>
     </body>
-</html>
+</html>-->

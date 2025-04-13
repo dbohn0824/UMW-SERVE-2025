@@ -24,14 +24,14 @@
   * Copy of dbEvents.php
   */
 
-include_once('dbinfo.php');
+/*include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Appointment.php');
 
 /*
  * add an event to dbAppointments table: if already there, return false
  */
 
-function add_event($event) {
+/*function add_event($event) {
     if (!$event instanceof Event)
         die("Error: add_event type mismatch");
     $con=connect();
@@ -59,7 +59,7 @@ function add_event($event) {
  * remove an event from dbAppointments table.  If already there, return false
  */
 
-function remove_event($id) {
+/*function remove_event($id) {
     $con=connect();
     $query = 'SELECT * FROM dbAppointments WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
@@ -79,7 +79,7 @@ function remove_event($id) {
  * if not in table, return false
  */
 
-function retrieve_event($id) {
+/*function retrieve_event($id) {
     $con=connect();
     $query = "SELECT * FROM dbAppointments WHERE id = '" . $id . "'";
     $result = mysqli_query($con,$query);
@@ -107,7 +107,7 @@ function make_an_event($result_row) {
 	/*
 	 ($en, $v, $sd, $description, $ev))
 	 */
-    $theEvent = new Event(
+    /*$theEvent = new Event(
                     $result_row['event_name'],
                     $result_row['venue'],                   
                     $result_row['event_date'],
@@ -329,6 +329,6 @@ function delete_event($id) {
     $result = boolval($result);
     mysqli_close($connection);
     return $result;
-}
+}*/
 
 ?>

@@ -7,7 +7,7 @@
         die();
     }*/
 
-    require_once('database/dbEvents.php');
+    /*require_once('database/dbEvents.php');
     require_once('include/input-validation.php');
     $args = sanitize($_POST);
     $id = $args['id'];
@@ -28,4 +28,4 @@
         die();
     }
     header('Location: index.php');
-?>
+?>*/

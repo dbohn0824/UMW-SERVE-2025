@@ -7,7 +7,7 @@
         die();
     }*/
 
-    require_once('database/dbEvents.php');
+    /*require_once('database/dbEvents.php');
     require_once('include/input-validation.php');
     $args = sanitize($_POST);
     $id = $args['id'];
@@ -27,5 +27,5 @@
         header('Location: viewEventSignUps.php?pendingSignupSuccess&id=' . $id);
         die();
     }
-    header('Location: index.php');
+    header('Location: index.php');*/
 ?>

@@ -9,7 +9,7 @@
 session_start();
 session_cache_expire(30);
 ?>
-<html>
+<!--<html>
 <head>
 <title>RMH Homebase login help</title>
 </head>
@@ -87,5 +87,4 @@ session_cache_expire(30);
 			Homebase.
         </p>
 </body>
-</html>
-
+</html>-->

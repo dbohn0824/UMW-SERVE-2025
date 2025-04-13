@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-ini_set("display_errors", 1);
+/*ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
 // Check access levels and initialize user data
@@ -153,4 +153,4 @@ $event_ids = get_attended_event_ids($username);
             <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
         </main>
 </body>
-</html>
+</html>*/

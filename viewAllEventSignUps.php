@@ -2,7 +2,7 @@
 session_cache_expire(30);
 session_start();
 
-if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+/*if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
     header('Location: login.php');
     die();
 }
@@ -18,7 +18,7 @@ error_reporting(E_ALL);
 $id = $args['id'] ?? null;*/
 
 // Handle user removal
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $event_id = $_POST['event_id'] ?? null;
     $user_id = $_POST['user_id'] ?? null;
 
@@ -45,7 +45,7 @@ $access_level = $_SESSION['access_level']; ?>
     <?php require_once('universal.inc'); ?>
     <link rel="stylesheet" href="css/event.css" type="text/css" />
 
-    <title>View Event Details | <?php /*echo htmlspecialchars($event_info['name']); */ ?></title>
+    <title>View Event Details | <?php /*echo htmlspecialchars($event_info['name']); *//* ?></title>
     <link rel="stylesheet" href="css/messages.css" />
 
     <script>
@@ -199,4 +199,4 @@ $access_level = $_SESSION['access_level']; ?>
 
 </body>
 
-</html>
+</html>*/

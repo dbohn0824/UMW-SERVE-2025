@@ -2,7 +2,7 @@
     session_cache_expire(30);
     session_start();
 
-    if ($_SESSION['access_level'] < 2) {
+    /*if ($_SESSION['access_level'] < 2) {
         header('Location: index.php');
         die();
     }
@@ -22,4 +22,4 @@
         die();
     }
     header('Location: index.php');
-?>
+?>*/

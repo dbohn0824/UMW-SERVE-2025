@@ -1,4 +1,4 @@
-
+/*
 function hideDeleteConfirmation(e) {
     if (e.target === this) {
         $('#delete-confirmation-wrapper').addClass('hidden');
@@ -31,4 +31,4 @@ $(function() {
 
 function showCompleteConfirmation() {
     $('#complete-confirmation-wrapper').removeClass('hidden');
-}
+}*/

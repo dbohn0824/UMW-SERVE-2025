@@ -9,7 +9,7 @@
 session_start();
 session_cache_expire(30);
 ?>
-<html>
+<!--<html>
 <head>
 <title>RMH Homebase</title>
 </head>
@@ -19,14 +19,14 @@ session_cache_expire(30);
 	</p>
 	<ol>
 		<li><a href="?helpPage=rmhc-homebase/login.php">Signing in and out of the System</a>
-		</li>
+		</li>--
 		<!--<br>
 		<ul>
 			<li><a href="?helpPage=rmhc-homebase/index.php">About your Personal Home Page</a></li>
 			<li><a href="?helpPage=rmhc-homebase/volunteerLog.php">Logging Your Hours (Volunteers Only)</a></li>
 		
 		</ul>-->
-		<br>
+		<!--<br>
 		<li><strong>Working with the Volunteer Database</strong> (Managers
 			Only)</li>
 		<br>
@@ -56,23 +56,23 @@ session_cache_expire(30);
 						a person from a shift</a></li>
 				<li><a href="help.php?helpPage=rmhc-homebase/subCallList.php">Using a Sub Call
 						List (Managers Only)</a></li>-->
-			</ul>
+			<!--</ul>
 			<p>
 			<!--<li><a href="?helpPage=rmhc-homebase/addNotes.php">Adding notes</a></li>-->
 
-		</ul>
+		<!--</ul>
 		<!--<li><a href="?helpPage=rmhc-homebase/viewSchedule.php">Working with the Master
 				Schedule</a> (Managers Only)</li>
 		<br>-->
-		<li><a href="?helpPage=rmhc-homebase/reports.php">Generating Reports</a> (Managers
+		<!--<li><a href="?helpPage=rmhc-homebase/reports.php">Generating Reports</a> (Managers
 			Only)</li>
 		<br>
 		<!--<li><a href="?helpPage=rmhc-homebase/dataExport.inc.php">Exporting Reports as CSVs (spreadsheet files)</a> (Managers Only)</li>-->
 
-	</ol>
+	<!--</ol>
 	<p>
 		If these help pages don't answer your questions, please contact a Gwyneth's Gift staff member</a>.
 	</p>
 </body>
-</html>
+</html>-->
 

@@ -8,7 +8,7 @@
  */
 ?>
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -134,4 +134,4 @@
 	another vacancy.
 <p>
 	<B>Step 8:</B> You can return to the shift, the calendar, or any other
-	function by selecting it on the navigation bar.
+	function by selecting it on the navigation bar.-->

@@ -1,5 +1,5 @@
 <?php
-
+/*
 $accessLevelsByRole = [
 	//'volunteer' => 1,
 	'admin' => 2,
@@ -113,4 +113,4 @@ class Animal {
 		if($other == "distemper3_given_date") return $this->get_distemper3_given_date();
 		if($other == "distemper3_due_date") return $this->get_distemper3_due_date();
 	}
-}
+}*/

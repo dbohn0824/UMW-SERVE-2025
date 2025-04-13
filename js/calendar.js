@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
 
     // Change to selected date when user chooses a new month
     // let startingMonth = $('#month-jumper').val();
@@ -34,4 +34,4 @@ $(function() {
             $('#month-jumper-wrapper').addClass('hidden');
         }
     });
-});
+});*/

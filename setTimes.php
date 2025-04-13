@@ -5,7 +5,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    date_default_timezone_set("America/New_York");
+    /*date_default_timezone_set("America/New_York");
 
     $loggedIn = false;
     $accessLevel = 0;
@@ -158,4 +158,4 @@
                 
         </main>
     </body>
-</html>
+</html>*/

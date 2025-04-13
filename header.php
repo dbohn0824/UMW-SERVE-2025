@@ -60,10 +60,6 @@
         $permission_array['apply.php'] = 0;
         $permission_array['logout.php'] = 0;
 
-        //$permission_array['findanimal.php'] = 0;
-        //$permission_array['register.php'] = 0;
-        //$permission_array['viewallevents.php'] = 0;
-
         //pages volunteers can view
         $permission_array['help.php'] = 1;
         $permission_array['inbox.php'] = 1;
@@ -75,17 +71,6 @@
         $permission_array['requestfailed.php'] = 1;
         $permission_array['eventfailurebaddeparturetime.php'] = 1;
         $permission_array['volunteersearch.php'] = 1;
-
-        //$permission_array['dashboard.php'] = 1;
-        //$permission_array['calendar.php'] = 1;
-        //$permission_array['eventsearch.php'] = 1;
-        //$permission_array['date.php'] = 1;
-        //$permission_array['event.php'] = 1;
-        //$permission_array['viewmyupcomingevents.php'] = 1;
-        //$permission_array['eventlist.php'] = 1;
-        //$permission_array['eventsignup.php'] = 1;
-        //$permission_array['eventfailure.php'] = 1;
-        //$permission_array['signuppending.php'] = 1;
       
         //pages only staff can view
         $permission_array['register.php'] = 2;
@@ -95,12 +80,7 @@
         $permission_array['viewprofile.php'] = 2;
         $permission_array['editprofile.php'] = 2;
         $permission_array['log.php'] = 2;
-        $permission_array['reports.php'] = 2;
-        $permission_array['eventedit.php'] = 2;
-        $permission_array['report.php'] = 2;
-        $permission_array['reportspage.php'] = 2;
         $permission_array['resetpassword.php'] = 2;
-        $permission_array['viewarchived.php'] = 2;
         $permission_array['resources.php'] = 2;
         $permission_array['deletevolunteer.php'] = 2;
         $permission_array['deletestaff.php'] = 2;
@@ -118,28 +98,6 @@
         $permission_array['visualizedata.php'] = 2;
         $permission_array['checkvolunteerstatus.php'] = 2;
 
-        //$permission_array['viewschedule.php'] = 2;
-        //$permission_array['addweek.php'] = 2;
-        //$permission_array['addappointment.php'] = 2;
-        //$permission_array['addanimal.php'] = 2;
-        //$permission_array['addservice.php'] = 2;
-        //$permission_array['addlocation.php'] = 2;
-        //$permission_array['viewservice.php'] = 2;
-        //$permission_array['viewlocation.php'] = 2;
-        //$permission_array['modifyuserrole.php'] = 2;
-        //$permission_array['addevent.php'] = 2;
-        //$permission_array['editevent.php'] = 2;
-        //$permission_array['roster.php'] = 2;
-        //$permission_array['animal.php'] = 2;
-        //$permission_array['editanimal.php'] = 2;
-        //$permission_array['eventsuccess.php'] = 2;
-        //$permission_array['viewsignuplist.php'] = 2;
-        //$permission_array['vieweventsignups.php'] = 2;
-        //$permission_array['viewalleventsignups.php'] = 2;
-        //$permission_array['edittimes.php'] = 2;
-        //$permission_array['adminviewingevents.php'] = 2;
-
-        
         // LOWERCASE
 
         //Check if they're at a valid page for their access level.

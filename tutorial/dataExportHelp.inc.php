@@ -9,7 +9,7 @@
 ?>
 
 
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -86,7 +86,7 @@ using Excel or OpenOffice.
 		target="tutorial/screenshots/dataexport3-2.png"> &nbsp&nbsp&nbsp&nbsp<img
 		src="tutorial/screenshots/dataexport3-2.png" width="10%" rel="popover"
 		data-img="tutorial/screenshots/dataexport3-2.png" border="1px"
-		align="center"> </a> <BR>
+		align="center"> </a> <BR>-->
 
 
 

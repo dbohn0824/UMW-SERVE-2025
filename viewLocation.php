@@ -4,7 +4,7 @@
     session_start();
 
     // Ensure user is logged in
-    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+    /*if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
         header('Location: login.php');
         die();
     }
@@ -179,3 +179,4 @@
 </body>
 
 </html>
+*/

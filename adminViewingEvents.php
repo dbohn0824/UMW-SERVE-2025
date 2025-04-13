@@ -3,7 +3,7 @@
 
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
-    session_cache_expire(30);
+    /*session_cache_expire(30);
     session_start();
 
     $loggedIn = false;
@@ -97,4 +97,4 @@
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </main>
     </body>
-</html>
+</html>*/

@@ -4,7 +4,7 @@
     session_cache_expire(30);
     session_start();
 
-    $loggedIn = false;
+    /*$loggedIn = false;
     $accessLevel = 0;
     $userID = null;
     if (isset($_SESSION['_id'])) {
@@ -19,13 +19,13 @@
         echo 'bad access level';
         die();
     }*/
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    /*if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
         require_once('database/dbEvents.php');
         $args = sanitize($_POST, null);
         $required = array(
             "event-name", "account-name", "start-time", "departure-time", /*"skills",*/ /*"diet-restrictions", "disabilities", "materials", "role"*/
-        );
+        /*);
 
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
@@ -60,11 +60,11 @@
             //$date = $args['date'] = validateDate($args["date"]);
             //$capacity = intval($args["capacity"]);
             //$abbrevLength = strlen($args['abbrev-name']);
-            //if (!$startTime /*|| !$date */|| $abbrevLength > 11){
+            //if (!$startTime /*|| !$date *//*|| $abbrevLength > 11){
                 //echo 'bad args';
                 //die();
             //}
-            //if (!$departureTime /*|| !$date */|| $abbrevLength > 11){
+            //if (!$departureTime /*|| !$date *//*|| $abbrevLength > 11){
                 //echo 'bad args';
                 //die();
             //}
@@ -73,9 +73,9 @@
             if($restricted == "Yes") {
                 $name = htmlspecialchars(string: isset($_GET['event_name']) ? $_GET['event_name'] : '');
                 //echo "hey";
-                $id = request_event_signup($name, $account_name, $role, $notes/*$signup*/);
+                $id = request_event_signup($name, $account_name, $role, $notes/*$signup*//*);
 
-                if(!$id){
+                /*if(!$id){
                     header('Location: requestFailed.php');
                     die();
                 }
@@ -126,7 +126,7 @@
 
     // get animal data from database for form
     // Connect to database
-    include_once('database/dbinfo.php'); 
+    /*include_once('database/dbinfo.php'); 
     $con=connect();  
     // Get all the animals from animal table
     /*$sql = "SELECT * FROM `dbAnimals`";
@@ -137,7 +137,7 @@
     $all_services = mysqli_query($con,$sql);*/
     
     // Get the event information from URL parameters if they exist
-    $event_name = isset($_GET['event_name']) ? htmlspecialchars($_GET['event_name']) : '';
+    /*$event_name = isset($_GET['event_name']) ? htmlspecialchars($_GET['event_name']) : '';
 
     //$abbrevName = isset($_GET['abbrev-name']) ? htmlspecialchars($_GET['abbrev-name']) : '';
     $startTime = isset($_GET['start-time']) ? htmlspecialchars($_GET['start-time']) : '';
@@ -244,7 +244,7 @@
                     <a class="button cancel" href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" style="margin-top: -.5rem">Return to Calendar</a>
                 <?php else: ?>
                     <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
-                <?php endif */?>
+                <?php endif *//*?>
         </main>
     </body>
-</html>
+</html>*/

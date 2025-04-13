@@ -7,7 +7,7 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 ?>
-<script src="lib/jquery-1.9.1.js"></script>
+<!--<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -111,4 +111,4 @@
 		border="1px" align="middle"> </a>
 <p>
 	<B>Step 8:</B> When you finish, you can return to any other function by
-	selecting it on the navigation bar.
+	selecting it on the navigation bar.-->

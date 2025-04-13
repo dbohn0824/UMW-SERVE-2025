@@ -4,7 +4,7 @@
 
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
-    session_cache_expire(30);
+    /*session_cache_expire(30);
     session_start();
 
     ini_set("display_errors",1);
@@ -111,4 +111,4 @@
                 <?php endif ?>
         </main>
     </body>
-</html>
+</html>*/

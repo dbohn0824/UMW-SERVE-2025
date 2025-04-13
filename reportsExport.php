@@ -17,7 +17,7 @@
  */
 session_start();
 session_cache_expire(30);
-?>
+/*?>
 <html>
 <head>
 <title>Search for data objects</title>
@@ -170,3 +170,4 @@ function export_data($current_time, $search_attr, $export_data) {
         <?PHP include('footer.inc'); ?>
 </body>
 </html>
+*/

@@ -6,7 +6,7 @@
     session_cache_expire(30);
     session_start();
 
-    $loggedIn = false;
+    /*$loggedIn = false;
     $accessLevel = 0;
     $userID = null;
     if (isset($_SESSION['_id'])) {
@@ -161,7 +161,7 @@
                                             <td></td>
                                         </tr>";
                                     }
-                                */}
+                                *//*}
                             ?>
                         </tbody>
                     </table>
@@ -222,7 +222,7 @@
                                             <td></td>
                                         </tr>";
                                     }
-                                */}
+                                *//*}
                             ?>
                         </tbody>
                     </table>
@@ -236,4 +236,4 @@
     
 
     </body>
-</html>
+</html>*/

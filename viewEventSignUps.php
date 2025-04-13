@@ -2,7 +2,7 @@
 session_cache_expire(30);
 session_start();
 
-if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+/*if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
     header('Location: login.php');
     die();
 }
@@ -161,7 +161,7 @@ $access_level = $_SESSION['access_level'];
                                     $formatted_notes = preg_replace('/\s*\|\s*$/', '', $formatted_notes);
 
                                     // Replace the ' | ' between the categories with a line break
-                                    $formatted_notes = preg_replace('/\s*\|\s*/', "<br>", htmlspecialchars($formatted_notes));
+                                    $formatted_notes = preg_replace('/\s*\|\s*//*', "<br>", htmlspecialchars($formatted_notes));
 
                                     // Add line breaks after "N/A" categories, but only after those that actually have content
                                     $formatted_notes = preg_replace('/(Skills: N\/A|Dietary restrictions: N\/A|Disabilities: N\/A|Materials: N\/A)/', '$1<br>', $formatted_notes);
@@ -276,3 +276,4 @@ $access_level = $_SESSION['access_level'];
     </div>
 </body>
 </html>
+*/
