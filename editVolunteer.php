@@ -21,6 +21,13 @@
         die();
     }
 
+    if (isset($_GET['edit']) && $_GET['edit'] === 'Edit') {
+        // Redirect to the same page without the query string
+        $cleanUrl = strtok($_SERVER["REQUEST_URI"], '?');
+        header("Location: $cleanUrl");
+        exit();
+    }
+
 
     
 ?>
@@ -162,13 +169,6 @@
 
                                 if(array_key_exists('emergency_phone',$args)){
                                     update_emergency_phone($person->get_id(),$args['emergency_phone']);
-                                }
-
-                                if (isset($_GET['edit']) && $_GET['edit'] === 'Edit') {
-                                    // Redirect to the same page without the query string
-                                    $cleanUrl = strtok($_SERVER["REQUEST_URI"], '?');
-                                    header("Location: $cleanUrl");
-                                    exit();
                                 }
 
                                 if ($notFirst) {
