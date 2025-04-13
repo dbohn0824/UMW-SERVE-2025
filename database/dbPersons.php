@@ -37,12 +37,13 @@ function add_person($person) {
             $person->get_email() . '","' .
             $person->get_password() . '");'
         );*/
-        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, mandated_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
             $person->get_id() . '","' . 
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
             $person->isMinor() . '","' .
             $person->get_total_hours() . '","' .
+            $person->get_mandated_hours() . '","' .
             $person->get_remaining_mandated_hours() . '","' .
             $person->get_checked_in() . '","' .
             $person->get_phone1() . '","' .
@@ -128,12 +129,13 @@ function add_staff($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, mandated_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' . 
             $person->get_last_name() . '","' .
             $person->isMinor() . '","' .
             0 . '","' .
+            $person->get_mandated_hours() . '","' .
             $person->get_remaining_mandated_hours() . '","' .
             0 . '","' .
             $person->get_phone1() . '","' . 
@@ -246,14 +248,38 @@ function update_hours($id, $new_hours) {
 	return $result;
 }*/
 
-/* update volunteer hours */ /* $original_start_time, $original_end_time,  */
-function update_volunteer_hours($eventname, $username, $new_start_time, $new_end_time) {
-    $con=connect();
-    $eventid = "SELECT id FROM dbevents WHERE name = " . $eventname . '"';
-	$query = 'UPDATE dbpersonhours SET start_time = "' . $new_start_time . '", end_time = "' . $new_end_time . ' WHERE eventID = "' . $eventid . '" AND personID = "' . $username . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
+function update_volunteer_checkIn($entry_id, $Time_in, $id, $date) {
+    $con = connect();
+    $query = "UPDATE dbpersonhours SET Time_in = '$Time_in' WHERE personID = '$entry_id' AND date = '$date'";
+    $result = mysqli_query($con, $query);
+    mysqli_close($con);
+    return $result;
+}
+
+function update_volunteer_checkOut($entry_id, $Time_out, $id, $date) {
+    $con = connect();
+    $query = "UPDATE dbpersonhours SET Time_out = '$Time_out' WHERE personID = '$entry_id' AND date = '$date'";
+    $result = mysqli_query($con, $query);
+    mysqli_close($con);
+    return $result;
+}
+
+function get_hours_volunteered_by($id) {
+    $con = connect();
+    $query = "SELECT personID, date, Time_in, Time_out 
+              FROM dbpersonhours 
+              WHERE personID = '" . mysqli_real_escape_string($con, $id) . "'";
+
+    $result = mysqli_query($con, $query);
+    $entries = [];
+
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $entries[] = $row;
+        }
+    }
+    mysqli_close($con);
+    return $entries;
 }
 
 /*@@@ Thomas */
@@ -681,6 +707,7 @@ function make_a_person($result_row) {
         $result_row['email'],                        // $email
         $result_row['minor'],                        // $minor
         $result_row['total_hours'],                  // $total_hours
+        $result_row['mandated_hours'],               // $mandated_hours
         $result_row['remaining_mandated_hours'],     // $remaining_mandated_hours
         $result_row['emergency_contact_first_name'], // $emergency_contact_first_name
         $result_row['emergency_contact_last_name'],  // $emergency_contact_last_name
@@ -1679,3 +1706,47 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return True;
     } 
 
+    function find_staff($name) {
+        $con = connect();
+
+        $searchTerm = '%' . $name . '%';
+        $nameSafe = mysqli_real_escape_string($con, $name);
+
+        $query = "SELECT * FROM dbpersons
+                   WHERE type = 'admin' 
+                   AND (first_name LIKE '%$nameSafe%' OR last_name LIKE '%$nameSafe%')";
+        
+        $result = mysqli_query($con, $query);
+
+        $staff = [];
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $staff[] = new Person(
+                    $row['id'],
+                    $row['password'],
+                    $row['first_name'],
+                    $row['last_name'],
+                    $row['street_address'],
+                    $row['city'],
+                    $row['state'],
+                    $row['zip_code'],
+                    $row['notes'],
+                    $row['phone1'],
+                    $row['email'],
+                    $row['minor'],
+                    $row['total_hours'],
+                    $row['mandated_hours'],
+                    $row['remaining_mandated_hours'],
+                    $row['emergency_contact_first_name'],
+                    $row['emergency_contact_last_name'],
+                    $row['emergency_contact_phone'],
+                    $row['emergency_contact_relation'],
+                    $row['type']
+                );
+            }   
+        }
+
+        mysqli_close($con);
+        return $staff;
+    }

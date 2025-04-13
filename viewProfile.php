@@ -48,6 +48,9 @@
         }
       }
     }
+
+    // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+    synchronize_hours($_SESSION['volunteer_id']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -136,6 +139,11 @@
                         echo '<div class="field-pair">
                             <label>Total Hours</label>
                             <p>' . $user->get_total_hours() .'</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>Mandated Hours</label>
+                            <p>' .$user->get_mandated_hours() . '</p>
                         </div>';
 
                         echo '<div class="field-pair">
