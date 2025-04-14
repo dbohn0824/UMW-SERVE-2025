@@ -186,7 +186,9 @@
             } else {
                 $title = $newperson->get_first_name() . " has joined the SERVE team!"; 
                 $body = "Please make sure to welcome " . $newperson->get_first_name() . " into the SERVE family!";  
-                system_message_all_admins($title, $body)
+                system_message_all_admins($title, $body);
+              
+
                 ?>
                 <html>
                     <!-- <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php"> -->
