@@ -179,6 +179,32 @@ function message_all_users_of_types($from, $types, $title, $body) {
     return true;
 }
 
+
+function message_all_users_of_type($from, $type, $title, $body) {
+    $time = date('Y-m-d-H:i');
+    $query = "select id from dbpersons where type = ?";
+    $connection = connect();
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param('s', $type);
+    $stmt->execute();
+    $result = $stmt->get_result(); 
+    $rows = $result->fetch_assoc(); 
+    var_dump($rows); 
+    foreach ($rows as $row) {
+        $to = $row[0];
+        $query = "insert into dbmessages (id,senderID, recipientID, title, body, time)
+                  values ('$from', '$to', '$title', '$body', '$time')";
+        $result = mysqli_query($connection, $query);
+    }
+    mysqli_close($connection);    
+    return true;
+}
+
+
+
+
+
+
 function message_all_volunteers($from, $title, $body) {
     return message_all_users_of_types($from, ['"volunteer"'], $title, $body);
 }
@@ -193,6 +219,10 @@ function message_all_admins($from, $title, $body) {
 
 function system_message_all_admins($title, $body) {
     return message_all_users_of_types('vmsroot', ['"admin"', '"superadmin"'], $title, $body);
+}
+
+function system_message_all_superadmins($title, $body) {
+    return message_all_users_of_types('vmsroot', ['"superadmin"'], $title, $body);
 }
 
 function system_message_all_users_except($except, $title, $body) {
