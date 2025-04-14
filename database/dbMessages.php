@@ -1,8 +1,6 @@
 <?php
 
 require_once('database/dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/Event.php');
-include_once(dirname(__FILE__).'/../domain/Animal.php');
 date_default_timezone_set("America/New_York");
 
 function get_user_messages($userID) {
@@ -127,6 +125,19 @@ function send_system_message($to, $title, $body) {
 
 function mark_read($id) {
     $query = "update dbmessages set wasRead=1
+              where id='$id'";
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    if (!$result) {
+        mysqli_close($connection);
+        return false;
+    }
+    mysqli_close($connection);
+    return true;
+}
+
+function mark_unread($id) {
+    $query = "update dbmessages set wasRead=0
               where id='$id'";
     $connection = connect();
     $result = mysqli_query($connection, $query);

@@ -154,7 +154,8 @@
             $isMinor = 0;
             $total_hours = 0;
             $court_hours = "No";
-           $remaining_mandated_hours = 0;
+            $mandated_hours = 0;
+            $remaining_mandated_hours = 0;
             
 
             $newperson = new Person(
@@ -171,6 +172,7 @@
                     $email,
                     $isMinor,
                     $total_hours,
+                    $mandated_hours,
                     $remaining_mandated_hours,
                     $emergency_contact_first_name,
                     $emergency_contact_last_name,

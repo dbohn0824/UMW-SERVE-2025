@@ -31,7 +31,7 @@
         $id = $_SESSION['_id'];
         $viewingSelf = true;
     }
-    $events = get_events_attended_by($id);
+    //$events = get_events_attended_by($id);
     $volunteer = retrieve_person($id);
 ?>
 <!DOCTYPE html>

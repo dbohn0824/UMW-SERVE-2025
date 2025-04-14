@@ -20,14 +20,14 @@
  */
 
 
-include_once('dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/Event.php');
+/*include_once('dbinfo.php');
+include_once(dirname(__FILE__).'/../domain/Event.php');*?
 
 /*
  * add an event to dbEvents table: if already there, return false
  */
 
-function add_event($event) {
+/*function add_event($event) {
     if (!$event instanceof Event)
         die("Error: add_event type mismatch");
     $con=connect();
@@ -120,7 +120,7 @@ function sign_up_for_event($eventID, $account_name, $role, $notes) {
 /*
  * Check if a user is is signed up for an event. Return true or false.
  */
-function check_if_signed_up($eventID, $userID) {
+/*function check_if_signed_up($eventID, $userID) {
     // look up event+user pair
     $connection = connect();
     $query1 = "SELECT * FROM dbeventpersons WHERE eventID = '$eventID' and userID = '$userID'";
@@ -140,7 +140,7 @@ function check_if_signed_up($eventID, $userID) {
 /*
  * Check for all users signed up for an event. 
  */
-function fetch_event_signups($eventID) {
+/*function fetch_event_signups($eventID) {
     $connection = connect();
     $query = "SELECT userID, position, notes FROM dbeventpersons WHERE eventID = '$eventID'";
     $result = mysqli_query($connection, $query);
@@ -261,7 +261,7 @@ function remove_user_from_pending_event($event_id, $user_id) {
 /*
  * Returns true if the given event is archived.
  */
-function is_archived($id) {
+/*unction is_archived($id) {
     // look-up 'completed' in the event's DB entry
     $connection = connect();
     $query1 = "SELECT completed FROM dbevents WHERE id = '$id'";
@@ -282,7 +282,7 @@ function is_archived($id) {
 /*
  * Mark an event as archived in the DB by setting the 'completed' column to 'yes'.
  */
-function archive_event($id) {
+/*function archive_event($id) {
     $con=connect();
     $query = "UPDATE dbevents SET completed = 'yes' WHERE id = '" .$id. "'";
     $result = mysqli_query($con, $query);
@@ -293,7 +293,7 @@ function archive_event($id) {
 /*
  * Mark an event as not archived in the DB by setting the 'completed' column to 'no'.
  */
-function unarchive_event($id) {
+/*function unarchive_event($id) {
     $con=connect();
     $query = "UPDATE dbevents SET completed = 'no' WHERE id = '" .$id. "'";
     $result = mysqli_query($con,$query);
@@ -309,7 +309,7 @@ function unarchive_event($id) {
  * remove an event from dbEvents table.  If already there, return false
  */
 
-function remove_event($id) {
+/*function remove_event($id) {
     $con=connect();
     $query = 'SELECT * FROM dbevents WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
@@ -329,7 +329,7 @@ function remove_event($id) {
  * if not in table, return false
  */
 
-function retrieve_event($id) {
+/*function retrieve_event($id) {
     $con=connect();
     $query = "SELECT * FROM dbevents WHERE id = '" . $id . "'";
     $result = mysqli_query($con,$query);
@@ -370,7 +370,7 @@ function make_an_event($result_row) {
 	/*
 	 ($en, $v, $sd, $description, $ev))
 	 */
-    $theEvent = new Event(
+    /*$theEvent = new Event(
                     $result_row['id'],
                     $result_row['name'],                   
                     date: $result_row['date'],
@@ -941,6 +941,7 @@ function update_animal2($animal) {
     mysqli_commit($connection);
     mysqli_close($connection);
     return $id;
-}
+}*/
 
 //There was a question mark followed by a > here
+?>

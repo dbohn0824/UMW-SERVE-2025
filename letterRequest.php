@@ -19,11 +19,12 @@
     include_once("database/dbMessages.php");
     $vol_info = $person->get_first_name() . " " . $person->get_last_name() . " (User ID: " . $person->get_id() . ")";
     // FIND A WAY TO ADD SOME SORT OF LINK TO THEIR PROFILE IN MESSAGE IG?
-    $message = "A community service letter has been requested by " . $vol_info . ".\nView their profile here: ";
+    $message = "A community service letter has been requested by " . $vol_info . ".\nView their profile
+                viewProfile.php?id=" . $person->get_id() . "";
     $title = "New Community Service Letter Request - " . $vol_info;
     send_system_message("vmsroot", $title, $message);
     // NEED TO HAVE A MESSAGE SHOW TO THE USER VERIFYING THAT A REQUEST HAS BEEN SENT.
-    $currentDate = date("m d, Y");
+    $currentDate = date("M d, Y");
     $message = "Hello!\nYou have officially requested a community service letter as of " . $currentDate . ". 
     A notice has been sent to staff, and you should expect a reply within the next two business days.";
     // FIX ERROR IN WHICH VOLUNTEER CANNOT DELETE A NOTIFICATION!!

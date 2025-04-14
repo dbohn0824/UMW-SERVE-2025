@@ -25,6 +25,8 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 $(function() {
     $('.delete-button').click(function(e) {
         e.preventDefault();
+        // Testing code
+        //$_SESSION['error'] = 'something borked';
 
         let id = $(this).data('message-id');
         sendDelete(id); 
