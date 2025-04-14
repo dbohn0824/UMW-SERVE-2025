@@ -38,7 +38,7 @@
         // }
 
         $required = array(
-            'first_name', 'last_name', 'email', 'phone1', 'phone1type', 'emergency_contact_first_name',
+            'first_name', 'last_name', 'email', 'phone1', 'mandated_hours', 'emergency_contact_first_name',
             'emergency_contact_last_name', 'emergency_contact_phone', 'emergency_contact_relation'
         );
         $errors = false;
@@ -50,8 +50,8 @@
         
         $last_name = $args['last_name'];
         
-        $birthday = "";
-        /*$birthday = validateDate($args['birthday']);
+        /*$birthday = "";
+        $birthday = validateDate($args['birthday']);
         if (!$birthday) {
             $errors = true;
             // echo 'bad dob';
@@ -133,7 +133,7 @@
 
         //$type = $args['type'];
 
-        $school_affiliation = "";
+        /*$school_affiliation = "";
         $tshirt_size = "";
         $how_you_heard_of_stepva = "";
         $preferred_feedback_method = "";
@@ -148,7 +148,7 @@
         $background_complete = "";
         $background_date = "";
         $photo_release = "";
-        $photo_release_notes = "";
+        $photo_release_notes = "";*/
         /*$school_affiliation = $args['school_affiliation'];
         $photo_release = $args['photo_release'];
             if (!valueConstrainedTo($photo_release, array('Restricted', 'Not Restricted'))) {
@@ -189,24 +189,15 @@
         }*/
 
         $minor = $args['minor'];
-        $remaining_mandated_hours = $args['remaining_mandated_hours'];
+        $mandated_hours = $args['mandated_hours'];
+        $mandated_mod = $args['mandated_mod'];
 
-        // THIS NEEDS TO BE UPDATED
-        // LIKE MASSIVELY
-        // PLACEHOLDER
-        $warning = "HEY CHECK OUT LINE 178 ONWARD AND EDIT STUFF!!";
-        var_dump($warning);
         $result = update_person_required(
-            $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
-            $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
+            $id, $first_name, $last_name, $minor, $mandated_hours,
+            $street_address, $city, $state, $zip_code, $email,
+            $phone1, $emergency_contact_first_name,
             $emergency_contact_last_name, $emergency_contact_phone,
-            $emergency_contact_phone_type, $emergency_contact_relation, $type,
-            $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
-            $preferred_feedback_method, $hobbies, $professional_experience,
-            $disability_accomodation_needs, $training_complete, $training_date,
-            $orientation_complete, $orientation_date, $background_complete,
-            $background_date, $photo_release, $photo_release_notes,
-            $minor, $remaining_mandated_hours 
+            $emergency_contact_relation, $mandated_mod
         );
         if ($result) {
             if ($editingSelf) {

@@ -33,9 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" || $accessLevel == 1) {
         echo '<p class="error-message">Bad ID.</p>';
         die();
     }
+
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     $person = retrieve_person($id);
-
     if (!$person) {
         echo '<p class="error-message">User not found.</p>';
         die();
@@ -81,11 +81,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
 
     if ($entry_id && $date) {
         if ($check_in !== null && $check_in !== '') {
-            update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
+            $result = update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
         }
 
         if ($check_out !== null && $check_out !== '') {
-            update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
+            $result = update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
         }
 
         header("Location: viewHours.php?id=" . urlencode($id));
@@ -113,6 +113,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
         <main class="general">
             <?php if($person): ?>
                 <h2><?php echo $person->get_first_name() . ' ' . $person->get_last_name(); ?></h2>
+                <?php 
+                    if(isset($result)){
+                        echo "<p>" . $result . "</p>";
+                    }
+                ?>
 
                 <div style="overflow-x: auto;" class="table-wrapper">
                     <table class="general">
@@ -153,7 +158,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
             <?php else: ?>
                 <h2>Change Hours</h2>
             <?php endif; ?>
-            <a class="button cancel" href="searchHours.php" style="margin-top: -.5rem">Return to Search</a>
+            <a class="button cancel" href="viewProfile.php?id=<?php echo $id ?>" style="margin-top: -.5rem">Volunteer Profile</a>
+            <a class="button cancel" href="searchHours.php" style="margin-top: -.5rem">Hours Search</a>
         </main>
     </div>
 </body>

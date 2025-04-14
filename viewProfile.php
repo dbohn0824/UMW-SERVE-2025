@@ -39,7 +39,7 @@
     $user = retrieve_person($id);
     $viewingOwnProfile = $id == $userID;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_POST['url'])) {
         if (!update_profile_pic($id, $_POST['url'])) {
           header('Location: viewProfile.php?id='.$id.'&picsuccess=False');
@@ -47,10 +47,10 @@
           header('Location: viewProfile.php?id='.$id.'&picsuccess=True');
         }
       }
-    }
+    }*/
 
     // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-    synchronize_hours($_SESSION['volunteer_id']);
+    synchronize_hours($id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -228,13 +228,12 @@
             </fieldset>-->
 
 
-
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
                 <!--<?php if (($accessLevel == 2 && $user->get_access_level() == 1) || $accessLevel >= 3): ?>
                     <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Reset Password</a>
                 <?php endif ?>-->
-                <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
+                <a class="button" href="viewHours.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
                 <a class="button cancel" href="personSearch.php">Return to User Search</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
