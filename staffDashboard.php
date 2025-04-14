@@ -193,4 +193,61 @@
             </div>
         </main>
     </body>
+
+    <!-- Footer -->
+    <div class="p-4 pb-0">
+    <footer class="text-center text-lg-start text-white py-3" style="background-color: #7E0B07; width: 100%;">
+        <div class="container p-2 pb-0">
+            <section>
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 col-xl-3 mx-auto">
+                        <h6 class="text-uppercase mb-2" style="font-size: 1rem;">SERVE</h6>
+                        <p class="mb-1" style="font-size: 0.9rem;">
+                            Stafford Emergency Relief through Volunteer Efforts
+                        </p>
+                    </div>
+
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                        <h6 class="text-uppercase mb-2" style="font-size: 1rem;">Hours</h6>
+                        <p class="mb-1" style="font-size: 0.9rem;"><span>Monday – Thursday:</span>
+                        <span>11:00am–4:00pm</span></p>
+                        <p class="mb-1" style="font-size: 0.9rem;">2nd Wed: until 6:30pm</p>
+                        <p class="mb-1" style="font-size: 0.9rem;">Closed on Federal Holidays</p>
+                    </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                        <h6 class="text-uppercase mb-2" style="font-size: 1rem;">Donations</h6>
+                        <p class="mb-1" style="font-size: 0.9rem;">Food donations accepted:</p>
+                        <p class="mb-1" style="font-size: 0.9rem;">Mon–Thurs: 11am–4pm</p>
+                        <p class="mb-1" style="font-size: 0.9rem;">Every 2nd Wed</p>
+                        <p class="mb-1" style="font-size: 0.9rem;">Call: (540)288-9603</p>
+                    </div>
+
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto">
+                        <h6 class="text-uppercase mb-2" style="font-size: 1rem;">Contact</h6>
+                        <p class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-home mr-2"></i> 15 Upton Ln, Stafford, VA</p>
+                        <p class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-home mr-2"></i> P.O. Box 1357</p>
+                        <p class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-envelope mr-2"></i> SERVE@SERVE-helps.org</p>
+                        <p class="mb-1" style="font-size: 0.9rem;"><i class="fas fa-phone mr-2"></i> 540-288-9603</p>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="my-2">
+
+            <section class="pt-0">
+                <div class="row d-flex align-items-center">
+                    <div class="col-md-12 text-center">
+                        <div style="font-size: 0.85rem;">
+                            © 2020 Copyright:
+                            <a class="text-white">MDBootstrap.com</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </footer>
+    </div>
+    
+    <!-- End Footer -->
 </html>
