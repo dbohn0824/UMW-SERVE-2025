@@ -119,9 +119,27 @@
                 <p><?php echo $person->get_total_hours() ?></p>
             </div>
 
-            <label for="last_name"><em>* </em>Remaining Mandated Hours</label>
-            <input type="text" id="remaining_mandated_hours" name="remaining_mandated_hours" value="<?php echo hsc($person->get_remaining_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
-            
+            <div class="mandated_hours">
+                <label for="mandated_hours"><em>* </em>Mandated Hours</label>
+                <input type="text" id="mandated_hours" name="mandated_hours" value="<?php echo hsc($person->get_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
+            </div>
+
+            <div class="mandated_mod">
+                <label for="mandated_mod"><!--<em>* </em>-->Add amount to current mandated hours?</label>
+                <div class="radio-group">
+                    <input type="radio" id="mandated_mod_yes" name="mandated_mod" value="1">
+                    <label for="mandated_mod_yes">Add to Current Hours</label>
+                    <input type="radio" id="mandated_mod_no" name="mandated_mod" value="0">
+                    <label for="mandated_mod_no">Replace Current Hours</label>
+                </div>
+            </div>
+
+            <div class="field-pair">
+                <label>Remaining Mandated Hours</label>
+                <p><?php echo $person->get_remaining_mandated_hours() ?></p>
+            </div>
+        </fieldset>
+
             <label for="street_address"><em>* </em>Street Address</label>
             <input type="text" id="street_address" name="street_address" value="<?php echo hsc($person->get_street_address()); ?>" required placeholder="Enter your street address">
 
@@ -195,8 +213,18 @@
         </fieldset>-->
 
         <script>
+            /*const selectElement = document.querySelector(".mandated_hours");
+            //const result = document.querySelector(".mandated_mod");
+            
+            if(mandated_hours != $mandated_hours){
+                document.getElementById('mandated_mod').style.display = 'block'
+            } else {
+                document.getElementById('mandated_mod').style.display = 'none'
+            }*/
+
+            // Script functions no longer necessary
             // Function to toggle the visibility and required attribute of the date inputs based on the radio buttons
-            function toggleStatusDateVisibility(statusType) {
+            /*function toggleStatusDateVisibility(statusType) {
                 const statusCompleteYes = document.getElementById(statusType + '-complete-yes');
                 const statusDateContainer = document.getElementById(statusType + '-date-container');
                 const statusDateInput = document.getElementById(statusType + '_date');
@@ -239,7 +267,7 @@
                 toggleStatusDateVisibility('training');
                 toggleStatusDateVisibility('orientation');
                 toggleStatusDateVisibility('background');
-            });
+            });*/
         </script>
 
         <p></p>

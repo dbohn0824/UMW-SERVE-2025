@@ -7,7 +7,7 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 
-include_once('dbinfo.php');
+/*include_once('dbinfo.php');
 include_once('database/dbPersons.php');
 include_once('domain/Person.php');
 include_once('dbEvents.php');
@@ -457,3 +457,4 @@ function export_report($heading, $col_labels, $data, $venue) {
 }
 
 ?>
+*/
