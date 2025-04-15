@@ -77,6 +77,14 @@ synchronize_hours($personID);
         <?php require('header.php'); ?>
         <h1>Check In/Check Out</h1>
         <main class='dashboard'>
+            <?php
+                $volStatus = "";
+                if ($person->get_checked_in() == 0) {
+                    $volStatus = "NOT checked in";
+                } else {
+                    $volStatus = "checked in";
+                }
+            ?>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
             <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
