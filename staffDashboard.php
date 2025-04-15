@@ -91,10 +91,10 @@
                     <img src="images/person-search.svg">
                     <span>Find Volunteer</span>
                 </div>
-                <div class="dashboard-item" data-link="editVolunteer.php">
+                <!--<div class="dashboard-item" data-link="editVolunteer.php">
                     <img src="images/manage-account.svg">
                     <span>Edit Volunteer</span>
-                </div>
+                </div>-->
                 <div class="dashboard-item" data-link="register.php">
                     <img src="images/add-person.svg">
                     <span>Register Volunteer</span>

@@ -863,14 +863,19 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 */
     // updates the required fields of a person's account
     function update_person_required(
-        $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
+        $id, $first_name, $last_name, $minor, $mandated_hours,
+        $street_address, $city, $state, $zip_code, $email,
+        $phone1, $emergency_contact_first_name,
+        $emergency_contact_last_name, $emergency_contact_phone,
+        $emergency_contact_relation, $mandated_mod
+        /*$id, $first_name, $last_name, $birthday, $street_address, $city, $state,
         $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
         $emergency_contact_last_name, $emergency_contact_phone,
         $emergency_contact_phone_type, $emergency_contact_relation, $type,
         $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
         $preferred_feedback_method, $hobbies, $professional_experience,
         $disability_accomodation_needs, $training_complete, $training_date, $orientation_complete,
-        $orientation_date, $background_complete, $background_date, $photo_release, $photo_release_notes
+        $orientation_date, $background_complete, $background_date, $photo_release, $photo_release_notes*/
     ) {
         // Query used to get current total and remaining mandated hours, in case changes must be made
         $query = "SELECT mandated_hours, remaining_mandated_hours, total_hours
@@ -902,13 +907,23 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
         // Update dbpersons
         $query = "update dbpersons set 
-            first_name='$first_name', last_name='$last_name', birthday='$birthday',
+            first_name='$first_name', last_name='$last_name', minor='$minor',
+            mandated_hours = '$mandated_hours', remaining_mandated_hours = '$remaining_mandated_hours',
+            street_address='$street_address', city='$city', state='$state', zip_code='$zip_code',
+            email='$email', phone1='$phone1', emergency_contact_first_name='$emergency_contact_first_name', 
+            emergency_contact_last_name='$emergency_contact_last_name', 
+            emergency_contact_phone='$emergency_contact_phone',
+            emergency_contact_relation='$emergency_contact_relation' 
+            where id='$id'";
+        // Outdate Query
+        /*$query = "update dbpersons set 
+            first_name='$first_name', last_name='$last_name'," /* birthday='$birthday',*//* ."
             street_address='$street_address', city='$city', state='$state',
-            zip_code='$zip_code', email='$email', phone1='$phone1'" . /*", phone1type='$phone1type'" .*/ ", 
+            zip_code='$zip_code', email='$email', phone1='$phone1'" . /*", phone1type='$phone1type'" .*//* ", 
             emergency_contact_first_name='$emergency_contact_first_name', 
             emergency_contact_last_name='$emergency_contact_last_name', 
             emergency_contact_phone='$emergency_contact_phone', " . /*"
-            emergency_contact_phone_type='$emergency_contact_phone_type', " .*/ "
+            emergency_contact_phone_type='$emergency_contact_phone_type', " .*//* "
             emergency_contact_relation='$emergency_contact_relation', type='$type', " . /*"
             school_affiliation='$school_affiliation', tshirt_size='$tshirt_size',
             how_you_heard_of_stepva='$how_you_heard_of_stepva', preferred_feedback_method='$preferred_feedback_method',
@@ -917,9 +932,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             training_complete='$training_complete', training_date='$training_date', orientation_complete='$orientation_complete',
             orientation_date='$orientation_date', background_complete='$background_complete', background_date='$background_date',
             photo_release='$photo_release',
-            photo_release_notes='$photo_release_notes'" .*/ "
-            where id='$id'";
-        $connection = connect();
+            photo_release_notes='$photo_release_notes'" .*//* "
+            where id='$id'";*/
         $result = mysqli_query($connection, $query);
         mysqli_commit($connection);
         mysqli_close($connection);
@@ -1680,4 +1694,66 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function delete_person_by_id($id) {
         return remove_person($id);
+    }
+
+    function get_first_date($personID){
+
+        $con=connect();
+    
+        $query = "SELECT date
+    
+                  FROM dbpersonhours
+    
+                  WHERE personID = '" . $personID . "'
+    
+                  AND Time_out IS NOT NULL
+    
+                  ORDER BY date
+    
+                  LIMIT 1";
+    
+        $result = mysqli_query($con, $query);
+    
+        if($result){
+    
+            $row = mysqli_fetch_assoc($result);
+    
+            return $row['date'];
+    
+        } else
+    
+            return -1;
+    
+    }
+    
+    
+    
+    function get_last_date($personID){
+    
+        $con=connect();
+    
+        $query = "SELECT date
+    
+                  FROM dbpersonhours
+    
+                  WHERE personID = '" . $personID . "'
+    
+                  AND Time_out IS NOT NULL
+    
+                  ORDER BY date DESC
+    
+                  LIMIT 1";
+    
+        $result = mysqli_query($con, $query);
+    
+        if($result){
+    
+            $row = mysqli_fetch_assoc($result);
+    
+            return $row['date'];
+    
+        } else
+    
+            return -1;
+    
     }
