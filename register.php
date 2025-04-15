@@ -22,7 +22,7 @@
         require_once('header.php');
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
-        require_once('database\dbMessages.php');
+        require_once('database/dbMessages.php');
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // make every submitted field SQL-safe except for password
             $ignoreList = array('password');
