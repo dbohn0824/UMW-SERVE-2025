@@ -4,6 +4,8 @@
     include_once('domain/Person.php');
     include_once('database/dbPersons.php');
 
+    // Determine if this will at all be useful, and modify or remove entirely
+
     $person = Array();
     $person['first_name'] = 'vmsroot';
     $person['last_name'] = '';

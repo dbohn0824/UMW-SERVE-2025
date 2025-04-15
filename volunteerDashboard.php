@@ -67,7 +67,6 @@
                 if($hours > 0){
                     echo '<p>You must serve ' . $hours . ' remaining court mandated hours.</p>';
                 }
-
                 if(isset($_GET['request'])){
                     $currentDate = date("m d, Y");
                     $message = "<p style='max-width: 800px; margin: auto;'>You have officially requested a community service letter as of " . $currentDate . ". 

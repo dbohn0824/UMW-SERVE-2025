@@ -1,5 +1,5 @@
 <?php
-    //session_start();
+
     // In this section, I've removed code that ensures the user is already logged in.
     // This is because we want users without accounts to be able to create new accounts.
 
@@ -25,6 +25,7 @@
         require_once('header.php');
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
+        require_once('database/dbMessages.php');
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // make every submitted field SQL-safe except for password
             $ignoreList = array('password');
@@ -203,11 +204,13 @@
 
             $total_hours = 0;
             $notes = '';
-            $type = 'v';
+            $type = 'volunteer';
             $password = "";
             if($court_hours = 'Yes'){
+                $mandated_hours = $args['hours_needed'];
                 $remaining_mandated_hours = $args['hours_needed'];
             } else {
+                $remaining_hours = 0;
                 $remaining_mandated_hours = 0;
             }
             
@@ -226,6 +229,7 @@
                     $email,
                     $isMinor,
                     $total_hours,
+                    $mandated_hours,
                     $remaining_mandated_hours,
                     $emergency_contact_first_name,
                     $emergency_contact_last_name,
@@ -238,6 +242,11 @@
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
+
+                $title = $newperson->get_first_name() . " has been registered with SERVE!"; 
+                $body = "Please make sure to welcome " . $newperson->get_first_name() . " into the SERVE family!";  
+                system_message_all_admins($title, $body)
+
                 ?>
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">

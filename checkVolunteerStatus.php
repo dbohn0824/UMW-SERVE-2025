@@ -34,7 +34,7 @@
 
     $con = connect(); 
 
-    $query = "SELECT id, first_name, last_name, checked_in FROM dbpersons" ;
+    $query = "SELECT id, first_name, last_name, checked_in FROM dbpersons WHERE type = 'volunteer'" ;
 
     $stmt = $con->prepare($query);
 

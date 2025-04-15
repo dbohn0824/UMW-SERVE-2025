@@ -1,5 +1,7 @@
 <?php
+// Page will be kept until futher notice in case volunteers or staff must be archived at any point, as a starting point.
 
+/*
 function displaySearchRow($animal){
     echo "
     <tr>
@@ -81,4 +83,4 @@ function displaySearchRow($animal){
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
     </body>
-</html>
+</html>*/

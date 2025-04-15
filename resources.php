@@ -56,7 +56,7 @@
     </head>
         <body>
             <?php require_once('header.php') ?>
-            <?php require_once('database/dbEvents.php');?>
+            <?php //require_once('database/dbEvents.php'); ?>
             <h1>Upload Volunteer Resource</h1>
                 <form action="resources.php" method="post" enctype="multipart/form-data">
                     <br></br>
