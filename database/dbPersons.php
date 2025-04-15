@@ -556,6 +556,16 @@ function getall_volunteers() {
     return $thePersons;
 }
 
+// Loose function that automatically re-sums total volunteering hours
+function synchronize_hours($personID){
+    $currentDate = date('Y-m-d');
+    $tot = get_hours_for_range($personID, 1979-01-01, $currentDate);
+    update_hours($personID, $tot);
+
+    return -1;
+}
+
+
 
 function getall_volunteer_names() {
     $con=connect();
