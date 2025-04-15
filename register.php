@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     // In this section, I've removed code that ensures the user is already logged in.
     // This is because we want users without accounts to be able to create new accounts.
 
@@ -8,8 +8,10 @@
 
     require_once('include/input-validation.php');
 
-    session_cache_expire(30);
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_cache_expire(30); // Only safe to call this BEFORE session_start()
+        session_start();
+    }
 ?>
 
 <!DOCTYPE html>
