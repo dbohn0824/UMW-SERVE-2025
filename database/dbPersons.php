@@ -872,6 +872,35 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $disability_accomodation_needs, $training_complete, $training_date, $orientation_complete,
         $orientation_date, $background_complete, $background_date, $photo_release, $photo_release_notes
     ) {
+        // Query used to get current total and remaining mandated hours, in case changes must be made
+        $query = "SELECT mandated_hours, remaining_mandated_hours, total_hours
+                  from dbpersons
+                  where id='$id'";
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        // DEPENDING ON WHAT IS NEEDED, CHANGE THIS POSSIBLY.
+        foreach($result as $row){
+            if($mandated_mod === "1"){
+                // If hours are being added to current total mandated hours:
+                // Add to remaining and total mandated hours
+                $remaining_mandated_hours = $row['remaining_mandated_hours'] + $mandated_hours;
+                $mandated_hours = $row['mandated_hours'] + $mandated_hours;
+            } else if ($mandated_mod === "0") {
+                // If mandated hours are being changed to new amount entirely:
+                // Set remaining hours to new total mandated hours minus already volunteered hours
+                $remaining_mandated_hours = $mandated_hours - $row['total_hours'];
+                if($remaining_mandated_hours < 0){
+                    $remaining_mandated_hours = 0;
+                }
+            } else {
+                // No change made to remaining mandated hours
+                $remaining_mandated_hours = $row['remaining_mandated_hours'];
+            }
+        }
+
+        // Update dbpersons
         $query = "update dbpersons set 
             first_name='$first_name', last_name='$last_name', birthday='$birthday',
             street_address='$street_address', city='$city', state='$state',
