@@ -1679,3 +1679,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return True;
     } 
 
+    function delete_person_by_id($id) {
+        return remove_person($id);
+    }
+    
+
