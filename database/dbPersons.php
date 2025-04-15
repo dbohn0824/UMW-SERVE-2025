@@ -18,7 +18,7 @@ include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
 
 /*
- * add a person to dbPersons table: if already there, return false
+ * add a person to dbpersons table: if already there, return false
  */
 
 function add_person($person) {
@@ -29,7 +29,7 @@ function add_person($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        /*mysqli_query($con,'INSERT INTO dbPersons (id, first_name, last_name, birthday, email, password) VALUES("' .
+        /*mysqli_query($con,'INSERT INTO dbpersons (id, first_name, last_name, birthday, email, password) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
@@ -37,12 +37,13 @@ function add_person($person) {
             $person->get_email() . '","' .
             $person->get_password() . '");'
         );*/
-        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, mandated_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
             $person->get_id() . '","' . 
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
             $person->isMinor() . '","' .
             $person->get_total_hours() . '","' .
+            $person->get_mandated_hours() . '","' .
             $person->get_remaining_mandated_hours() . '","' .
             $person->get_checked_in() . '","' .
             $person->get_phone1() . '","' .
@@ -59,6 +60,8 @@ function add_person($person) {
             $person->get_emergency_contact_phone() . '","' .
             $person->get_emergency_contact_relation() . '")'
             );
+
+        // Non-functional/outdated insert query
         /*mysqli_query($con, 'INSERT INTO dbpersons VALUES ("' .
             $person->get_id() . '","' . 
             $person->get_first_name() . '","' .
@@ -120,23 +123,26 @@ function add_staff($person) {
     if (!$person instanceof Person)
         die("Error: add_person type mismatch");
     $con=connect();
+    $password = $person->get_password(); 
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_query($con, 'INSERT INTO dbPersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, mandated_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' . 
             $person->get_last_name() . '","' .
             $person->isMinor() . '","' .
             0 . '","' .
+            $person->get_mandated_hours() . '","' .
             $person->get_remaining_mandated_hours() . '","' .
             0 . '","' .
             $person->get_phone1() . '","' . 
             $person->get_email() . '","' .
             'n/a' . '","' . 
             $person->get_type() . '","' .
-            $person->get_password() . '","' . 
+            $hashed_password . '","' . 
             $person->get_street_address() . '","' .
             $person->get_city() . '","' .
             $person->get_state() . '","' . 
@@ -155,7 +161,7 @@ function add_staff($person) {
 }
 
 /*
- * remove a person from dbPersons table.  If already there, return false
+ * remove a person from dbpersons table.  If already there, return false
  */
 
 function remove_person($id) {
@@ -173,7 +179,7 @@ function remove_person($id) {
 }
 
 /*
- * @return a Person from dbPersons table matching a particular id.
+ * @return a Person from dbpersons table matching a particular id.
  * if not in table, return false
  */
 
@@ -242,14 +248,40 @@ function update_hours($id, $new_hours) {
 	return $result;
 }*/
 
-/* update volunteer hours */ /* $original_start_time, $original_end_time,  */
-function update_volunteer_hours($eventname, $username, $new_start_time, $new_end_time) {
-    $con=connect();
-    $eventid = "SELECT id FROM dbevents WHERE name = " . $eventname . '"';
-	$query = 'UPDATE dbpersonhours SET start_time = "' . $new_start_time . '", end_time = "' . $new_end_time . ' WHERE eventID = "' . $eventid . '" AND personID = "' . $username . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
+//These need to be updated so that check-in cannot be set after check-out time
+function update_volunteer_checkIn($entry_id, $Time_in, $id, $date) {
+    $con = connect();
+    $query = "UPDATE dbpersonhours SET Time_in = '$Time_in' WHERE personID = '$entry_id' AND date = '$date'";
+    $result = mysqli_query($con, $query);
+    mysqli_close($con);
+    return $result;
+}
+
+function update_volunteer_checkOut($entry_id, $Time_out, $id, $date) {
+    $con = connect();
+    $query = "UPDATE dbpersonhours SET Time_out = '$Time_out' WHERE personID = '$entry_id' AND date = '$date'";
+    $result = mysqli_query($con, $query);
+    mysqli_close($con);
+    return $result;
+}
+
+function get_hours_volunteered_by($id) {
+    $con = connect();
+    $query = "SELECT personID, date, Time_in, Time_out 
+              FROM dbpersonhours 
+              WHERE personID = '" . mysqli_real_escape_string($con, $id) . "'";
+
+    $result = mysqli_query($con, $query);
+    $entries = [];
+
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $entries[] = $row;
+        }
+    }
+    
+    mysqli_close($con);
+    return $entries;
 }
 
 /*@@@ Thomas */
@@ -275,8 +307,8 @@ function check_in($personID, $start_time) {
     $result = mysqli_query($con, $query);
 
     if ($result) {
-        // Update the dbPersons table to mark the user as checked in
-        $update_query = "UPDATE dbPersons SET checked_in = 1 WHERE id = '$personID'";
+        // Update the dbpersons table to mark the user as checked in
+        $update_query = "UPDATE dbpersons SET checked_in = 1 WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
         mysqli_close($con);
@@ -306,23 +338,68 @@ function check_out($personID, $end_time) {
         return false;  
     }
 
+    // Gets most recent check-in time
+    $query = "SELECT Time_in
+              FROM dbpersonhours
+              WHERE personID = '$personID'
+              AND date = '$current_date'
+              ORDER BY Time_in desc
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+    $Time_in = $row['Time_in'];
+
     // Proceed to update the check-out time and mark the user as checked out
     $query = "UPDATE dbpersonhours 
               SET Time_out = '$end_time' 
               WHERE personID = '$personID'
-              AND date = '$current_date'";  
+              AND date = '$current_date'
+              AND Time_in = '$Time_in'";  
     $update_result = mysqli_query($con, $query);
 
     if ($update_result) {
-        // Update dbPersons to mark user as checked out
-        $update_query = "UPDATE dbPersons 
+        // Update dbpersons to mark user as checked out
+        $update_query = "UPDATE dbpersons 
                          SET checked_in = 0 
                          WHERE id = '$personID'";
         mysqli_query($con, $update_query);
 
+        // Re-sum total hours
+        synchronize_hours($personID);
+
+        // Gets remaining court mandated hours
+        $query = "SELECT remaining_mandated_hours
+                  FROM dbpersons
+                  WHERE id = '$personID'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $remaining_mandated_hours = $row['remaining_mandated_hours'];
+
+        // Gets hours for most recent volunteering session
+        $query = "SELECT Total_hours
+                  FROM dbpersonhours
+                  WHERE personID = '$personID'
+                  AND date = '$current_date'
+                  AND Time_in = '$Time_in'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $hours = $row['Total_hours'];
+
+        // Calculates remaining mandated hours after most recent volunteering session
+        $remaining_mandated_hours = $remaining_mandated_hours - $hours;
+        if($remaining_mandated_hours < 0)
+            $remaining_mandated_hours = 0;
+        
+        // Updates remaining mandated hours
+        $update_query = "UPDATE dbpersons 
+                         SET remaining_mandated_hours = '$remaining_mandated_hours' 
+                         WHERE id = '$personID'";
+        mysqli_query($con, $update_query);
+
+        /* Non-functional/outdated queries to update total hours for day and overall */
+        /*                   vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv                   */
+
         //now update total hours in dbpersons with hours accumilated for the day 
-
-
         //get total hours for the day
         /*$query = "SELECT SUM(Total_hours) FROM dbpersonhours WHERE personID = ? AND
                   date = ?"; 
@@ -350,10 +427,6 @@ function check_out($personID, $end_time) {
 
         //**************************************************************************** */
 
-        // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-        $tot = get_hours_for_range($personID, 1979-01-01, $current_date);
-        update_hours($personID, $tot);
-
         mysqli_close($con);
 
         // Successfully checked out
@@ -371,8 +444,8 @@ function check_out($personID, $end_time) {
 function can_check_in($personID) {
     $con = connect();
 
-    // Check the `checked_in` field in the dbPersons table to see if the person is already checked in
-    $query = "SELECT checked_in FROM dbPersons WHERE id = '$personID'";
+    // Check the `checked_in` field in the dbpersons table to see if the person is already checked in
+    $query = "SELECT checked_in FROM dbpersons WHERE id = '$personID'";
     $result = mysqli_query($con, $query);
     $person = mysqli_fetch_assoc($result);
 
@@ -391,8 +464,8 @@ function can_check_in($personID) {
 function can_check_out($personID) {
     $con = connect();
 
-    // Check if the user is currently checked in by looking at the checked_in field in dbPersons
-    $query = "SELECT checked_in FROM dbPersons WHERE id = '$personID'";
+    // Check if the user is currently checked in by looking at the checked_in field in dbpersons
+    $query = "SELECT checked_in FROM dbpersons WHERE id = '$personID'";
     $result = mysqli_query($con, $query);
     
     if ($result) {
@@ -461,6 +534,47 @@ function get_hours_for_range($personID, $startDate, $endDate) {
     return -1; // no check-ins found
 }
 
+function get_first_date($personID){
+    $con=connect();
+    $query = "SELECT date
+              FROM dbpersonhours
+              WHERE personID = '" . $personID . "'
+              AND Time_out IS NOT NULL
+              ORDER BY date
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        return $row['date'];
+    } else
+        return -1;
+}
+
+function get_last_date($personID){
+    $con=connect();
+    $query = "SELECT date
+              FROM dbpersonhours
+              WHERE personID = '" . $personID . "'
+              AND Time_out IS NOT NULL
+              ORDER BY date DESC
+              LIMIT 1";
+    $result = mysqli_query($con, $query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        return $row['date'];
+    } else
+        return -1;
+}
+
+// Loose function that automatically re-sums total volunteering hours
+function synchronize_hours($personID){
+    $currentDate = date('Y-m-d');
+    $tot = get_hours_for_range($personID, 1979-01-01, $currentDate);
+    update_hours($personID, $tot);
+
+    return -1;
+}
+
 /* Delete a single check-in/check-out pair as defined by the given parameters */
 function delete_check_in($userID, $eventID, $start_time, $end_time) {
     $con=connect();
@@ -509,11 +623,11 @@ function update_start_date($id, $new_start_date) {
 }*/
 
 /*
- * @return all rows from dbPersons table ordered by last name
+ * @return all rows from dbpersons table ordered by last name
  * if none there, return false
- */
+ 
 
-function getall_dbPersons($name_from, $name_to, $venue) {
+function getall_dbpersons($name_from, $name_to, $venue) {
     $con=connect();
     $query = "SELECT * FROM dbpersons";
     $query.= " WHERE venue = '" .$venue. "'"; 
@@ -533,9 +647,10 @@ function getall_dbPersons($name_from, $name_to, $venue) {
 
     return $thePersons;
 }
+    */
 
 /*
-  @return all rows from dbPersons
+  @return all rows from dbpersons
 
 */
 function getall_volunteers() {
@@ -595,6 +710,7 @@ function make_a_person($result_row) {
         $result_row['email'],                        // $email
         $result_row['minor'],                        // $minor
         $result_row['total_hours'],                  // $total_hours
+        $result_row['mandated_hours'],               // $mandated_hours
         $result_row['remaining_mandated_hours'],     // $remaining_mandated_hours
         $result_row['emergency_contact_first_name'], // $emergency_contact_first_name
         $result_row['emergency_contact_last_name'],  // $emergency_contact_last_name
@@ -649,14 +765,14 @@ function make_a_person($result_row) {
 
 function getall_names($status, $type, $venue) {
     $con=connect();
-    $result = mysqli_query($con,"SELECT id,first_name,last_name,type FROM dbPersons " .
+    $result = mysqli_query($con,"SELECT id,first_name,last_name,type FROM dbpersons " .
             "WHERE venue='".$venue."' AND status = '" . $status . "' AND TYPE LIKE '%" . $type . "%' ORDER BY last_name,first_name");
     mysqli_close($con);
     return $result;
 }
 
 /*
- * @return all active people of type $t or subs from dbPersons table ordered by last name
+ * @return all active people of type $t or subs from dbpersons table ordered by last name
  */
 
 function getall_type($t) {
@@ -701,7 +817,7 @@ function getvolunteers_byevent($id){
 
 
 // retrieve only those persons that match the criteria given in the arguments
-function getonlythose_dbPersons($type, $status, $name, $day, $shift, $venue) {
+function getonlythose_dbpersons($type, $status, $name, $day, $shift, $venue) {
    $con=connect();
    $query = "SELECT * FROM dbpersons WHERE type LIKE '%" . $type . "%'" .
            " AND status LIKE '%" . $status . "%'" .
@@ -852,23 +968,67 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 */
     // updates the required fields of a person's account
     function update_person_required(
-        $id, $first_name, $last_name, $birthday, $street_address, $city, $state,
+        $id, $first_name, $last_name, $minor, $mandated_hours,
+        $street_address, $city, $state, $zip_code, $email,
+        $phone1, $emergency_contact_first_name,
+        $emergency_contact_last_name, $emergency_contact_phone,
+        $emergency_contact_relation, $mandated_mod
+        /*$id, $first_name, $last_name, $birthday, $street_address, $city, $state,
         $zip_code, $email, $phone1, $phone1type, $emergency_contact_first_name,
         $emergency_contact_last_name, $emergency_contact_phone,
         $emergency_contact_phone_type, $emergency_contact_relation, $type,
         $school_affiliation, $tshirt_size, $how_you_heard_of_stepva,
         $preferred_feedback_method, $hobbies, $professional_experience,
         $disability_accomodation_needs, $training_complete, $training_date, $orientation_complete,
-        $orientation_date, $background_complete, $background_date, $photo_release, $photo_release_notes
+        $orientation_date, $background_complete, $background_date, $photo_release, $photo_release_notes*/
     ) {
+        // Query used to get current total and remaining mandated hours, in case changes must be made
+        $query = "SELECT mandated_hours, remaining_mandated_hours, total_hours
+                  from dbpersons
+                  where id='$id'";
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        // DEPENDING ON WHAT IS NEEDED, CHANGE THIS POSSIBLY.
+        foreach($result as $row){
+            if($mandated_mod === "1"){
+                // If hours are being added to current total mandated hours:
+                // Add to remaining and total mandated hours
+                $mandated_hours = $row['mandated_hours'] + $mandated_hours;
+                $remaining_mandated_hours = $row['remaining_mandated_hours'] + $mandated_hours - $row['total_hours'];
+            } else if ($mandated_mod === "0") {
+                // If mandated hours are being changed to new amount entirely:
+                // Set remaining hours to new total mandated hours minus already volunteered hours
+                $remaining_mandated_hours = $mandated_hours - $row['total_hours'];
+                if($remaining_mandated_hours < 0){
+                    $remaining_mandated_hours = 0;
+                }
+            } else {
+                // No change made to remaining mandated hours
+                $remaining_mandated_hours = $row['remaining_mandated_hours'];
+            }
+        }
+
+        // Update dbpersons
         $query = "update dbpersons set 
-            first_name='$first_name', last_name='$last_name', birthday='$birthday',
+            first_name='$first_name', last_name='$last_name', minor='$minor',
+            mandated_hours = '$mandated_hours', remaining_mandated_hours = '$remaining_mandated_hours',
+            street_address='$street_address', city='$city', state='$state', zip_code='$zip_code',
+            email='$email', phone1='$phone1', emergency_contact_first_name='$emergency_contact_first_name', 
+            emergency_contact_last_name='$emergency_contact_last_name', 
+            emergency_contact_phone='$emergency_contact_phone',
+            emergency_contact_relation='$emergency_contact_relation' 
+            where id='$id'";
+        // Outdate Query
+        /*$query = "update dbpersons set 
+            first_name='$first_name', last_name='$last_name'," /* birthday='$birthday',*//* ."
             street_address='$street_address', city='$city', state='$state',
-            zip_code='$zip_code', email='$email', phone1='$phone1'" . /*", phone1type='$phone1type'" .*/ ", 
+            zip_code='$zip_code', email='$email', phone1='$phone1'" . /*", phone1type='$phone1type'" .*//* ", 
             emergency_contact_first_name='$emergency_contact_first_name', 
             emergency_contact_last_name='$emergency_contact_last_name', 
             emergency_contact_phone='$emergency_contact_phone', " . /*"
-            emergency_contact_phone_type='$emergency_contact_phone_type', " .*/ "
+            emergency_contact_phone_type='$emergency_contact_phone_type', " .*//* "
             emergency_contact_relation='$emergency_contact_relation', type='$type', " . /*"
             school_affiliation='$school_affiliation', tshirt_size='$tshirt_size',
             how_you_heard_of_stepva='$how_you_heard_of_stepva', preferred_feedback_method='$preferred_feedback_method',
@@ -877,9 +1037,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             training_complete='$training_complete', training_date='$training_date', orientation_complete='$orientation_complete',
             orientation_date='$orientation_date', background_complete='$background_complete', background_date='$background_date',
             photo_release='$photo_release',
-            photo_release_notes='$photo_release_notes'" .*/ "
-            where id='$id'";
-        $connection = connect();
+            photo_release_notes='$photo_release_notes'" .*//* "
+            where id='$id'";*/
         $result = mysqli_query($connection, $query);
         mysqli_commit($connection);
         mysqli_close($connection);
@@ -1336,17 +1495,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         elseif(($type=="general_volunteer_report" || $type == "total_vol_hours") && ($dateFrom && $dateTo && $lastFrom && $lastTo)){
             $today = date("Y-m-d");
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbpersons.status='$stats' GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";            
 	    else
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+                $query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
 		WHERE date >= '$dateFrom' AND date<='$dateTo'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
                 $result = mysqli_query($con,$query);
                 try {
@@ -1376,17 +1535,17 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             }
             elseif(($type == "general_volunteer_report" ||$type == "total_vol_hours") && ($dateFrom && $dateTo && $lastFrom == NULL  && $lastTo == NULL)){
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-                $query = $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+                $query = $query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbpersons.status='$stats' GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
 	    else
-		$query = $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = $query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE date >= '$dateFrom' AND date<='$dateTo'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
                 $result = mysqli_query($con,$query);
                 try {
@@ -1414,19 +1573,19 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             }
             elseif(($type == "general_volunteer_report" ||$type == "total_vol_hours") && ($dateFrom == NULL && $dateTo ==NULL && $lastFrom && $lastTo)){
 	    if ($stats == 'Active' || $stats == 'Inactive') 
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
-		GROUP BY dbPersons.first_name,dbPersons.last_name
+                WHERE dbpersons.status='$stats'
+		GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
 	    else
-		$query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
-                FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+		$query = "SELECT dbpersons.id,dbpersons.first_name,dbpersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                FROM dbpersons JOIN dbEventVolunteers ON dbpersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name,dbPersons.last_name
+                GROUP BY dbpersons.first_name,dbpersons.last_name
                 ORDER BY Dur";
-                //$query = "SELECT * FROM dbPersons WHERE dbPersons.status='$stats'";
+                //$query = "SELECT * FROM dbpersons WHERE dbpersons.status='$stats'";
                 $result = mysqli_query($con,$query);
                 $nameRange = range($lastFrom,$lastTo);
                 $totHours = array();
@@ -1448,7 +1607,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function remove_profile_picture($id) {
         $con=connect();
-        $query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $query = 'UPDATE dbpersons SET profile_pic="" WHERE id="'.$id.'"';
         $result = mysqli_query($con,$query);
         mysqli_close($con);
         return True;
@@ -1592,3 +1751,48 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($con);
         return True;
     } 
+
+    function find_staff($name) {
+        $con = connect();
+
+        $searchTerm = '%' . $name . '%';
+        $nameSafe = mysqli_real_escape_string($con, $name);
+
+        $query = "SELECT * FROM dbpersons
+                   WHERE type = 'admin' 
+                   AND (first_name LIKE '%$nameSafe%' OR last_name LIKE '%$nameSafe%')";
+        
+        $result = mysqli_query($con, $query);
+
+        $staff = [];
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $staff[] = new Person(
+                    $row['id'],
+                    $row['password'],
+                    $row['first_name'],
+                    $row['last_name'],
+                    $row['street_address'],
+                    $row['city'],
+                    $row['state'],
+                    $row['zip_code'],
+                    $row['notes'],
+                    $row['phone1'],
+                    $row['email'],
+                    $row['minor'],
+                    $row['total_hours'],
+                    $row['mandated_hours'],
+                    $row['remaining_mandated_hours'],
+                    $row['emergency_contact_first_name'],
+                    $row['emergency_contact_last_name'],
+                    $row['emergency_contact_phone'],
+                    $row['emergency_contact_relation'],
+                    $row['type']
+                );
+            }   
+        }
+
+        mysqli_close($con);
+        return $staff;
+    }
