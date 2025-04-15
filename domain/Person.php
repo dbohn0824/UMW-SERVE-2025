@@ -73,7 +73,7 @@ class Person {
 	function __construct(
 						$id, $password, $first_name, $last_name, $street_address, $city, $state, $zip_code, $notes,
 						$phone1, $email, $minor, $total_hours, $mandated_hours, $remaining_mandated_hours, $emergency_contact_first_name,
-						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type,
+						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type
 						) {
 		$this->id = $id; // (username)
 		$this->first_name = $first_name;
@@ -100,8 +100,10 @@ class Person {
 		// access_level = 1 for users, and = 3 for admin
 		//if ($id == 'vmsroot') {
 		//d.bohn changed this so new staff members will have access to staff features
-		  if ($type == 'admin') {
+		  if ($type == 'superadmin') {
 			$this->access_level = 3;
+		} elseif ($type == 'admin' ) {
+			$this->access_level = 2;
 		} else {
 			$this->access_level = 1;
 		}
