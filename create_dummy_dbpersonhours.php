@@ -2,7 +2,7 @@
 
 // create dummy dbpersonhours entry
 
-session_start();
+/*session_start();
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
@@ -29,4 +29,4 @@ $result = mysqli_query($con,$query);
 mysqli_close($con);
 header('Location: index.php')
 
-?>
+?>*/

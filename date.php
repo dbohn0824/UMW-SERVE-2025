@@ -3,7 +3,7 @@
 
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
-    session_cache_expire(30);
+    /*session_cache_expire(30);
     session_start();
     date_default_timezone_set("America/New_York");
 
@@ -68,7 +68,7 @@
                                 </thead>
                                 <tbody>
                                     <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . "</td></tr>
-                                    <tr><td>Location</td><td>" . /*$location .*/ "</td></tr>
+                                    <tr><td>Location</td><td>" . /*$location .*/ /*"</td></tr>
                                     <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
                                 </tbody>
                               </table>
@@ -88,9 +88,9 @@
                     <a class="button" href="editHours.php?date=' . $date . '">
                         Edit Hours for an event
                     </a>';*/
-            }
+            /*}
             ?>
 			<a href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" class="button cancel" style="margin-top: -.5rem">Return to Calendar</a>
         </main>
     </body>
-</html>
+</html>*/

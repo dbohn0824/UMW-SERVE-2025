@@ -7,7 +7,7 @@
 
   session_cache_expire(30);
   session_start();
-  ini_set("display_errors",1);
+  /*ini_set("display_errors",1);
   error_reporting(E_ALL);
   $loggedIn = false;
   $accessLevel = 0;
@@ -75,7 +75,7 @@
             tr:nth-child(even) {
                 background-color: #f0f0f0;
                 /* color:var(--button-font-color); */
-		
+                /*
             }
 
             @media print {
@@ -129,10 +129,12 @@
                 bottom: 20px;
             }
             .back-to-top:visited {
-                color: white; /* sets the color of the link when visited */  
+                color: white; /* sets the color of the link when visited */ 
+                /* 
             }
             .back-to-top {
                 color: white; /* sets the color of the link when visited */  
+                /*
             }
 	    .intro {
                 display: flex;
@@ -274,4 +276,4 @@
 	</div>
         </main>
     </body>
-</html>
+</html>*/

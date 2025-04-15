@@ -78,6 +78,7 @@ table, td, tr, th, form, fieldset, em, button, a {
     --text-field-border: 2px solid #e8e8e8;
 
     --cancel-button-background-color: #aaa;
+    --delete-button-background-color: #870c0c;
 
     --error-color: red;
 
@@ -532,9 +533,29 @@ button.cancel:hover, a.cancel:hover {
     background-color: var(--accent-color);
 }
 
-#calendar-heading-month {
-    cursor: pointer;
+/* Delete button on viewNotification page */
+button.delete, a.delete {
+    background-color: var(--delete-button-background-color);
 }
+
+button.delete:hover, a.delete:hover {
+    background-color: var(--accent-color);
+}
+
+/* buttons on on inbox page */
+button.inbox, a.inbox {
+    /*ackground-color: var(--delete-button-background-color);*/
+    display: none;
+}
+
+button.inbox:hover, a.inbox:hover {
+    /*background-color: var(--accent-color);*/
+    display: none;
+}
+
+/*#calendar-heading-month {
+    cursor: pointer;
+}*/
 
 /* Dashboard */
 main.dashboard {

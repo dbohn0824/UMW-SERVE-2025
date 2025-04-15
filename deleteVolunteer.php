@@ -71,8 +71,8 @@
                                     <tr>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
-                                        <td><a href="deletePerson.php?id=' . $person->get_id() . '">Delete Volunteer</a></td>
-                                    </a></tr>';
+                                        <td><a href="deletePerson.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are you sure you want to delete ' . $person->get_first_name() . ' ' . $person->get_last_name() . '? This action CANNOT be undone!\')">Delete Volunteer</a></td>
+                                    </tr>';     
                             }
                             echo '
                                 </tbody>

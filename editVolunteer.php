@@ -6,7 +6,7 @@
     session_cache_expire(30);
     session_start();
 
-    $loggedIn = false;
+    /*$loggedIn = false;
     $accessLevel = 0;
     $userID = null;
     if (isset($_SESSION['_id'])) {
@@ -20,9 +20,6 @@
         header('Location: index.php');
         die();
     }
-
-
-    
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,10 +27,11 @@
         <?php require_once('universal.inc') ?>
         <title>SERVE | Volunteer Edit</title>
     </head> 
-<!--Style for showing and hiding edit textbox -->
+    
+    <!--Style for showing and hiding edit textbox -->
     <style>
         #textbox {
-            display: none; /* Hide initially */
+            display: none; /* Hide initially *//*
             margin-top: 10px;
         }
     </style>
@@ -48,7 +46,7 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', /*'id', 'phone', 'zip', 'role', 'status', 'photo_release'*/];
+                    $required = ['name', /*'id', 'phone', 'zip', 'role', 'status', 'photo_release'*//*];
                     //var_dump($args);
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
@@ -59,7 +57,7 @@
 					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
-                    $photo_release = $args['photo_release']; */
+                    $photo_release = $args['photo_release']; *//*
                     if(empty($args)){
                         if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
                             echo '<div class="error-toast">At least one search criterion is required.</div>';
@@ -70,7 +68,7 @@
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
-                    } */
+                    } *//*
                      else {
                         echo "<h3>Search Results</h3>";
                         //$persons = find_users(null, $id,null, null, null,null, null);
@@ -100,9 +98,7 @@
                                             <th>Emergency Phone</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="standout">'; */
-                            $mailingList = '';
-                            $notFirst = false;
+                                    <tbody class="standout">'; *//*
                         
                             foreach ($persons as $person) {
                                 if(array_key_exists('first_name',$args)){
@@ -259,7 +255,7 @@
                            /* echo '
                             <label>Result Mailing List</label>
                             <p>' . $mailingList . '</p>
-                            ';*/
+                            ';*//*
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
@@ -384,4 +380,4 @@
 
 
     </body>
-</html>
+</html>*/
