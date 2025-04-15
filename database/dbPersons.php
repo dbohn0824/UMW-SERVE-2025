@@ -995,8 +995,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             if($mandated_mod === "1"){
                 // If hours are being added to current total mandated hours:
                 // Add to remaining and total mandated hours
+                $remaining_mandated_hours = $row['remaining_mandated_hours'] + $mandated_hours;
                 $mandated_hours = $row['mandated_hours'] + $mandated_hours;
-                $remaining_mandated_hours = $row['remaining_mandated_hours'] + $mandated_hours - $row['total_hours'];
             } else if ($mandated_mod === "0") {
                 // If mandated hours are being changed to new amount entirely:
                 // Set remaining hours to new total mandated hours minus already volunteered hours
