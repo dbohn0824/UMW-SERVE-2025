@@ -19,31 +19,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'checkin') {
         if (can_check_out($personID)) {
-            echo "Error: Already checked in.";
+            ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+                    <main>
+                        <p class="happy-toast centered"> You are already checked in!</p>
+                    </main>
+                </html>
+                <?php
+            //echo "Error: Already checked in.";
             exit();
         } else {
             $start_time = date('H:i:s');
             if (check_in($personID, $start_time)) {
-
-                header("Location: $redirect_url");
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+                    <main>
+                        <p class="happy-toast centered"> You have been checked in!</p>
+                    </main>
+                </html>
+                <?php
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
-                echo "Error: Check-in failed.";
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+                    <main>
+                        <p class="happy-toast centered"> Check in failed</p>
+                    </main>
+                </html>
+                <?php
+                //echo "Error: Check-in failed.";
             }
         }
     } elseif ($action === 'checkout') {
         if (can_check_in($personID)) {
-            echo "Error: Not checked in.";
+            ?>
+            <html>
+                <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+                <main>
+                    <p class="happy-toast centered"> You are not checked in</p>
+                </main>
+            </html>
+            <?php
+            //echo "Error: Not checked in.";
         } else {
             $end_time = date('H:i:s');
             if (check_out($personID, $end_time)) {
-                echo "Successfully checked out at $end_time.";
-                var_dump($redirect_url);
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+                    <main>
+                        <p class="happy-toast centered"> You have been checked out</p>
+                    </main>
+                </html>
+                <?php
+                //echo "Successfully checked out at $end_time.";
+                //var_dump($redirect_url);
 
-                header("Location: $redirect_url");
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
-                echo "Error: Check-out failed.";
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+                    <main>
+                        <p class="happy-toast centered"> Error: Check out failed</p>
+                    </main>
+                </html>
+                <?php
+                //echo "Error: Check-out failed.";
             }
         }
     } else {

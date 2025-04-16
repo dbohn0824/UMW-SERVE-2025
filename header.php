@@ -328,8 +328,9 @@ if (session_status() === PHP_SESSION_NONE) {
             //so we die().
             die();
         }
-     
-
+    }
+?>
+</header>
 
 <!-- ============================================ -->
 <!--                 Navigation                   -->
