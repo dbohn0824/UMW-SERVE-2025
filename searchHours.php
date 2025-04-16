@@ -65,6 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
                 <h2>Results</h2>
                 <div style="overflow-x: auto;" class="table-wrapper">
                     <table class="general">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
                             </tr>
                         </thead>
                         <tbody class="standout">
