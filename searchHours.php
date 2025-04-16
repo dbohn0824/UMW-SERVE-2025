@@ -86,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
             <?php else: ?>
                 <h2>View & Change Hours</h2>
             <?php endif; ?>
-
             <?php if ($accessLevel > 1): ?>
                 <form id="new-event-form" method="post" class="styled-form">
                     <label for="name">Volunteer Name</label>
@@ -94,10 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
                     <input type="submit" value="Search" class="button primary-button">
                 </form>
             <?php endif; ?>
-
             <a class="button cancel" href="staffDashboard.php" style="margin-top: -.5rem">Return to Dashboard</a>
         </main>
     </div>
 </body>
 </html>
-

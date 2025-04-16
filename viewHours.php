@@ -36,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" || $accessLevel == 1) {
 
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     $person = retrieve_person($id);
-
     if (!$person) {
         echo '<p class="error-message">User not found.</p>';
         die();
@@ -68,11 +67,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
     } else {
         echo '<p class="error-message">Missing ID or entry ID.</p>';
     }
+    $entries = get_hours_volunteered_by($id);
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
+    $args = sanitize($_POST, null);
+
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    $entry_id = $args['id'] ?? null;
+    $date = $args['date'] ?? null; 
+    $check_in = $args['check_in'] ?? null;
+    $check_out = $args['check_out'] ?? null;
+
+    if ($entry_id && $date) {
+        if ($check_in !== null && $check_in !== '') {
+            $result = update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
+        }
+
+        if ($check_out !== null && $check_out !== '') {
+            $result = update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
+        }
+
+        header("Location: viewHours.php?id=" . urlencode($id));
+        die();
+    } else {
+        echo '<p class="error-message">Missing ID or entry ID.</p>';
+    }
 
     $entries = get_hours_volunteered_by($id);
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,9 +111,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
     <div class="container">
         <h1>View & Change Hours</h1>
         <main class="general">
-
             <?php if($person): ?>
                 <h2><?php echo $person->get_first_name() . ' ' . $person->get_last_name(); ?></h2>
+                <?php 
+                    if(isset($result)){
+                        echo "<p>" . $result . "</p>";
+                    }
+                ?>
 
                 <div style="overflow-x: auto;" class="table-wrapper">
                     <table class="general">
@@ -128,8 +158,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
             <?php else: ?>
                 <h2>Change Hours</h2>
             <?php endif; ?>
-
-            <a class="button cancel" href="searchHours.php" style="margin-top: -.5rem">Return to Search</a>
+            <a class="button cancel" href="viewProfile.php?id=<?php echo $id ?>" style="margin-top: -.5rem">Volunteer Profile</a>
+            <a class="button cancel" href="searchHours.php" style="margin-top: -.5rem">Hours Search</a>
         </main>
     </div>
 </body>

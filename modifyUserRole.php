@@ -5,7 +5,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    ini_set("display_errors",1);
+    /*ini_set("display_errors",1);
     error_reporting(E_ALL);
     $loggedIn = false;
     $accessLevel = 0;
@@ -104,9 +104,9 @@
                 }
                 main.user-role {
                     /* align-items: center; */
-                    margin: 0rem 16rem;
+                    /*margin: 0rem 16rem;*/
                     /* width: 50rem; */
-                }
+                /*}
             }
         </style>
     </head>
@@ -156,7 +156,7 @@
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active"><label for="makeActive" class="checkbox-label">Active</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked><label for="makeInactive" class="checkbox-label">Inactive</label>';
                     }
-                        */
+                        *//*
 		?>
 		</div>
 		

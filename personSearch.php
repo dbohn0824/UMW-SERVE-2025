@@ -92,6 +92,7 @@
                                             <th>Last</th>
                                             <th>Minor</th>
                                             <th>Total Hours Volunteered</th>
+                                            <th>Mandated Hours</th>
                                             <th>Mandated Hours Remaining</th>
                                             <th>Checked in?</th>
                                             <th>Phone Number</th>
@@ -153,6 +154,7 @@
                                             <td>' . $person->get_last_name() . '</td>
                                             <td>' . $minor . '</td>
                                             <td>' . $person->get_total_hours() . '</td>
+                                            <td>' . $person->get_mandated_hours() . '</td>
                                             <td>' . $person->get_remaining_mandated_hours() . '</td>
                                             <td>' . $check . '</td>
                                             <td>' . $person->get_phone1() . '</td>

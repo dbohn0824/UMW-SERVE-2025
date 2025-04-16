@@ -155,7 +155,8 @@
             $isMinor = 0;
             $total_hours = 0;
             $court_hours = "No";
-           $remaining_mandated_hours = 0;
+            $mandated_hours = 0;
+            $remaining_mandated_hours = 0;
             
 
             $newperson = new Person(
@@ -172,6 +173,7 @@
                     $email,
                     $isMinor,
                     $total_hours,
+                    $mandated_hours,
                     $remaining_mandated_hours,
                     $emergency_contact_first_name,
                     $emergency_contact_last_name,
@@ -191,7 +193,7 @@
 
                 ?>
                 <html>
-                    <!-- <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php"> -->
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
                     <main>
                         <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
                     </main>
