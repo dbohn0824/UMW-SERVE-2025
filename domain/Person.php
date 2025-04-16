@@ -73,7 +73,7 @@ class Person {
 	function __construct(
 						$id, $password, $first_name, $last_name, $street_address, $city, $state, $zip_code, $notes,
 						$phone1, $email, $minor, $total_hours, $mandated_hours, $remaining_mandated_hours, $emergency_contact_first_name,
-						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type,
+						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type
 						) {
 		$this->id = $id; // (username)
 		$this->first_name = $first_name;
