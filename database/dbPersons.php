@@ -244,14 +244,39 @@ function update_hours($id, $new_hours) {
     return $result;
 }*/
 
-/* update volunteer hours */ /* $original_start_time, $original_end_time,  */
-function update_volunteer_hours($eventname, $username, $new_start_time, $new_end_time) {
-    $con=connect();
-    $eventid = "SELECT id FROM dbevents WHERE name = " . $eventname . '"';
-    $query = 'UPDATE dbpersonhours SET start_time = "' . $new_start_time . '", end_time = "' . $new_end_time . ' WHERE eventID = "' . $eventid . '" AND personID = "' . $username . '"';
-    $result = mysqli_query($con,$query);
+function update_volunteer_checkIn($entry_id, $Time_in, $id, $date) {
+    $con = connect();
+    $query = "UPDATE dbpersonhours SET Time_in = '$Time_in' WHERE personID = '$entry_id' AND date = '$date'";
+    $result = mysqli_query($con, $query);
     mysqli_close($con);
     return $result;
+}
+
+function update_volunteer_checkOut($entry_id, $Time_out, $id, $date) {
+    $con = connect();
+    $query = "UPDATE dbpersonhours SET Time_out = '$Time_out' WHERE personID = '$entry_id' AND date = '$date'";
+    $result = mysqli_query($con, $query);
+    mysqli_close($con);
+    return $result;
+}
+
+function get_hours_volunteered_by($id) {
+    $con = connect();
+    $query = "SELECT personID, date, Time_in, Time_out 
+              FROM dbpersonhours 
+              WHERE personID = '" . mysqli_real_escape_string($con, $id) . "'";
+
+    $result = mysqli_query($con, $query);
+    $entries = [];
+
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $entries[] = $row;
+        }
+    }
+
+    mysqli_close($con);
+    return $entries;
 }
 
 /*@@@ Thomas */
