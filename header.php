@@ -350,7 +350,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="cs-li">
                     <a href="index.php" class="cs-li-link">Home</a>
                 </li>
-                <?php if (isset($_SESSION['access_level']) && $_SESSION['access_level'] != 'Volunteer'): ?>
+                <!-- FOR SUPER ADMINS -->
+                <?php if (isset($_SESSION['access_level']) && $_SESSION['access_level'] == 3): ?>
                 <li class="cs-li cs-dropdown" tabindex="0">
                     <span class="cs-li-link">
                         Volunteer Management
@@ -385,6 +386,46 @@ if (session_status() === PHP_SESSION_NONE) {
                         <li class="cs-drop-li"><a href="inbox.php" class="cs-li-link cs-drop-link">Inbox</a></li>
                         <li class="cs-drop-li"><a href="registerStaff.php" class="cs-li-link cs-drop-link">Register Staff</a></li>
                         <li class="cs-drop-li"><a href="deleteStaff.php" class="cs-li-link cs-drop-link">Delete Staff</a></li>
+                        <li class="cs-drop-li"><a href="changePassword.php" class="cs-li-link cs-drop-link">Change Password</a></li>
+                    </ul>
+                </li>
+                <li class="cs-li">
+                    <a href="logout.php" class="cs-li-link">Logout</a>
+                </li>
+                <?php endif; ?>
+                <!-- FOR REGULAR ADMINS -->
+                <?php if (isset($_SESSION['access_level']) && $_SESSION['access_level'] == 2): ?>
+                <li class="cs-li cs-dropdown" tabindex="0">
+                    <span class="cs-li-link">
+                        Volunteer Management
+                        <img class="cs-drop-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/down-gold.svg" alt="dropdown icon" width="15" height="15" decoding="async" aria-hidden="true">
+                    </span>
+                    <ul class="cs-drop-ul">
+                        <li class="cs-drop-li"><a href="volunteerSearch.php" class="cs-li-link cs-drop-link">Search</a></li>
+                        <li class="cs-drop-li"><a href="editVolunteer.php" class="cs-li-link cs-drop-link">Edit</a></li>
+                        <li class="cs-drop-li"><a href="register.php" class="cs-li-link cs-drop-link">Add</a></li>
+                        <li class="cs-drop-li"><a href="deleteVolunteer.php" class="cs-li-link cs-drop-link">Delete</a></li>
+                        <li class="cs-drop-li"><a href="checkVolunteerStatus.php" class="cs-li-link cs-drop-link">Status Report</a></li>
+                        <li class="cs-drop-li"><a href="searchHours.php" class="cs-li-link cs-drop-link">View and Change Hours</a></li>
+                    </ul>
+                </li>
+                <li class="cs-li cs-dropdown" tabindex="0">
+                    <span class="cs-li-link">
+                        Staff Resources
+                        <img class="cs-drop-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/down-gold.svg" alt="dropdown icon" width="15" height="15" decoding="async" aria-hidden="true">
+                    </span>
+                    <ul class="cs-drop-ul">
+                        <li class="cs-drop-li"><a href="exportData.php" class="cs-li-link cs-drop-link">Export Data</a></li>
+                        <li class="cs-drop-li"><a href="visualizeData.php" class="cs-li-link cs-drop-link">Visualize Data</a></li>
+                    </ul>
+                </li>
+                <li class="cs-li cs-dropdown" tabindex="0">
+                    <span class="cs-li-link">
+                        Admin
+                        <img class="cs-drop-icon" src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/down-gold.svg" alt="dropdown icon" width="15" height="15" decoding="async" aria-hidden="true">
+                    </span>
+                    <ul class="cs-drop-ul">
+                        <li class="cs-drop-li"><a href="inbox.php" class="cs-li-link cs-drop-link">Inbox</a></li>
                         <li class="cs-drop-li"><a href="changePassword.php" class="cs-li-link cs-drop-link">Change Password</a></li>
                     </ul>
                 </li>

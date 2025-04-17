@@ -4,8 +4,6 @@
 
     date_default_timezone_set("America/New_York");
 
-    var_dump($_SESSION); 
-    
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 2) {
         if (isset($_SESSION['change-password'])) {
             header('Location: changePassword.php');
@@ -135,7 +133,7 @@
                 </div>
             <?php endif ?>
 
-            <?php if ($_SESSION['access_level'] = 2): ?>
+            <?php if ($_SESSION['access_level'] == 2): ?>
                 <div class="dashboard-item" data-link="personSearch.php">
                     <img src="images/person-search.svg">
                     <span>Find Volunteer</span>

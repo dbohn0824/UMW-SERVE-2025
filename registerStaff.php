@@ -150,7 +150,7 @@
             $checked_in = 0;
             $total_hours = 0;
             $notes = '';
-            $type = 'admin';
+            $type = $args['type'];
             $password = $args['password'];
             $isMinor = 0;
             $total_hours = 0;
