@@ -1050,6 +1050,43 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $persons;
     }
 
+    function find_volunteers_by_name($name){
+        $where = 'where ';
+        if (!($name)) {
+            return [];
+        }
+        $first = true;
+        if ($name) {
+            if (strpos($name, ' ')) {
+                $name = explode(' ', $name, 2);
+                $first = $name[0];
+                $last = $name[1];
+                $where .= "first_name like '%$first%' and last_name like '%$last%' and type = 'volunteer'";
+            } else {
+                $where .= "(first_name like '%$name%' or last_name like '%$name%') and type = 'volunteer'";
+            }
+            $first = false;
+        }
+        $query = "select * from dbpersons $where order by last_name, first_name";
+        // echo $query;
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            mysqli_close($connection);
+            return [];
+        }
+        $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $persons = [];
+        foreach ($raw as $row) {
+            if ($row['id'] == 'vmsroot') {
+                continue;
+            }
+            $persons []= make_a_person($row);
+        }
+        mysqli_close($connection);
+        return $persons;
+    }
+
     function find_users($name, $id, $phone, $zip, $type, $status, $photo_release) {
         $where = 'where ';
         if (!($name || $id || $phone || $zip || $type || $status || $photo_release)) {

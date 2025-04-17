@@ -67,7 +67,7 @@
                     }
                     $name = $args['name'];
                     echo "<h3 style='text-align: center'>Search Results</h3>";
-                    $persons = find_self($name);
+                    $persons = find_volunteers_by_name($name);
                     require_once('include/output.php');
                     if (count($persons) > 0) {
                         $person = $persons[0];
