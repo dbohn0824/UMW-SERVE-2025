@@ -3,8 +3,10 @@
     session_start();
 
     date_default_timezone_set("America/New_York");
+
+    var_dump($_SESSION); 
     
-    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 2) {
         if (isset($_SESSION['change-password'])) {
             header('Location: changePassword.php');
         } else {
@@ -86,7 +88,7 @@
                 ?></span>
             </div>
 
-            <?php if ($_SESSION['access_level'] >= 2): ?>
+            <?php if ($_SESSION['access_level'] > 2): ?>
                 <div class="dashboard-item" data-link="personSearch.php">
                     <img src="images/person-search.svg">
                     <span>Find Volunteer</span>
@@ -133,14 +135,34 @@
                 </div>
             <?php endif ?>
 
-            <?php if ($notRoot): ?>
-                <div class="dashboard-item" data-link="viewProfile.php">
-                    <img src="images/view-profile.svg">
-                    <span>View Profile</span>
+            <?php if ($_SESSION['access_level'] = 2): ?>
+                <div class="dashboard-item" data-link="personSearch.php">
+                    <img src="images/person-search.svg">
+                    <span>Find Volunteer</span>
                 </div>
-                <div class="dashboard-item" data-link="editProfile.php">
-                    <img src="images/manage-account.svg">
-                    <span>Edit Profile</span>
+                <div class="dashboard-item" data-link="register.php">
+                    <img src="images/add-person.svg">
+                    <span>Register Volunteer</span>
+                </div>
+                <div class="dashboard-item" data-link="deleteVolunteer.php">
+                    <img src="images/delete.svg">
+                    <span>Delete Volunteer</span>
+                </div>
+                <div class="dashboard-item" data-link="exportData.php">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    <span><center>Export Volunteer Data</center></span>
+                </div>
+                <div class="dashboard-item" data-link="searchHours.php">
+                    <img src="images/search.svg">
+                    <span><center>View & Edit Volunteer Hours</center></span>
+                </div>
+                <div class="dashboard-item" data-link="visualizeData.php">
+                    <img src="images/bargraph.svg">
+                    <span>Vizualize Data</span>
+                </div>
+                <div class="dashboard-item" data-link="checkVolunteerStatus.php">
+                    <img src="images/checkStatus.svg">
+                    <span><center>Volunteer Status Report</center></span>
                 </div>
             <?php endif ?>
 
