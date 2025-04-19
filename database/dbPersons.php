@@ -156,6 +156,38 @@ function add_staff($person) {
     return false;
 }
 
+function archive_person($id) {
+    $con=connect();
+    $query = 'UPDATE dbpersons SET type = "archived" WHERE dbpersons.id = ?';
+    $stmt = $con->prepare($query);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $result = $stmt->affected_rows; 
+    if ($result == null) {
+        mysqli_close($con);
+        return false;
+    } else{
+    mysqli_close($con);
+    return true;
+    }
+}
+
+function unarchive_person($id) {
+    $con=connect();
+    $query = 'UPDATE dbpersons SET type = "volunteer" WHERE dbpersons.id = ?';
+    $stmt = $con->prepare($query);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $result = $stmt->affected_rows; 
+    if ($result == null) {
+        mysqli_close($con);
+        return false;
+    } else{
+    mysqli_close($con);
+    return true;
+    }
+}
+
 /*
  * remove a person from dbPersons table.  If already there, return false
  */

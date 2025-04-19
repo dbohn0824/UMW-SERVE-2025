@@ -103,6 +103,10 @@
                     <img src="images/delete.svg">
                     <span>Delete Volunteer</span>
                 </div>
+                <div class="dashboard-item" data-link="archiveVolunteer.php">
+                    <img src="images/archive.png">
+                    <span>Archive Volunteer</span>
+                </div>
                 <div class="dashboard-item" data-link="registerStaff.php">
                     <img src="images/add-person.svg">
                     <span>Register Staff</span>
@@ -142,9 +146,9 @@
                     <img src="images/add-person.svg">
                     <span>Register Volunteer</span>
                 </div>
-                <div class="dashboard-item" data-link="deleteVolunteer.php">
-                    <img src="images/delete.svg">
-                    <span>Delete Volunteer</span>
+                <div class="dashboard-item" data-link="archiveVolunteer.php">
+                    <img src="images/archive.png">
+                    <span>Archive Volunteer</span>
                 </div>
                 <div class="dashboard-item" data-link="exportData.php">
                     <i class="fa-solid fa-arrow-up-from-bracket"></i>

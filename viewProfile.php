@@ -201,7 +201,23 @@
                     <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a></p>
                 </div>
             </fieldset>
-
+            <?php if ($user->get_type() == "archived"): ?>
+                <form action="unarchive_volunteer.php" method="post"> 
+                    <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($user->get_id()) ?>" required> 
+                    <button type="submit" class="no-print" style="
+                        all: unset;
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                        color: red;
+                        cursor: pointer;
+                        border-bottom: 1px solid red;
+                        padding: 0.5rem 0;
+                    ">
+            Unarchive
+        </button>
+    </form>
+            <?php endif ?>
 
             <!--<fieldset class="section-box">
                 <legend>Emergency Contact Information</legend>
