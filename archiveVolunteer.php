@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
                     </tbody>
                 </table>
             </div>
-            <input type="submit" name="archive" value="Archive Selected Volunteers" onclick="return confirm('Are you sure you want to delete the selected volunteers?')">
+            <input type="submit" name="archive" value="Archive Selected Volunteers" onclick="return confirm('Are you sure you want to archive the selected volunteers?')">
         <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) : ?>
             <div class="error-toast">No results found for your search.</div>
         <?php endif; ?>

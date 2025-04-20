@@ -49,7 +49,21 @@ fputcsv($output, ['MTD Hours', 'MTD volunteers', 'MTD STT Events']);
 
 // query to get grand total hours  
 
-$query = "SELECT SUM(`Total_hours`), COUNT(DISTINCT `personID`), COUNT(CASE WHEN `STT` > 0 THEN 1 END) FROM dbpersonhours WHERE  `date` BETWEEN ? AND ? " ;
+//$query = "SELECT SUM(`Total_hours`), COUNT(DISTINCT `personID`), COUNT(CASE WHEN `STT` > 0 THEN 1 END) FROM dbpersonhours WHERE  `date` BETWEEN ? AND ? " ;
+
+$query = "
+SELECT 
+    SUM(ph.`Total_hours`), 
+    COUNT(DISTINCT ph.`personID`), 
+    COUNT(CASE WHEN ph.`STT` > 0 THEN 1 END)
+FROM 
+    dbpersonhours ph
+JOIN 
+    dbpersons p ON ph.personID = p.id
+WHERE 
+    p.type LIKE '%volunteer%' 
+    AND ph.`date` BETWEEN ? AND ?
+";
 
 $stmt = $con->prepare($query);
 
@@ -71,7 +85,7 @@ for($i = 0; $i < 3; $i = $i + 1 ){
 
 //Output individual Volunteer data********************************************************************* */
 
-$query = "SELECT dbpersonhours.personID, dbpersons.first_name, dbpersons.last_name, dbpersonhours.date, dbpersonhours.Time_in, dbpersonhours.Time_out, dbpersonhours.Total_hours, dbpersonhours.STT FROM `dbpersonhours` JOIN `dbpersons` ON dbpersonhours.personID = dbpersons.id WHERE  dbpersonhours.date BETWEEN ? AND ? ORDER BY dbpersonhours.date ASC";
+$query = "SELECT dbpersonhours.personID, dbpersons.first_name, dbpersons.last_name, dbpersonhours.date, dbpersonhours.Time_in, dbpersonhours.Time_out, dbpersonhours.Total_hours, dbpersonhours.STT FROM `dbpersonhours` JOIN `dbpersons` ON dbpersonhours.personID = dbpersons.id WHERE dbpersons.type LIKE '%volunteer%' AND dbpersonhours.date BETWEEN ? AND ? ORDER BY dbpersonhours.date ASC";
 
 $stmt = $con->prepare($query);
 
@@ -106,8 +120,21 @@ while($row = $result->fetch_assoc()){
 
 //****************************************************************************************************** */
 //query to get total hours per person*****************************************************************
-$query = "SELECT personID, ROUND(SUM(TIMESTAMPDIFF(SECOND, Time_in, Time_out)) / 3600) AS Total_hours FROM dbpersonhours WHERE `date` BETWEEN ? AND ? GROUP BY personID";
-
+//$query = "SELECT personID, ROUND(SUM(TIMESTAMPDIFF(SECOND, Time_in, Time_out)) / 3600) AS Total_hours FROM dbpersonhours WHERE `date` BETWEEN ? AND ? GROUP BY personID";
+$query = "
+SELECT 
+    ph.personID, 
+    ROUND(SUM(TIMESTAMPDIFF(SECOND, ph.Time_in, ph.Time_out)) / 3600) AS Total_hours
+FROM 
+    dbpersonhours ph
+JOIN 
+    dbpersons p ON ph.personID = p.id
+WHERE 
+    p.type LIKE '%volunteer%' 
+    AND ph.date BETWEEN ? AND ?
+GROUP BY 
+    ph.personID
+";
 $stmt = $con->prepare($query);
 
 $stmt->bind_param('ss', $startDate, $endDate);
