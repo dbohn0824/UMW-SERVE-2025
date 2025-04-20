@@ -6,7 +6,12 @@ error_reporting(E_ALL);
 
 session_cache_expire(30);
 session_start();
-
+if (!isset($_SESSION['access_level'])){
+    header('Location: login.php');
+} elseif($_SESSION['access_level'] < 3) {
+    header('Location: index.php');
+    die();
+}
 require_once('include/input-validation.php');
 require_once('database/dbPersons.php');
 

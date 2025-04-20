@@ -1,7 +1,12 @@
 <?php
 session_cache_expire(30);
 session_start();
-
+if (!isset($_SESSION['access_level'])){
+    header('Location: login.php');
+} elseif($_SESSION['access_level'] < 3) {
+    header('Location: index.php');
+    die();
+}
 $loggedIn = false;
 $accessLevel = 0;
 $userID = null;
