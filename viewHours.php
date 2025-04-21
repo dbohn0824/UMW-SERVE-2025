@@ -41,32 +41,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" || $accessLevel == 1) {
         die();
     }
 
-    $entries = get_hours_volunteered_by($id);
-}
+    if(isset($args['result'])){
+        $result = $args['result'];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
-    $args = sanitize($_POST, null);
-
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    $entry_id = $args['id'] ?? null;
-    $date = $args['date'] ?? null; 
-    $check_in = $args['check_in'] ?? null;
-    $check_out = $args['check_out'] ?? null;
-
-    if ($entry_id && $date) {
-        if ($check_in !== null && $check_in !== '') {
-            update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
+        if($result == "success"){
+            $result = "Hours successfully updated.";
+        } else if($result == "fail"){
+            $result = "Hours not updated. Please make sure that check-in time comes before check-out time.";
+        } else {
+            $result = "Error. Invalid Result. Please try again.";
         }
-
-        if ($check_out !== null && $check_out !== '') {
-            update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
-        }
-
-        header("Location: viewHours.php?id=" . urlencode($id));
-        die();
-    } else {
-        echo '<p class="error-message">Missing ID or entry ID.</p>';
     }
+
     $entries = get_hours_volunteered_by($id);
 }
 
@@ -81,14 +67,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
 
     if ($entry_id && $date) {
         if ($check_in !== null && $check_in !== '') {
-            $result = update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
+            $result = update_volunteer_checkIn($entry_id, $check_in, $check_out, $id, $date);
+        } else if ($check_out !== null && $check_out !== '') {
+            $result = update_volunteer_checkOut($entry_id, $check_in, $check_out, $id, $date); 
         }
 
-        if ($check_out !== null && $check_out !== '') {
-            $result = update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
+        if($result == "1"){
+            $result = "success";
+        } else {
+            $result = "fail";
         }
 
-        header("Location: viewHours.php?id=" . urlencode($id));
+        echo $result;
+        var_dump($result);
+
+        header("Location: viewHours.php?id=" . urlencode($id) . "&result=" . urlencode($result));
         die();
     } else {
         echo '<p class="error-message">Missing ID or entry ID.</p>';

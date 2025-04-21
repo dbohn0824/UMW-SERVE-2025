@@ -242,7 +242,10 @@ function update_hours($id, $new_hours) {
     return $result;
 }*/
 
-function update_volunteer_checkIn($entry_id, $Time_in, $id, $date) {
+function update_volunteer_checkIn($entry_id, $Time_in, $Time_out, $id, $date) {
+    if($Time_in > $Time_out){
+        return -1;
+    }
     $con = connect();
     $query = "UPDATE dbpersonhours SET Time_in = '$Time_in' WHERE personID = '$entry_id' AND date = '$date'";
     $result = mysqli_query($con, $query);
@@ -250,7 +253,10 @@ function update_volunteer_checkIn($entry_id, $Time_in, $id, $date) {
     return $result;
 }
 
-function update_volunteer_checkOut($entry_id, $Time_out, $id, $date) {
+function update_volunteer_checkOut($entry_id, $Time_in, $Time_out, $id, $date) {
+    if($Time_in > $Time_out){
+        return -1;
+    }
     $con = connect();
     $query = "UPDATE dbpersonhours SET Time_out = '$Time_out' WHERE personID = '$entry_id' AND date = '$date'";
     $result = mysqli_query($con, $query);
