@@ -287,9 +287,9 @@ function check_in($personID, $start_time) {
     // Check if the user is already checked in
     if (!can_check_in($personID)) {
         mysqli_close($con);
-        echo '<script>
+        /* echo '<script>
                     alert("Already Checked In");
-                  </script>';
+                  </script>'; */
         return false;
     }
 
@@ -309,9 +309,9 @@ function check_in($personID, $start_time) {
         mysqli_close($con);
 
         // Successfully checked in
-        echo '<script>
+        /* echo '<script>
                 alert("Successfully checked in!");
-                </script>';
+                </script>'; */
         return true;
     } else {
         echo "Error: Failed to record check-in time.";
@@ -326,9 +326,9 @@ function check_out($personID, $end_time) {
     $current_date = date('Y-m-d');
     // Check if the user is currently checked in
     if (!can_check_out($personID)) {
-        echo '<script>
+        /* echo '<script>
                 alert("You are not checked in.");
-              </script>';
+              </script>'; */
         mysqli_close($con);
         return false;  
     }
@@ -384,9 +384,9 @@ function check_out($personID, $end_time) {
         mysqli_close($con);
 
         // Successfully checked out
-        echo '<script>
+        /* echo '<script>
                 alert("Successfully checked out!");
-              </script>';
+              </script>'; */
         return true; 
     } else {
         echo "Error: Failed to check out. Please try again.";
@@ -430,7 +430,7 @@ function can_check_out($personID) {
             return true;
         } else {
             // User is not checked in
-            echo "No active session found for personID: $personID"; // Debugging output
+            //echo "No active session found for personID: $personID"; // Debugging output
         }
     } else {
         echo "Error: Query failed to execute.";
