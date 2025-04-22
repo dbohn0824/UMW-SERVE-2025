@@ -117,6 +117,11 @@
                                 } else {
                                     $notFirst = true;
                                 }
+                                $listID = $person->get_id();
+
+                                if($person->get_type() == 'archived'){
+                                    $listID = $listID . ' (ARCHIVED)';
+                                }
                                 $mailingList .= $person->get_email();
                                 $minor = $person->isMinor();
                                 if($minor == 0)
@@ -148,7 +153,7 @@
                                         <tr>
                                             <td>
                                                 <input type="submit" id="' . $person->get_id() . '" name="volunteer_id" value="' . $person->get_id() . '" style="display: none;">
-                                                <label for="' . $person->get_id() . '">' . $person->get_id() .'</label>
+                                                <label for="' . $person->get_id() . '">' . $listID .'</label>
                                                 </td>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>

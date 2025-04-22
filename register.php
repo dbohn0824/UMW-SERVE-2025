@@ -206,12 +206,12 @@
             $notes = '';
             $type = 'volunteer';
             $password = "";
-            if($court_hours = 'Yes'){
+            $court_hours = $args['court_hours'];
+            $mandated_hours = 0;
+            $remaining_mandated_hours = 0;
+            if($court_hours == 'Yes'){
                 $mandated_hours = $args['hours_needed'];
                 $remaining_mandated_hours = $args['hours_needed'];
-            } else {
-                $remaining_hours = 0;
-                $remaining_mandated_hours = 0;
             }
             
 

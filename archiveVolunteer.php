@@ -6,12 +6,7 @@ error_reporting(E_ALL);
 
 session_cache_expire(30);
 session_start();
-if (!isset($_SESSION['access_level'])){
-    header('Location: login.php');
-} elseif($_SESSION['access_level'] < 3) {
-    header('Location: index.php');
-    die();
-}
+
 require_once('include/input-validation.php');
 require_once('database/dbPersons.php');
 
@@ -19,23 +14,23 @@ $deletionMessage = '';
 $persons = [];
 
 // Handle deletion
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive'])) {
     if (!empty($_POST['selected_ids'])) {
         $count = 0;
         foreach ($_POST['selected_ids'] as $id) {
-            if (delete_person_by_id($id)) {
+            if (archive_person($id)) {
                 $count++;
             }
         }
         $deletionMessage = '
-            <div class="alert success" id="delete-success">
-                <strong>✔ ' . $count . ' volunteer(s) deleted successfully.</strong>
+            <div class="alert success" id="archive-success">
+                <strong>✔ ' . $count . ' volunteer(s) archived successfully.</strong>
             </div>';
 
     } else {
         $deletionMessage = '
             <div class="alert error">
-                ⚠ Please select at least one volunteer to delete.
+                ⚠ Please select at least one volunteer to archive.
             </div>';
     }
 }
@@ -57,17 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
 <html>
 <head>
     <?php require_once('universal.inc') ?>
-    <title>SERVE | Delete Volunteer</title>
+    <title>SERVE | Archive Volunteer</title>
 </head>
 <body>
     <?php require_once('header.php') ?>
-    <h1>Delete Volunteer</h1>
+    <h1>Archive Volunteer</h1>
 
     <?= $deletionMessage ?>
 
     <form id="person-search" class="general" method="post">
         <h2>Find Volunteer</h2>
-        <p>Use the form below to find a volunteer to remove from the system. At least one search criterion is required.</p>
+        <p>Use the form below to find a volunteer to archive. At least one search criterion is required.</p>
 
         <label for="name">Name</label>
         <input type="text" id="name" name="name" value="<?= htmlspecialchars($name) ?>" placeholder="Enter the user's first and/or last name">
@@ -100,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
                     </tbody>
                 </table>
             </div>
-            <input type="submit" name="delete" value="Delete Selected Volunteers" onclick="return confirm('Are you sure you want to delete the selected volunteers?')">
+            <input type="submit" name="archive" value="Archive Selected Volunteers" onclick="return confirm('Are you sure you want to archive the selected volunteers?')">
         <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) : ?>
             <div class="error-toast">No results found for your search.</div>
         <?php endif; ?>
