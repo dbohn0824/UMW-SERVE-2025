@@ -260,9 +260,9 @@ function reset_password($id, $newPass) {
     return $result;
 }
 
-function update_hours($id, $new_hours) {
+function update_hours($id, $total_hours) {
     $con=connect();
-    $query = 'UPDATE dbpersons SET total_hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
+    $query = "UPDATE dbpersons SET total_hours = '$total_hours' WHERE id = '$id'";
     $result = mysqli_query($con,$query);
     mysqli_close($con);
     return $result;
@@ -276,19 +276,69 @@ function update_hours($id, $new_hours) {
     return $result;
 }*/
 
-function update_volunteer_checkIn($entry_id, $Time_in, $id, $date) {
+function update_volunteer_checkIn($id, $Time_in, $Time_out, $date) {
+    str_replace(":", "", $Time_in);
+    str_replace(":", "", $Time_out);
+
+    // If check-in time comes after check-out time, something is wrong.
+    if($Time_in > $Time_out){
+        return -1;
+    }
+
     $con = connect();
-    $query = "UPDATE dbpersonhours SET Time_in = '$Time_in' WHERE personID = '$entry_id' AND date = '$date'";
+    // If there is no row for that date, person, and check-out time, something is wrong.
+    $query = "SELECT * from dbpersonhours WHERE personID = '$id' AND date = '$date'
+              AND (Time_out = '$Time_out' OR Time_in = '$Time_in')";
+    $result = mysqli_query($con, $query);
+    if(!$result){
+        return -1;
+    }
+    
+    $query = "UPDATE dbpersonhours SET Time_in = '$Time_in' WHERE personID = '$id' AND date = '$date'
+              AND (Time_out = '$Time_out' OR Time_in = '$Time_in')";
+    $result = mysqli_query($con, $query);
+    $query = "UPDATE dbpersonhours SET Time_out = '$Time_out' WHERE personID = '$id' AND date = '$date'
+              AND (Time_out = '$Time_out' OR Time_in = '$Time_in')";
     $result = mysqli_query($con, $query);
     mysqli_close($con);
     return $result;
 }
 
-function update_volunteer_checkOut($entry_id, $Time_out, $id, $date) {
-    $con = connect();
-    $query = "UPDATE dbpersonhours SET Time_out = '$Time_out' WHERE personID = '$entry_id' AND date = '$date'";
+/* Delete a single check-in/check-out pair as defined by the given parameters */
+function delete_volunteer_checkIn($id, $Time_in, $Time_out, $date) {
+    str_replace(":", "", $Time_in);
+    str_replace(":", "", $Time_out);
+
+    $con=connect();
+
+    $query = "SELECT * from dbpersonhours WHERE personID = '$id' AND date = '$date'
+              AND Time_out = '$Time_out' AND Time_in = '$Time_in'";
+    $result = mysqli_query($con, $query);
+    if(!$result){
+        return -1;
+    }
+
+    $query = "DELETE FROM dbpersonhours WHERE personID = '$id' AND date = '$date'
+              AND Time_out = '$Time_out' AND Time_in = '$Time_in' LIMIT 1";
     $result = mysqli_query($con, $query);
     mysqli_close($con);
+
+    return $result;
+}
+
+/* Add a single check-in/check-out pair as defined by the given parameters */
+function add_volunteer_checkIn($id, $Time_in, $Time_out, $date) {
+    $currentdate = date("Y-m-d");
+    if($date > $currentdate){
+        return -1;
+    }
+    $con=connect();
+
+    $query = "INSERT INTO dbpersonhours (personID, date, Time_in, Time_out) 
+                VALUES ('$id', '$date', '$Time_in', '$Time_out')";
+    $result = mysqli_query($con, $query);
+    mysqli_close($con);
+
     return $result;
 }
 
@@ -520,14 +570,6 @@ function get_hours_for_range($personID, $startDate, $endDate) {
     return -1; // no check-ins found
 }
 
-/* Delete a single check-in/check-out pair as defined by the given parameters */
-function delete_check_in($userID, $eventID, $start_time, $end_time) {
-    $con=connect();
-    $query = "DELETE FROM dbpersonhours WHERE personID = '" .$userID. "' AND eventID = '" .$eventID. "' AND start_time = '" .$start_time. "' AND end_time = '" .$end_time. "' LIMIT 1";
-    $result = mysqli_query($con, $query);
-    mysqli_close($con);
-}
-
 /*@@@ end Thomas */
 
 
@@ -621,10 +663,23 @@ function synchronize_hours($personID){
     $tot = get_hours_for_range($personID, 1979-01-01, $currentDate);
     update_hours($personID, $tot);
 
-    return -1;
+    $con=connect();
+    $query = "SELECT mandated_hours, total_hours FROM dbpersons WHERE id='" . $personID . "'";
+    $result = mysqli_query($con,$query);
+    if($result){
+        $row = mysqli_fetch_assoc($result);
+        $mandated_hours = $row['mandated_hours'];
+        $total_hours = $row['total_hours'];
+        $remaining_mandated_hours = $mandated_hours - $total_hours;
+        if($remaining_mandated_hours < 0){
+            $remaining_mandated_hours = 0;
+        }
+        $result = update_mandated_hours($personID, $remaining_mandated_hours);
+        return $result;
+    } else {
+        return -1;
+    }
 }
-
-
 
 function getall_volunteer_names() {
     $con=connect();
@@ -1793,63 +1848,42 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     }
 
     function get_first_date($personID){
-
-        $con=connect();
-    
+        $con=connect();  
         $query = "SELECT date
-    
                   FROM dbpersonhours
-    
                   WHERE personID = '" . $personID . "'
-    
                   AND Time_out IS NOT NULL
-    
                   ORDER BY date
-    
                   LIMIT 1";
-    
         $result = mysqli_query($con, $query);
-    
         if($result){
-    
             $row = mysqli_fetch_assoc($result);
-    
-            return $row['date'];
-    
+            if(isset($row['date'])){
+                return $row['date'];
+            } else {
+                return -1;
+            }
         } else
-    
             return -1;
-    
     }
     
-    
-    
     function get_last_date($personID){
-    
         $con=connect();
-    
         $query = "SELECT date
-    
                   FROM dbpersonhours
-    
                   WHERE personID = '" . $personID . "'
-    
                   AND Time_out IS NOT NULL
-    
                   ORDER BY date DESC
-    
                   LIMIT 1";
-    
         $result = mysqli_query($con, $query);
-    
         if($result){
-    
             $row = mysqli_fetch_assoc($result);
-    
-            return $row['date'];
-    
+            $row = mysqli_fetch_assoc($result);
+            if(isset($row['date'])){
+                return $row['date'];
+            } else {
+                return -1;
+            }
         } else
-    
             return -1;
-    
     }

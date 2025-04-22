@@ -1,4 +1,6 @@
 <?php
+// NOTE: Possibly remove this page as adding another way to search for volunteers feels redundant,
+//       and there is another way to access the veiwHours page now.
 session_start();
 
 ini_set("display_errors", 1);
@@ -85,6 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
                 </div>
             <?php else: ?>
                 <h2>View & Change Hours</h2>
+                <?php if($_SERVER["REQUEST_METHOD"] == "POST"): ?>
+                    <p>No volunteers found. Please try again.</p>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if ($accessLevel > 1): ?>
                 <form id="new-event-form" method="post" class="styled-form">
