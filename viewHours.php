@@ -62,7 +62,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" || $accessLevel == 1) {
     }
 
     $entries = get_hours_volunteered_by($id);
-    synchronize_hours($id);
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -79,11 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if($_POST['action'] == "edit"){
             var_dump($args);
             echo "/n";
-            if ($check_in !== null && $check_in !== '') {
-                $result = update_volunteer_checkIn($id, $check_in, $check_out, $date);
-            } else if ($check_out !== null && $check_out !== '') {
-                $result = update_volunteer_checkOut($id, $check_in, $check_out, $date); 
-            }
+            $result = update_volunteer_checkIn($id, $check_in, $check_out, $date);
     
             if($result == "1"){
                 $result = "editSuccess";
@@ -121,6 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $entries = get_hours_volunteered_by($id);
 }
 
+synchronize_hours($id);
 ?>
 
 <!DOCTYPE html>
