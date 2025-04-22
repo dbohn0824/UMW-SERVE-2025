@@ -168,4 +168,4 @@ prevent random peopel from accessing it and spaming super admins with request fo
 The project remains under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl.txt).
 
 ## Acknowledgements
-Thank you to Dr. Polack and Step VA for the chance to work on this exciting project. A lot of love went into making it!
+Thank you to Dr. Polack and SERVE for the chance to work on this exciting project. A lot of love went into making it!
