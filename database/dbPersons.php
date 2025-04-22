@@ -278,14 +278,14 @@ function delete_volunteer_checkIn($id, $Time_in, $Time_out, $date) {
     $con=connect();
 
     $query = "SELECT * from dbpersonhours WHERE personID = '$id' AND date = '$date'
-              AND (Time_out = '$Time_out' OR Time_in = '$Time_in')";
+              AND Time_out = '$Time_out' AND Time_in = '$Time_in'";
     $result = mysqli_query($con, $query);
     if(!$result){
         return -1;
     }
 
     $query = "DELETE FROM dbpersonhours WHERE personID = '$id' AND date = '$date'
-              AND (Time_out = '$Time_out' OR Time_in = '$Time_in') LIMIT 1";
+              AND Time_out = '$Time_out' AND Time_in = '$Time_in' LIMIT 1";
     $result = mysqli_query($con, $query);
     mysqli_close($con);
 

@@ -68,8 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $args = sanitize($_POST, null);
 
     $id = isset($_GET['id']) ? $_GET['id'] : null;
-    // entry_id seems redundant as it's supposed to be the same as ID
-    //$entry_id = $args['id'] ?? null;
     $date = $args['date'] ?? null; 
     $check_in = $args['check_in'] ?? null;
     $check_out = $args['check_out'] ?? null;
@@ -168,23 +166,22 @@ synchronize_hours($id);
                                 <td>
                                     <?php if (isset($entry['personID'])): ?>
                                         <input type="hidden" name="id" value="<?php echo $entry['personID']; ?>"> 
-                                        <input type="hidden" name="date" value="<?php echo $entry['date']; ?>"> 
+                                        <input type="hidden" name="date" value="<?php echo $entry['date']; ?>">
+                                        <div class="hours-actions">
+                                            <div class="hours-action">
+                                                <?php $editId = 'edit-' . $entry['date'] . "-" . $entry['Time_in'];?>
+                                                <input type='submit' name='action' value='edit' id='<?php echo $editId; ?>' style='display: none;' title='Edit Check-In'>
+                                                <label for='<?php echo $editId; ?>'><img src='images/edit.svg'></label>
+                                            </div>
+                                            <div class="hours-action">
+                                                <?php $deleteId = 'delete-' . $entry['date'] . "-" . $entry['Time_in']; ?>
+                                                <input type='submit' name='action' value='delete' id='<?php echo $deleteId; ?>' style='display: none;' title='Delete Check-In'>
+                                                <label for='<?php echo $deleteId; ?>'><img src='images/delete.svg'></label>
+                                            </div>
+                                        </div>
                                     <?php else: ?>
                                         <p class="error-message">Error: Entry ID not found.</p>
                                     <?php endif; ?>
-                                    <!--<input type="submit" name="update_times" value="Save" class="button primary-button">-->
-                                    <div class="hours-actions">
-                                        <div class="hours-action">
-                                            <input type='submit' name='action' value='edit' id='edit' style='display: none;'
-                                                title='Edit Check-In'>
-                                            <label for='edit'><img src='images/edit.svg'></label>
-                                        </div>
-                                        <div class="hours-action">
-                                            <input type='submit' name='action' value='delete' id='delete' style='display: none;'
-                                                title='Delete Check-In'>
-                                            <label for='delete'><img src='images/delete.svg'></label>
-                                        </div>
-                                    </div>
                                 </td>
                             </form>
                             </tr>
