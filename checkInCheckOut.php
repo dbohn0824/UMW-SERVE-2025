@@ -37,9 +37,9 @@ if (isset($_SESSION['volunteer_id'])) {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        if (!is_null($row['Time_out']) && $row['Time_out'] !== '00:00:00') {
+        if (!is_null($row['Time_out']) && $row['Time_out'] != '00:00:00') {
             $alreadyCheckedOut = true;
-        }        
+        }      
     }
 } else {
     echo "Error: Missing personID.";
@@ -72,23 +72,29 @@ synchronize_hours($personID);
     <head>
         <?php require_once('universal.inc') ?>
         <title>SERVE | Check In/Check Out</title>
+        <script>
+            window.alert = (function(oldAlert){
+                return function(message) {
+                    console.trace("Intercepted alert:", message);
+                    oldAlert(message);
+                };
+            })(window.alert);
+        </script>
     </head>
     <body>
         <?php require('header.php'); ?>
         <h1>Check In/Check Out</h1>
         <main class='dashboard'>
-            <?php
-                $volStatus = "";
-                if ($person->get_checked_in() == 0) {
-                    $volStatus = "NOT checked in";
-                } else {
-                    $volStatus = "checked in";
-                }
-            ?>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
             <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
-            
+            <?php
+                if($alreadyCheckedOut == true) { ?>
+                    <p style="color: red;"> You are checked out</p><?php 
+                } else { ?>
+                    <p style="color: red;"> You are checked in</p><?php
+                }
+            ?>
             <p></p>
 
             <!--<p style="font-size: 1.5rem;">It is currently <?php echo $timestamp = date('H:i'); ?>.</p>-->
