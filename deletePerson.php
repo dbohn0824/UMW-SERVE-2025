@@ -24,8 +24,10 @@ $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
     $isAdmin = false;
-    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+    if (!isset($_SESSION['access_level'])){
         header('Location: login.php');
+    } elseif($_SESSION['access_level'] < 3) {
+        header('Location: index.php');
         die();
     }
     if (isset($_SESSION['_id'])) {

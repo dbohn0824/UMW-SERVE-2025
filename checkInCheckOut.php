@@ -28,7 +28,7 @@ if (isset($_SESSION['volunteer_id'])) {
     $con = connect();
     $query = "SELECT * FROM dbpersonhours WHERE personID = '$personID' AND date = '$today' ORDER BY Time_in DESC LIMIT 1";
     $result = mysqli_query($con, $query);
-    $alreadyCheckedOut = false;
+    $alreadyCheckedOut = true;
 
     if (!$result) {
         die("SQL Error: " . mysqli_error($con));
@@ -37,9 +37,11 @@ if (isset($_SESSION['volunteer_id'])) {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        if (!is_null($row['Time_out']) && $row['Time_out'] !== '00:00:00') {
+        if (!is_null($row['Time_out']) && $row['Time_out'] != '00:00:00') {
             $alreadyCheckedOut = true;
-        }        
+        } else {
+            $alreadyCheckedOut = false;
+        }    
     }
 } else {
     echo "Error: Missing personID.";
@@ -77,18 +79,16 @@ synchronize_hours($personID);
         <?php require('header.php'); ?>
         <h1>Check In/Check Out</h1>
         <main class='dashboard'>
-            <?php
-                $volStatus = "";
-                if ($person->get_checked_in() == 0) {
-                    $volStatus = "NOT checked in";
-                } else {
-                    $volStatus = "checked in";
-                }
-            ?>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <p>You have <?php echo $person->get_total_hours() ?> total hours worked so far.</p>
             <p>You must serve <?php echo $person->get_remaining_mandated_hours() ?> remaining court mandated hours.</p>
-            
+            <?php
+                if($alreadyCheckedOut == true) { ?>
+                    <p style="color: red;"> You are checked out</p><?php 
+                } else { ?>
+                    <p style="color: red;"> You are checked in</p><?php
+                }
+            ?>
             <p></p>
 
             <!--<p style="font-size: 1.5rem;">It is currently <?php echo $timestamp = date('H:i'); ?>.</p>-->

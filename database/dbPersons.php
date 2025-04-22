@@ -120,11 +120,13 @@ function add_staff($person) {
     if (!$person instanceof Person)
         die("Error: add_person type mismatch");
     $con=connect();
+    $password = $person->get_password(); 
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
     $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_query($con, 'INSERT INTO dbPersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES("' .
             $person->get_id() . '","' .
             $person->get_first_name() . '","' . 
             $person->get_last_name() . '","' .
@@ -136,7 +138,7 @@ function add_staff($person) {
             $person->get_email() . '","' .
             'n/a' . '","' . 
             $person->get_type() . '","' .
-            $person->get_password() . '","' . 
+            $hashed_password . '","' . 
             $person->get_street_address() . '","' .
             $person->get_city() . '","' .
             $person->get_state() . '","' . 
@@ -152,6 +154,38 @@ function add_staff($person) {
     }
     mysqli_close($con);
     return false;
+}
+
+function archive_person($id) {
+    $con=connect();
+    $query = 'UPDATE dbpersons SET type = "archived" WHERE dbpersons.id = ?';
+    $stmt = $con->prepare($query);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $result = $stmt->affected_rows; 
+    if ($result == null) {
+        mysqli_close($con);
+        return false;
+    } else{
+    mysqli_close($con);
+    return true;
+    }
+}
+
+function unarchive_person($id) {
+    $con=connect();
+    $query = 'UPDATE dbpersons SET type = "volunteer" WHERE dbpersons.id = ?';
+    $stmt = $con->prepare($query);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $result = $stmt->affected_rows; 
+    if ($result == null) {
+        mysqli_close($con);
+        return false;
+    } else{
+    mysqli_close($con);
+    return true;
+    }
 }
 
 /*
@@ -335,9 +369,9 @@ function check_in($personID, $start_time) {
     // Check if the user is already checked in
     if (!can_check_in($personID)) {
         mysqli_close($con);
-        echo '<script>
+        /* echo '<script>
                     alert("Already Checked In");
-                  </script>';
+                  </script>'; */
         return false;
     }
 
@@ -357,9 +391,9 @@ function check_in($personID, $start_time) {
         mysqli_close($con);
 
         // Successfully checked in
-        echo '<script>
+        /* echo '<script>
                 alert("Successfully checked in!");
-                </script>';
+                </script>'; */
         return true;
     } else {
         echo "Error: Failed to record check-in time.";
@@ -374,9 +408,9 @@ function check_out($personID, $end_time) {
     $current_date = date('Y-m-d');
     // Check if the user is currently checked in
     if (!can_check_out($personID)) {
-        echo '<script>
+        /* echo '<script>
                 alert("You are not checked in.");
-              </script>';
+              </script>'; */
         mysqli_close($con);
         return false;  
     }
@@ -432,9 +466,9 @@ function check_out($personID, $end_time) {
         mysqli_close($con);
 
         // Successfully checked out
-        echo '<script>
+        /* echo '<script>
                 alert("Successfully checked out!");
-              </script>';
+              </script>'; */
         return true; 
     } else {
         echo "Error: Failed to check out. Please try again.";
@@ -478,7 +512,7 @@ function can_check_out($personID) {
             return true;
         } else {
             // User is not checked in
-            echo "No active session found for personID: $personID"; // Debugging output
+            //echo "No active session found for personID: $personID"; // Debugging output
         }
     } else {
         echo "Error: Query failed to execute.";
@@ -1080,6 +1114,43 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
                 $where .= "first_name like '%$first%' and last_name like '%$last%'";
             } else {
                 $where .= "(first_name like '%$name%' or last_name like '%$name%')";
+            }
+            $first = false;
+        }
+        $query = "select * from dbpersons $where order by last_name, first_name";
+        // echo $query;
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            mysqli_close($connection);
+            return [];
+        }
+        $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $persons = [];
+        foreach ($raw as $row) {
+            if ($row['id'] == 'vmsroot') {
+                continue;
+            }
+            $persons []= make_a_person($row);
+        }
+        mysqli_close($connection);
+        return $persons;
+    }
+
+    function find_volunteers_by_name($name){
+        $where = 'where ';
+        if (!($name)) {
+            return [];
+        }
+        $first = true;
+        if ($name) {
+            if (strpos($name, ' ')) {
+                $name = explode(' ', $name, 2);
+                $first = $name[0];
+                $last = $name[1];
+                $where .= "first_name like '%$first%' and last_name like '%$last%' and type = 'volunteer'";
+            } else {
+                $where .= "(first_name like '%$name%' or last_name like '%$name%') and type = 'volunteer'";
             }
             $first = false;
         }

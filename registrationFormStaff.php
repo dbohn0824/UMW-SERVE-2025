@@ -9,6 +9,12 @@
             <legend>Staff Member Information</legend>
 
             <!-- <p>The following information will help us identify you within our system.</p> -->
+            <label for="type"><em>* </em>Account Type</label> 
+            <select id="type" name="type">
+                <option value="admin">Admin</option> 
+                <option value="superadmin">Super Admin</option> 
+            </select>
+            
             <label for="first_name"><em>* </em>First Name</label>
             <input type="text" id="first_name" name="first_name" required placeholder="Enter staff first name">
 
