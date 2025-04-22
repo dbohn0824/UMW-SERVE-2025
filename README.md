@@ -1,6 +1,6 @@
 # Setp VA Volunteer Management System
 ## Purpose
-This project is the result of a semester's worth of collaboration among UMW students. The goal of the project was to create a web application that Step VA could utilize to make it easier to track and manage both volunteers and events. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system and basic notification system.
+This project is the result of a semester's worth of collaboration among UMW students. The goal of the project was to create a web application that SERVE could utilize to manage SERVE volunteers and staff accounts. 
 
 ## Authors
 The ODHS Medicine Tracker is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
@@ -16,13 +16,16 @@ The ODHS Medicine Tracker code was modified in the Fall of 2024, changing the co
 Spring 2025 authors: Dylan Bohn, Luke Busch, Jackson Carmack, Mariel Couvillion, Marshall Denson, Katie Heyn, Avi Lewers
 
 ## User Types
-There are two types of users (also referred to as 'roles') within Step VA.
+There are 3 types of users (also referred to as 'roles') within SERVE.
 * Admins
+* Superadmins
 * Volunteers
 
-Admins can create and edit events, view and approve sign-ups, and view sign-ups and volunteer hours.
+Admins can generate reports over a specified date range, register new volunteers, archive volunteers, vizualize volunteer data over a specified date range, export volunteer data as a CSV file, view the check-in status of all volunteers and check-in or check-out volunteers.  
 
-Volunteers can create and edit their profile, sign up for events, check-in and check-out of events, and view their hours. Volunteer accounts can be archived by the Admin if the account is no longer in use.
+Superadmins hold all the powers of an admin, and additionally are able to create/delete staff accounts, and permenently delete volunteers from the system.
+
+Volunteers view their total hours, check-in/check-out, download a form to sign up for volunteering and they can send a message to all superadmins, requesting to recieve a letter of proof of service. 
 
 There is also a root admin account with username 'vmsroot'. The default password for this account is 'vmsroot'. This account has hardcoded Admin privileges. It is crucial that this account be given a strong password and that the password be easily remembered, as it cannot easily be reset. This account should be used for system administration purposes only.
 
@@ -31,31 +34,28 @@ Below is an in-depth list of features that were implemented within the system
 * User registration and log in
 * Dashboard
 * Volunteer Management
-  * Change own password
-  * View volunteer hours (print-friendly)
-  * Change hours
-  * Modify profile
-  * Reset password
-  * User Search
-* Events and Event Management
-  * Calendar with event listings
-  * Calendar day view with event listings
-  * Event search
-  * Event details page
-  * Volunteer event sign up
-  * View Upcoming Events
-  * View Volunteer Event Roster
-  * Modify event details
-  * Create new event
-  * Delete event
-  * Complete event
-  * Check-in and check-out for event
+  * check-in/check-out to start tracking volunteer hours
+  * sign up new volunteers
+  * archive volunteers
+  * visualize all volunteer data as a bar graph within a specified date range
+  * Export all volunteer data within a specified date range. 
+  * Delete volunteers 
+  * view all volunteer check-in statuses 
+* Staff management 
+  * register new staff 
+  * change staff password
+  * delete staff acounts 
 * Reports (print-friendly)
   * Volunteer Hour Reports
+  * Volunteer report displaying total unique volunteers, total hours, and hours by volunteer
+  over a specified time period. 
 * Notification system, with notifications generated when
   * A volunteer has requested sign-up
-  * A user has canceled their sign-up
-  * Approved sign-up
+  * A volunteer has been registered
+  * A volunteer has requested a proof of service letter
+  * A volunteer has been deleted
+  * A Staff member has been added
+  * A Staff member has been deleted. 
 
 ## Design Documentation
 Several types of diagrams describing the design of the Step VA, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
@@ -67,18 +67,19 @@ Below are the steps required to run the project on your local machine for develo
   * For Mac, the htdocs path is `/Applications/XAMPP/xamppfiles/htdocs`
   * For Ubuntu, the htdocs path is `/opt/lampp/htdocs/`
   * For Windows, the htdocs path is `C:\xampp\htdocs`
-3. Clone the Step VA repo by running the following command: 'https://github.com/avadonley/stepvarepo.git'
+3. Clone the SERVE repo by running the following command: 'git clone https://github.com/dbohn0824/UMW-SERVE-2025.git'
+
 4. Start the XAMPP MySQL server and Apache server
 5. Open the PHPMyAdmin console by navigating to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
-6. Create a new database named `odhsmd`. With the database created, navigate to it by clicking on it in the lefthand pane
-7. Import the `odhsmd.sql` file located in `stepvarepo/sql` into this new database
+6. Create a new database named `servedb`. With the database created, navigate to it by clicking on it in the lefthand pane
+7. Import the `serve.sql` file located in `UMW-SERVE-2025/sql` into this new database
 8. Create a new user by navigating to `Privileges -> New -> Add user account`
 9. Enter the following credentials for the new user:
-  * Name: `odhsmd`
+  * Name: `servedb`
   * Hostname: `Local`
-  * Password: `odhsmd`
+  * Password: `servedb`
   * Leave everything else untouched
-10. Navigate to [http://localhost/ODHS-Animal/](http://localhost/ODHS-Animal/) 
+10. Navigate to [http://localhost/UMW-SERVE-2025/login.php] 
 11. Log into the root user account using the username `vmsroot` with password `vmsroot`
 
 Installation is now complete.
@@ -87,7 +88,29 @@ Installation is now complete.
 In the event of being locked out of the root user, the following steps will allow resetting the root user's login credentials:
 1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbPersons` table
 2. Clear the SiteGround dynamic cache [using the steps outlined below](#clearing-the-siteground-cache)
-3. Navigate to gwyneth/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
+3. In the UMW-SERVE-2025 directory, navigate to the file 'registerStaff.php'
+4. place '//' as the first characters on the following lines in the file like so:
+
+    //if (!isset($_SESSION['access_level'])){
+      //  header('Location: login.php');
+   // } elseif($_SESSION['access_level'] < 3) {
+     //   header('Location: index.php');
+       // die();
+    //}
+5. Save the file and in your browser, navigate to http://localhost/UMW-SERVE-2025/registerStaff.php
+6. Fill out the form with the following credentials:
+    First Name: root
+    Last Name: root
+    Street Address: 123
+    City: staff
+    state: Virginia
+    Zip Code: 12345
+    Email: root
+    Phone Number: 5555555555
+    Username: vmsroot
+    Password: vmsroot
+    Re-enter Password: vmsroot
+    Click 'Submit'
 4. You may now log in with the username and password `vmsroot`
 
 ## Platform
@@ -105,7 +128,7 @@ Follow these steps to transfter your localhost version of the Step VA code to Si
   - User - Create a user for the database by either selecting the 'Create User' button under the Users tab, or by selecting the 'Add New User' button from the newly created database under the Databases tab. User name is auto-generated and can be changed  if you like.
   - Password - Created when user is created. Password is auto generated and can be changed if you like.
 4. Access the newly created database by navigating to the PHPMyAdmin tab and selecting the 'Access PHPMyAdmin' button. This will redirect you to the PHPMyAdmin page for the database you just created. Navigate to the new database by selecting it from the database list on the left side of the page.
-5. Select the 'Import' option from the database options at the top of the page. Select the 'Choose File' button and import the "vms.sql" file from your software files.
+5. Select the 'Import' option from the database options at the top of the page. Select the 'Choose File' button and import the "serve.sql" file from your software files.
   - Ensure that you're keeping your .sql file up to date in order to reduce errors in your Siteground code. Keep in mind that Siteground is case-sensitive, and your database names in the Siteground files must be identical to the database names in the database.
 6. Navigate to the 'dbInfo.php' page in your Siteground files. Inside the connect() function, you will see a series of PHP variables. ($host, $database, $user, $pass) Change the server name in the 'if' statement to the name of your server, and change the $database, $user, and $pass variables to the database name, user name, and password that you created in step 3. 
 
@@ -127,21 +150,18 @@ Follow these steps to transfter your localhost version of the Step VA code to Si
 Clearing your cache will help ensure that you're seeing the latest updates to the application. If you continue experiencing issues, consider reaching out for further support.
 
 ## External Libraries and APIs
-The only outside library utilized by the Step VA is the jQuery library. The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements. Additionally, the Font Awesome library was used for some of the icon pictures. This library is linked in the headers of some files "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css".
+The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements. Additionally, the Font Awesome library was used for some of the icon pictures. This library is linked in the headers of some files "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css".
+
+chart.js is a javascript library used for data visualization. In our source code, we include a statment, "<script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>" which tells the browser upong rendering the page, to import all library dependencies from this address for the chart.js library
+
+dompdf: is an additional libary utilized in our source code. We utilized comoser, which is an open source dependency manager to download all dependencies for the library localy to the source code, which is all included within the vendor director of this repo. 
 
 ## Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
-* Rename the database
-* Adding special buttons across pages (e.g. ‘View and Change Hours’ may have a ‘Return to My Hours’ option rather than only ‘Return to Dashboard’)
-* Added functionality for users who are participants, some participant functionality code exists within the current code, only it is commented out
-* Link calendar to Google calendar, add links to Google forms
-* Edits so screen size may no longer affect alignment of headers and tables
-* Remove the admin's ability to sign up admin account for an event
-* Increase password security
-* Ensure volunteers cannot sign up for events during time frames in which they will be signed up for another event
-* If an admin creates conflicting events, bring it to their attention while allowing the option to continue
-* If an admin exceeds the occupancy limit, bring it to their attention while allowing the option to continue
-* Notifications: add delete functionality to the button, add a ‘view message’ functionality when a message is selected
+* CSS styling could be made to be more consistent
+* Implementing some layer of protection on the volunteer side of the application to 
+prevent random peopel from accessing it and spaming super admins with request for volunteering etc. 
+* ability to import sql files to dynamically change the data from which much of the site operates 
 * Additonal items related to volunteer training
 
 ## License
