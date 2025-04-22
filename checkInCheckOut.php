@@ -28,7 +28,7 @@ if (isset($_SESSION['volunteer_id'])) {
     $con = connect();
     $query = "SELECT * FROM dbpersonhours WHERE personID = '$personID' AND date = '$today' ORDER BY Time_in DESC LIMIT 1";
     $result = mysqli_query($con, $query);
-    $alreadyCheckedOut = false;
+    $alreadyCheckedOut = true;
 
     if (!$result) {
         die("SQL Error: " . mysqli_error($con));
@@ -39,7 +39,9 @@ if (isset($_SESSION['volunteer_id'])) {
 
         if (!is_null($row['Time_out']) && $row['Time_out'] != '00:00:00') {
             $alreadyCheckedOut = true;
-        }      
+        } else {
+            $alreadyCheckedOut = false;
+        }    
     }
 } else {
     echo "Error: Missing personID.";
@@ -72,14 +74,6 @@ synchronize_hours($personID);
     <head>
         <?php require_once('universal.inc') ?>
         <title>SERVE | Check In/Check Out</title>
-        <script>
-            window.alert = (function(oldAlert){
-                return function(message) {
-                    console.trace("Intercepted alert:", message);
-                    oldAlert(message);
-                };
-            })(window.alert);
-        </script>
     </head>
     <body>
         <?php require('header.php'); ?>
