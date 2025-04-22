@@ -39,7 +39,7 @@
     $user = retrieve_person($id);
     $viewingOwnProfile = $id == $userID;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    /*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_POST['url'])) {
         if (!update_profile_pic($id, $_POST['url'])) {
           header('Location: viewProfile.php?id='.$id.'&picsuccess=False');
@@ -47,7 +47,10 @@
           header('Location: viewProfile.php?id='.$id.'&picsuccess=True');
         }
       }
-    }
+    }*/
+
+    // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
+    synchronize_hours($id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -128,15 +131,37 @@
                     ?></p>
                 </div>
 
-                <div class="field-pair">
-                    <label>Total Hours</label>
-                    <p><?php echo $user->get_total_hours() ?></p>
-                </div>
+                <?php
+                    $type = $user->get_type();
+                    if($type == "v" || $type == "volunteer"){
+                        // Re-sum hours just in case there have been any updates/modifications to the database (unlikely, but a failsafe).
+                        synchronize_hours($user->get_id());
+                        echo '<div class="field-pair">
+                            <label>Total Hours</label>
+                            <p>' . $user->get_total_hours() .'</p>
+                        </div>';
 
-                <div class="field-pair">
-                    <label>Remaining Mandated Hours</label>
-                    <p><?php echo $user->get_remaining_mandated_hours() ?></p>
-                </div>
+                        echo '<div class="field-pair">
+                            <label>Mandated Hours</label>
+                            <p>' .$user->get_mandated_hours() . '</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>Remaining Mandated Hours</label>
+                            <p>' .$user->get_remaining_mandated_hours() . '</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>First Date Volunteered</label>
+                            <p>' . get_first_date($user->get_id()) .'</p>
+                        </div>';
+
+                        echo '<div class="field-pair">
+                            <label>Latest Date Volunteered</label>
+                            <p>' . get_last_date($user->get_id()) .'</p>
+                        </div>';
+                    }
+                ?>
 
                 <div class="field-pair">
                     <label>Address</label>
@@ -176,7 +201,23 @@
                     <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a></p>
                 </div>
             </fieldset>
-
+            <?php if ($user->get_type() == "archived"): ?>
+                <form action="unarchive_volunteer.php" method="post"> 
+                    <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($user->get_id()) ?>" required> 
+                    <button type="submit" class="no-print" style="
+                        all: unset;
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                        color: red;
+                        cursor: pointer;
+                        border-bottom: 1px solid red;
+                        padding: 0.5rem 0;
+                    ">
+            Unarchive
+        </button>
+    </form>
+            <?php endif ?>
 
             <!--<fieldset class="section-box">
                 <legend>Emergency Contact Information</legend>
@@ -203,13 +244,12 @@
             </fieldset>-->
 
 
-
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
                 <!--<?php if (($accessLevel == 2 && $user->get_access_level() == 1) || $accessLevel >= 3): ?>
                     <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Reset Password</a>
                 <?php endif ?>-->
-                <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
+                <a class="button" href="viewHours.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
                 <a class="button cancel" href="personSearch.php">Return to User Search</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>

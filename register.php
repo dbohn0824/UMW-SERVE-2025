@@ -1,4 +1,5 @@
 <?php
+
     // In this section, I've removed code that ensures the user is already logged in.
     // This is because we want users without accounts to be able to create new accounts.
 
@@ -7,8 +8,10 @@
 
     require_once('include/input-validation.php');
 
-    session_cache_expire(30);
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_cache_expire(30); // Only safe to call this BEFORE session_start()
+        session_start();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,7 @@
         require_once('header.php');
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
+        require_once('database/dbMessages.php');
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // make every submitted field SQL-safe except for password
             $ignoreList = array('password');
@@ -190,16 +194,24 @@
             }
 
             $status = "Active";
-            $checked_in = false;
+            $checked_in = 0;
             $isMinor = $args['isMinor'];
+            if ($isMinor == "No") {
+                $isMinor = 0;
+            } else {
+                $isMinor = 1;
+            }
+
             $total_hours = 0;
             $notes = '';
-            $type = 'v';
+            $type = 'volunteer';
             $password = "";
-            if($court_hours = 'Yes'){
+            $court_hours = $args['court_hours'];
+            $mandated_hours = 0;
+            $remaining_mandated_hours = 0;
+            if($court_hours == 'Yes'){
+                $mandated_hours = $args['hours_needed'];
                 $remaining_mandated_hours = $args['hours_needed'];
-            } else {
-                $remaining_mandated_hours = 0;
             }
             
 
@@ -217,6 +229,7 @@
                     $email,
                     $isMinor,
                     $total_hours,
+                    $mandated_hours,
                     $remaining_mandated_hours,
                     $emergency_contact_first_name,
                     $emergency_contact_last_name,
@@ -225,57 +238,24 @@
                     $type
             );
 
-            /*$newperson = new Person(
-                //$id, // (id = username)
-                //$password,
-                date("Y-m-d"),
-                $first_name,
-                $last_name,
-                //$birthday,
-                $street_address,
-                $city,
-                $state,
-                $zip_code,
-                $phone1,
-                //$phone1type,
-                $email,
-                $emergency_contact_first_name,
-                $emergency_contact_last_name,
-                $emergency_contact_phone,
-                //$emergency_contact_phone_type,
-                $emergency_contact_relation,
-                /* $tshirt_size,
-                $school_affiliation,
-                $photo_release,
-                $photo_release_notes, */
-                //$type, // admin or volunteer or participant...
-                //$status,
-                //$archived,
-                //$how_you_heard_of_stepva,
-                //$preferred_feedback_method,
-                //$hobbies,
-                //$professional_experience,
-                //$disability_accomodation_needs,
-                //$training_complete,
-                //$training_date,
-              //  $orientation_complete,
-                //$orientation_date,
-                //$background_complete,
-                //$background_date,
-               // $isMinor,
-                //$total_hours
-            //);
-
             $result = add_person($newperson);
             if (!$result) {
                 echo '<p>That username is already in use.</p>';
             } else {
-                /*if ($loggedIn) {
-                    echo '<script>document.location = "index.php?registerSuccess";</script>';
-                } else {*/
-                    echo '<script>document.location = "login.php?registerSuccess";</script>';
-                /*}*/
-            }
+
+                $title = $newperson->get_first_name() . " has been registered with SERVE!"; 
+                $body = "Please make sure to welcome " . $newperson->get_first_name() . " into the SERVE family!";  
+                system_message_all_admins($title, $body)
+
+                ?>
+                <html>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=staffDashboard.php">
+                    <main>
+                        <p class="happy-toast centered"><?php echo $newperson->get_first_name() . ' ' . $newperson->get_last_name() ?> has been added!</p>
+                    </main>
+                </html>
+                <?php
+            } 
         } else {
             require_once('registrationForm.php'); 
         }

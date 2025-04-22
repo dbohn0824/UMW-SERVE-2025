@@ -9,6 +9,12 @@
             <legend>Staff Member Information</legend>
 
             <!-- <p>The following information will help us identify you within our system.</p> -->
+            <label for="type"><em>* </em>Account Type</label> 
+            <select id="type" name="type">
+                <option value="admin">Admin</option> 
+                <option value="superadmin">Super Admin</option> 
+            </select>
+            
             <label for="first_name"><em>* </em>First Name</label>
             <input type="text" id="first_name" name="first_name" required placeholder="Enter staff first name">
 
@@ -93,24 +99,6 @@
 
             <label for="phone"><em>* </em>Phone Number</label>
             <input type="tel" id="phone" name="phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
-
-        </fieldset>
-
-        <fieldset class="section-box">
-            <legend>Emergency Contact</legend>
-
-            <!-- <p>Please provide us with someone to contact on your behalf in case of an emergency.</p> -->
-            <label for="emergency_contact_first_name" required><em>* </em>Contact First Name</label>
-            <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" required placeholder="Enter emergency contact first name">
-
-            <label for="emergency_contact_last_name" required><em>* </em>Contact Last Name</label>
-            <input type="text" id="emergency_contact_last_name" name="emergency_contact_last_name" required placeholder="Enter emergency contact last name">
-
-            <label for="emergency_contact_relation"><em>* </em>Contact Relation to You</label>
-            <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" required placeholder="Ex. Spouse, Mother, Father, Sister, Brother, Friend">
-
-            <label for="emergency_contact_phone"><em>* </em>Contact Phone Number</label>
-            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Enter emergency contact phone number. Ex. (555) 555-5555">
 
         </fieldset>
 

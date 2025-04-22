@@ -25,6 +25,7 @@ class Person {
 	private $last_name;
 	private $minor;
 	private $total_hours;
+	private $mandated_hours;
 	private $remaining_mandated_hours;
 	private $checked_in;
 	private $phone1;
@@ -71,16 +72,17 @@ class Person {
 	 */
 	function __construct(
 						$id, $password, $first_name, $last_name, $street_address, $city, $state, $zip_code, $notes,
-						$phone1, $email, $minor, $total_hours, $remaining_mandated_hours, $emergency_contact_first_name,
-						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type,
+						$phone1, $email, $minor, $total_hours, $mandated_hours, $remaining_mandated_hours, $emergency_contact_first_name,
+						$emergency_contact_last_name, $emergency_contact_phone, $emergency_contact_relation, $type
 						) {
 		$this->id = $id; // (username)
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
 		$this->minor = $minor;
 		$this->total_hours = $total_hours;
+		$this->mandated_hours= $mandated_hours;
 		$this->remaining_mandated_hours = $remaining_mandated_hours;
-		$this->checked_in = false;
+		$this->checked_in = 0;
 		$this->phone1 = $phone1;
 		$this->email = $email;
 		$this->notes = $notes;
@@ -96,8 +98,12 @@ class Person {
 		$this->type = $type; // volunteer or participant...
 
 		// access_level = 1 for users, and = 3 for admin
-		if ($id == 'vmsroot') {
+		//if ($id == 'vmsroot') {
+		//d.bohn changed this so new staff members will have access to staff features
+		  if ($type == 'superadmin') {
 			$this->access_level = 3;
+		} elseif ($type == 'admin' ) {
+			$this->access_level = 2;
 		} else {
 			$this->access_level = 1;
 		}
@@ -190,6 +196,10 @@ class Person {
 
 	function get_total_hours() {
 		return $this->total_hours;
+	}
+
+	function get_mandated_hours() {
+		return $this->mandated_hours;
 	}
 
 	function get_remaining_mandated_hours() {

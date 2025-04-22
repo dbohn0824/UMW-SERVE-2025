@@ -61,8 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
     <div class="container">
         <h1>Volunteer Hours Search</h1>
         <main class="general">
-
-            <?php if(isset($args['name'])): ?>
+            <?php if (!empty($persons)): ?>
                 <h2>Results</h2>
                 <div style="overflow-x: auto;" class="table-wrapper">
                     <table class="general">
@@ -72,32 +71,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" || $accessLevel == 1) {
                             </tr>
                         </thead>
                         <tbody class="standout">
-                        <?php foreach ($persons as $person): ?>
-                            <tr>
-                                <td><a href="viewHours.php?id=<?php echo $person->get_id() . '">' . $person->get_first_name() . ' ' . $person->get_last_name()?></a></td>
-                            </tr>
-                        <?php endforeach; ?>
+                            <?php foreach ($persons as $person): ?>
+                                <tr>
+                                    <td>
+                                        <a href="viewHours.php?id=<?php echo htmlspecialchars($person->get_id()); ?>">
+                                            <?php echo htmlspecialchars($person->get_first_name() . ' ' . $person->get_last_name()); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>   
+                </div>
             <?php else: ?>
                 <h2>View & Change Hours</h2>
             <?php endif; ?>
-
             <?php if ($accessLevel > 1): ?>
-                <!-- Show form only if access level is greater than 1 -->
                 <form id="new-event-form" method="post" class="styled-form">
-                    <label for="name">Volunteer Name </label>
-                    <input type="text" id="name" name="name" placeholder="Enter Volunteer Name"> 
-                    <label for="date">
+                    <label for="name">Volunteer Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter Volunteer Name" required>
                     <input type="submit" value="Search" class="button primary-button">
                 </form>
-            <?php else: ?>
-                <!-- Message or auto-redirect if access level is 1 -->
-                <p>Redirecting...</p>
             <?php endif; ?>
-
-            <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
+            <a class="button cancel" href="staffDashboard.php" style="margin-top: -.5rem">Return to Dashboard</a>
         </main>
     </div>
 </body>
