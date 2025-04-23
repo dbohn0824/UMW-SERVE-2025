@@ -77,7 +77,8 @@ table, td, tr, th, form, fieldset, em, button, a {
     --light-border: 1px solid var(--shadow-and-border-color);
     --text-field-border: 2px solid #e8e8e8;
 
-    --cancel-button-background-color: #aaa;
+    --cancel-button-background-color: #6c757d;
+    --cancel-button-background-color-hover: #7E0B07;
 
     --error-color: red;
 
@@ -1008,12 +1009,14 @@ table.general th, table.general td {
 }
 
 .button.cancel {
-    background-color: #6c757d !important;
+    background-color: var(--cancel-button-background-color) !important;
     color: #fff !important;
+    margin: 0.5rem;
+    margin-left: auto;
 }
 
 .button.cancel:hover {
-    background-color: #5a6268!important;
+    background-color: var(--cancel-button-background-color-hover)!important;
 }
 
 /* end Thomas */
@@ -1028,4 +1031,31 @@ table.general th, table.general td {
     text-align: center;
     font-size: 1.2em;
     color: #555;
+}
+
+.hours-actions {
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: -1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.hours-action {
+    display: inline;
+}
+
+.hours-action span {
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    line-height: 30px;
+    bottom: 40px;
+    border-radius: 5px;
+    padding: 0 5px;
 }

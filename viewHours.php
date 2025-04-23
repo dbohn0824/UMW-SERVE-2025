@@ -41,62 +41,80 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" || $accessLevel == 1) {
         die();
     }
 
-    $entries = get_hours_volunteered_by($id);
-}
+    if(isset($args['result'])){
+        $result = $args['result'];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
-    $args = sanitize($_POST, null);
-
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    $entry_id = $args['id'] ?? null;
-    $date = $args['date'] ?? null; 
-    $check_in = $args['check_in'] ?? null;
-    $check_out = $args['check_out'] ?? null;
-
-    if ($entry_id && $date) {
-        if ($check_in !== null && $check_in !== '') {
-            update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
+        if($result == "editSuccess"){
+            $result = "Hours successfully updated.";
+        } else if($result == "delSuccess") {
+            $result = "Check-In successfully deleted.";
+        } else if($result == "addSuccess") {
+            $result = "Check-In successfully added.";
+        } else if($result == "editFail"){
+            $result = "Hours not updated. Please make sure that check-in time comes before check-out time.";
+        } else if($result == "addFail"){
+            $result = "Hours not added. Please try again.";
+        } else if($result == "delFail"){
+            $result = "Hours not deleted. Please try again.";
+        } else {
+            $result = "Error. Invalid Result. Please try again.";
         }
-
-        if ($check_out !== null && $check_out !== '') {
-            update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
-        }
-
-        header("Location: viewHours.php?id=" . urlencode($id));
-        die();
-    } else {
-        echo '<p class="error-message">Missing ID or entry ID.</p>';
-    }
-    $entries = get_hours_volunteered_by($id);
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
-    $args = sanitize($_POST, null);
-
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    $entry_id = $args['id'] ?? null;
-    $date = $args['date'] ?? null; 
-    $check_in = $args['check_in'] ?? null;
-    $check_out = $args['check_out'] ?? null;
-
-    if ($entry_id && $date) {
-        if ($check_in !== null && $check_in !== '') {
-            $result = update_volunteer_checkIn($entry_id, $check_in, $id, $date);  
-        }
-
-        if ($check_out !== null && $check_out !== '') {
-            $result = update_volunteer_checkOut($entry_id, $check_out, $id, $date); 
-        }
-
-        header("Location: viewHours.php?id=" . urlencode($id));
-        die();
-    } else {
-        echo '<p class="error-message">Missing ID or entry ID.</p>';
     }
 
     $entries = get_hours_volunteered_by($id);
 }
 
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $args = sanitize($_POST, null);
+
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+    $date = $args['date'] ?? null; 
+    $check_in = $args['check_in'] ?? null;
+    $check_out = $args['check_out'] ?? null;
+
+    if ($id && $date) {
+        if($_POST['action'] == "edit"){
+            var_dump($args);
+            echo "/n";
+            $result = update_volunteer_checkIn($id, $check_in, $check_out, $date);
+    
+            if($result == "1"){
+                $result = "editSuccess";
+            } else {
+                $result = "editFail";
+            }
+        } else if($_POST['action'] == "delete"){
+            var_dump($args);
+            echo "/n";
+            $result = delete_volunteer_checkIn($id, $check_in, $check_out, $date);
+
+            if($result == "1"){
+                $result = "delSuccess";
+            } else {
+                $result = "delFail";
+            }
+        } else if($_POST['action'] == "add"){
+            var_dump($args);
+            echo "/n";
+            $result = add_volunteer_checkIn($id, $check_in, $check_out, $date);
+
+            if($result == "1"){
+                $result = "addSuccess";
+            } else {
+                $result = "addFail";
+            }
+        }
+
+        header("Location: viewHours.php?id=" . urlencode($id) . "&result=" . urlencode($result));
+        die();
+    } else {
+        echo '<p class="error-message">Missing ID or entry ID.</p>';
+    }
+
+    $entries = get_hours_volunteered_by($id);
+}
+
+synchronize_hours($id);
 ?>
 
 <!DOCTYPE html>
@@ -126,10 +144,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
                                 <th>Date</th>
                                 <th>Check In</th>
                                 <th>Check Out</th>
-                                <th>Update</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="standout">
+                        <?php
+                            if (empty($entries)){
+                                echo "<p>This volunteer has served no hours.</p>";
+                            }
+                        ?>
                         <?php foreach ($entries as $entry): ?>
                             <tr>
                             <form method="POST">
@@ -143,21 +166,64 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['update_times'])) {
                                 <td>
                                     <?php if (isset($entry['personID'])): ?>
                                         <input type="hidden" name="id" value="<?php echo $entry['personID']; ?>"> 
-                                        <input type="hidden" name="date" value="<?php echo $entry['date']; ?>"> 
+                                        <input type="hidden" name="date" value="<?php echo $entry['date']; ?>">
+                                        <div class="hours-actions">
+                                            <div class="hours-action">
+                                                <?php $editId = 'edit-' . $entry['date'] . "-" . $entry['Time_in'];?>
+                                                <input type='submit' name='action' value='edit' id='<?php echo $editId; ?>' style='display: none;' title='Edit Check-In'>
+                                                <label for='<?php echo $editId; ?>'><img src='images/edit.svg'></label>
+                                            </div>
+                                            <div class="hours-action">
+                                                <?php $deleteId = 'delete-' . $entry['date'] . "-" . $entry['Time_in']; ?>
+                                                <input type='submit' name='action' value='delete' id='<?php echo $deleteId; ?>' style='display: none;' title='Delete Check-In'>
+                                                <label for='<?php echo $deleteId; ?>'><img src='images/delete.svg'></label>
+                                            </div>
+                                        </div>
                                     <?php else: ?>
                                         <p class="error-message">Error: Entry ID not found.</p>
                                     <?php endif; ?>
-                                    <input type="submit" name="update_times" value="Save" class="button primary-button">
                                 </td>
                             </form>
                             </tr>
                         <?php endforeach; ?>
+                        <tr>
+                            <form method="POST">
+                                <td>
+                                    <?php
+                                        $date = date("Y-m-d");
+                                        $time = time();
+                                        echo '<input type="date" id="date" name="date" value="' . htmlspecialchars($date) . '">';
+                                    ?>
+                                </td>
+                                <td>
+                                    <input type="time" name="check_in" value="<?php echo htmlspecialchars($time); ?>">
+                                </td>
+                                <td>
+                                    <input type="time" name="check_out" value="<?php echo htmlspecialchars($time); ?>">
+                                </td>
+                                <td>
+                                    <?php if (isset($id)): ?>
+                                        <input type="hidden" name="id" value="<?php echo $id; ?>"> 
+                                    <?php else: ?>
+                                        <p class="error-message">Error: Entry ID not found.</p>
+                                    <?php endif; ?>
+                                    <div class="hours-actions">
+                                        <div class="hours-action">
+                                            <input type='submit' name='action' value='add' id='add' style='display: none;'
+                                                title='Add Check-In'>
+                                            <label for='add'><img src='images/add.png'></label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </form>
+                        </tr>
                         </tbody>
                     </table>
                 </div> 
             <?php else: ?>
                 <h2>Change Hours</h2>
             <?php endif; ?>
+            </br>
             <a class="button cancel" href="viewProfile.php?id=<?php echo $id ?>" style="margin-top: -.5rem">Volunteer Profile</a>
             <a class="button cancel" href="searchHours.php" style="margin-top: -.5rem">Hours Search</a>
         </main>
