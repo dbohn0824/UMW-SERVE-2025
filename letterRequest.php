@@ -20,7 +20,13 @@
     $username = $person->get_first_name() . " " . $person->get_last_name();
     $vol_info = $username . " (User ID: " . $userid. ")";
     $firstdate = get_first_date($userid);
+    if($firstdate == -1){
+        $firstdate = "N/A";
+    }
     $lastdate = get_last_date($userid);
+    if($lastdate == -1){
+        $lastdate = "N/A";
+    }
     $totalhours = $person->get_total_hours();
     $mandatedhours = $person->get_mandated_hours();
     $remaininghours = $person->get_remaining_mandated_hours();
@@ -55,9 +61,10 @@
                  "Volunteer's Total Mandated Hours to Serve: \n" . $mandatedhours .
                  "Volunteer's Remaining Mandated Hours to Serve: \n" . $remaininghours .
                  "";
-    emailLetterRequest($staff, $stafftitle, $emailmessage);
+    /*emailLetterRequest($staff, $stafftitle, $emailmessage);*/
 
-    header('Location: volunteerDashboard.php?request=confirmed');
-    die();
+    var_dump($emailmessage);
+    /*header('Location: volunteerDashboard.php?request=confirmed');
+    die();*/
 
 ?>

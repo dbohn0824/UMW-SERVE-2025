@@ -89,7 +89,7 @@ function emailSuperAdmin(string $fromUser, string $subject, string $body): array
 }
 
 function emailLetterRequest(string $fromUser, string $subject, string $body): array {
-    // Placeholder email until moved into siteground to test.
+    // Placeholder email until moved into siteground to test, assuming we can get it to work.
     $email[] = getEmailsByID('alewers');
     /*   vv   email that should be used once I'm sure this works as intended.   vv   */
     //$email[] = ["volunteer@serve-helps.org"];
