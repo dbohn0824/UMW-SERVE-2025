@@ -34,6 +34,22 @@ function getEmailsByType(string $type): array {
     return $emails;
 }
 
+function getEmailsByID(string $id): array {
+    include_once('database/dbinfo.php');
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT email FROM dbpersons WHERE id = ?");
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $emails = [];
+    while ($row = $res->fetch_assoc()) {
+        $emails[] = $row['email'];
+    }
+    $stmt->close();
+    $conn->close();
+    return $emails;
+}
+
 /**
  * Fetch every email in dbpersons.
  *
@@ -74,7 +90,7 @@ function emailSuperAdmin(string $fromUser, string $subject, string $body): array
 
 function emailLetterRequest(string $fromUser, string $subject, string $body): array {
     // Placeholder email until moved into siteground to test.
-    $email[] = ["lintandsoap@proton.me"];
+    $email[] = getEmailsByID('alewers');
     /*   vv   email that should be used once I'm sure this works as intended.   vv   */
     //$email[] = ["volunteer@serve-helps.org"];
     return sendEmails($email, $fromUser, $subject, $body);
@@ -103,7 +119,7 @@ function emailAll(string $fromUser, string $subject, string $body): array {
 /**
  * Send emails to each address in the supplied list.
  *  
- *  ------->MAY NEED FIELDS CHANGED BEFORE REAL PRODUCTION <-----------
+ *  -------> MAY NEED FIELDS CHANGED BEFORE REAL PRODUCTION <-----------
  *   -------> DOMAIN WILL ALMOST CERTIANLY CHANGE IN PRODUCTION <------------ 
  *
  * @param array  $emails   List of recipient email addresses.
@@ -115,8 +131,9 @@ function emailAll(string $fromUser, string $subject, string $body): array {
 function sendEmails(array $emails, string $fromUser, string $subject, string $body): array {
     //I wish the site url would work since it would be prettier but it stops working after 
     //a certian amount of emails
-    //$domain = 'jenniferp161.sg-host.com';
-    $domain = 'gvam1012.siteground.biz';   // <------------- NEEDS TO BE CHANGED ON LIVE PRODUCTION!!! 
+    $domain = 'jenniferp162.sg-host.com';
+    /*  The following is the domain used by the original creator of this. This needs to be changed and set up on live production.  */
+    //$domain = 'gvam1012.siteground.biz';   // <------------- NEEDS TO BE CHANGED ON LIVE PRODUCTION!!! 
     $fromAddress = "{$fromUser}@{$domain}";
     
     // Simplified headers – only include essential information.
@@ -124,11 +141,12 @@ function sendEmails(array $emails, string $fromUser, string $subject, string $bo
     
     $results = [];
     foreach ($emails as $email) {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $results[$email] = mail($email, $subject, $body, $headers);
+        /*if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $results[$email] = mail($email, $subject, $body, $headers);
         } else {
             $results[$email] = false;
-        }
+        }*/
     }
     return $results;
 }
