@@ -5,13 +5,22 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $_SESSION['startDate'] = $_POST['startDate'];
+        $_SESSION['endDate'] = $_POST['endDate'];
+    }
+
     ini_set("display_errors",1);
     error_reporting(E_ALL);
+   
+    if(!isset($_POST['startDate'])){
+        $todays_month = date('F');
 
-   $todays_month = date('F');
-
-   $past_month = date('F', strtotime('-4 months'));
-
+        $past_month = date('F', strtotime('-4 months'));
+    }else{
+        $past_month = date('F', strtotime($_POST['startDate']));
+        $todays_month = date('F', strtotime($_POST['endDate']));
+    } 
 
 
 
@@ -68,7 +77,16 @@
 -->
 <script src="chartScript.js"> </script>
         <p style="text-align: center;">  Total unique volunteers and total volunteer hours from <?php echo $past_month; ?> to <?php echo $todays_month; ?> </p>
+        <form action="visualizeData.php" method="post"> 
+            <label for="startDate"> Visualize hours starting on:</label>
+            <input type="date" id = "startDate" name="startDate" required>
 
+            <label for="endDate">and ending on:</label>
+            <input type="date" id="endDate" name="endDate" required> 
+            <button type="submit" class="no-print" style="margin-bottom: -.5rem">
+                 Vizualize Data
+            </button>
+        </form>
         </main>
     </body>
 </html>
