@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <?php require_once('universal.inc'); ?>
 </head>
 
 <?php

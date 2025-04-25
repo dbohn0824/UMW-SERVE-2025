@@ -50,7 +50,7 @@
     }*/
 
     // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-    synchronize_hours($id);
+    $result = synchronize_hours($id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -134,8 +134,6 @@
                 <?php
                     $type = $user->get_type();
                     if($type == "v" || $type == "volunteer"){
-                        // Re-sum hours just in case there have been any updates/modifications to the database (unlikely, but a failsafe).
-                        synchronize_hours($user->get_id());
                         echo '<div class="field-pair">
                             <label>Total Hours</label>
                             <p>' . $user->get_total_hours() .'</p>
@@ -151,14 +149,22 @@
                             <p>' .$user->get_remaining_mandated_hours() . '</p>
                         </div>';
 
+                        $first = get_first_date($user->get_id());
+                        if($first == -1){
+                            $first = "N/A";
+                        }
                         echo '<div class="field-pair">
                             <label>First Date Volunteered</label>
-                            <p>' . get_first_date($user->get_id()) .'</p>
+                            <p>' . $first .'</p>
                         </div>';
 
+                        $last = get_last_date($user->get_id());
+                        if($last == -1){
+                            $last = "N/A";
+                        }
                         echo '<div class="field-pair">
                             <label>Latest Date Volunteered</label>
-                            <p>' . get_last_date($user->get_id()) .'</p>
+                            <p>' . $last .'</p>
                         </div>';
                     }
                 ?>
@@ -201,7 +207,23 @@
                     <p><a href="tel:<?php echo $user->get_emergency_contact_phone() ?>"><?php echo formatPhoneNumber($user->get_emergency_contact_phone()) ?></a></p>
                 </div>
             </fieldset>
-
+            <?php if ($user->get_type() == "archived"): ?>
+                <form action="unarchive_volunteer.php" method="post"> 
+                    <input type="hidden" id="id" name="id" value="<?= htmlspecialchars($user->get_id()) ?>" required> 
+                    <button type="submit" class="no-print" style="
+                        all: unset;
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                        color: red;
+                        cursor: pointer;
+                        border-bottom: 1px solid red;
+                        padding: 0.5rem 0;
+                    ">
+            Unarchive
+        </button>
+    </form>
+            <?php endif ?>
 
             <!--<fieldset class="section-box">
                 <legend>Emergency Contact Information</legend>
