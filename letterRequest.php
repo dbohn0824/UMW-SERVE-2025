@@ -61,10 +61,10 @@
                  "Volunteer's Total Mandated Hours to Serve: \n" . $mandatedhours .
                  "Volunteer's Remaining Mandated Hours to Serve: \n" . $remaininghours .
                  "";
+    //var_dump($emailmessage);
     /*emailLetterRequest($staff, $stafftitle, $emailmessage);*/
-
-    var_dump($emailmessage);
-    /*header('Location: volunteerDashboard.php?request=confirmed');
-    die();*/
+    
+    header('Location: volunteerDashboard.php?request=confirmed');
+    die();
 
 ?>
