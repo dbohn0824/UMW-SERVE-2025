@@ -19,14 +19,14 @@ function createChart(chartData, type){
         {
         label: '# volunteers',
         borderColor: '#7E0B07',
-        backgroundColor: '#7E0B07',
+        backgroundColor:'rgba(143, 13, 11, 0.36)',
         data: chartData.map(row => row.unique_volunteers),
         borderWidth: 1
       },
     {
       label: 'total hours',
       borderColor: '#CFA118',
-      backgroundColor: '#CFA118',
+      backgroundColor: 'rgba(245, 188, 30, 0.47)',
       data: chartData.map(row => row.total_hours),
       borderWidth: 1
     }]
