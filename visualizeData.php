@@ -8,6 +8,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['startDate'] = $_POST['startDate'];
         $_SESSION['endDate'] = $_POST['endDate'];
+        $_SESSION['graphType'] = $_POST['graphType'];
     }
 
     ini_set("display_errors",1);
@@ -75,6 +76,7 @@
 <!-- TODO: Create an SQL querry to pull the Relivent data from dbpersons
  convert the data to JSON format. Fixe the labels in the graph, fix formatting
 -->
+<script>  const graphType = "<?php echo isset($_SESSION['graphType']) ? $_SESSION['graphType'] : 'bar'; ?>"; </script> 
 <script src="chartScript.js"> </script>
         <p style="text-align: center;">  Total unique volunteers and total volunteer hours from <?php echo $past_month; ?> to <?php echo $todays_month; ?> </p>
         <form action="visualizeData.php" method="post"> 
@@ -83,10 +85,24 @@
 
             <label for="endDate">and ending on:</label>
             <input type="date" id="endDate" name="endDate" required> 
+
+            <label for="graphType">Graph Type:</label>
+            <select id="graphType" name="graphType">
+                <option value="bar">Bar</option> 
+                <option value="line">Line</option> 
+                <option value="radar">Radar</option> 
+            </select>
+
             <button type="submit" class="no-print" style="margin-bottom: -.5rem">
                  Vizualize Data
             </button>
         </form>
+        <form action="resetGraph.php" method="post">
+        <button type="submit" class="reset-link" style="margin-top: 1rem;">
+            Reset Graph
+        </button>
+        </form>
+
         </main>
     </body>
 </html>

@@ -6,7 +6,7 @@ fetch("chartScript.php")
   })
 
   .then((data) => {
-    createChart(data, 'bar')
+    createChart(data, graphType)
   });
 
 
