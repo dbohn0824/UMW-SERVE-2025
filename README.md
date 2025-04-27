@@ -1,4 +1,4 @@
-# Setp VA Volunteer Management System
+# SERVE Volunteer Management System
 ## Purpose
 This project is the result of a semester's worth of collaboration among UMW students. The goal of the project was to create a web application that SERVE could utilize to manage SERVE volunteers and staff accounts. 
 
@@ -11,9 +11,9 @@ A major overhaul to the existing system took place during the Spring 2023 semest
 
 The Gwyneth's Gifts VMS code was modified in the Fall of 2023, revamping the code into the present ODHS Medicine Tracker code. Many of the existing database tables were reused, and many other tables were added. Some portions of the software's functionality were reused from the Gwyneth's Gifts VMS code. Other functions were created to fill the needs of the ODHS Medicine Tracker. The team that made these modifications and changes consisted of Garrett Moore, Artis Hart, Riley Tugeau, Julia Barnes, Ryan Warren, and Collin Rugless.
 
-The ODHS Medicine Tracker code was modified in the Fall of 2024, changing the code to the present Step VA Volunteer Management System code. Many existing database tables were reused or renamed, and some others were added. Some files and portions of the software's functionality were reused from ODHS Medicine Tracker, while other functions were created to fill the needs of Step VA Volunteer Management. The team which made changes and new addtions consisted of Ava Donley, Thomas Held, Madison McCarty, Noah Stafford, Jayden Wynes, Gary Young, and Imaad Qureshi.
+The ODHS Medicine Tracker code was modified in the Fall of 2024, changing the code to the present STEP VA Volunteer Management System code. Many existing database tables were reused or renamed, and some others were added. Some files and portions of the software's functionality were reused from ODHS Medicine Tracker, while other functions were created to fill the needs of STEP VA Volunteer Management. The team which made changes and new addtions consisted of Ava Donley, Thomas Held, Madison McCarty, Noah Stafford, Jayden Wynes, Gary Young, and Imaad Qureshi.
 
-Spring 2025 authors: Dylan Bohn, Luke Busch, Jackson Carmack, Mariel Couvillion, Marshall Denson, Katie Heyn, Avi Lewers
+Spring 2025 authors: Dylan Bohn, Luke Busch, Jackson Carmack, Mariel Couvillion, Marshall Denson, Katie Heyn, Avi Lewers modified the STEP VA code base to be tailored for SERVE (Stafford Emergency Reliefe throug Volunteer Efforts)
 
 ## User Types
 There are 3 types of users (also referred to as 'roles') within SERVE.
@@ -58,7 +58,7 @@ Below is an in-depth list of features that were implemented within the system
   * A Staff member has been deleted. 
 
 ## Design Documentation
-Several types of diagrams describing the design of the Step VA, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
+Several types of diagrams describing the design of the SERVE, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
 
 ## "localhost" Installation
 Below are the steps required to run the project on your local machine for development and/or testing purposes.
@@ -120,7 +120,7 @@ Dr. Polack chose SiteGrounds as the platform on which to host the project. Below
 Access to the SiteGround Dashboard requires a SiteGround account with access. Access is managed by Dr. Polack.
 
 ### Localhost to Siteground
-Follow these steps to transfter your localhost version of the Step VA code to Siteground. For a video tutorial on how to complete these steps, contact Dr. Polack.
+Follow these steps to transfter your localhost version of the SERVE code to Siteground. For a video tutorial on how to complete these steps, contact Dr. Polack.
 1. Create an FTP Account on Siteground, giving you the necessary FTP credentials. (Hostname, Username, Password, Port)
 2. Use FTP File Transfer Software (Filezilla, etc.) to transfer the files from your localhost folders to your siteground folders using the FTP credentials from step 1.
 3. Create the following database-related credentials on Siteground under the MySQL tab:
