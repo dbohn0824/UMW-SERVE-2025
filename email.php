@@ -34,7 +34,7 @@ function getEmailsByType(string $type): array {
     return $emails;
 }
 
-function getEmailsByID(string $id): array {
+function getEmailsByID($id) {
     include_once('database/dbinfo.php');
     $conn = connect();
     $stmt = $conn->prepare("SELECT email FROM dbpersons WHERE id = ?");
@@ -88,28 +88,14 @@ function emailSuperAdmin(string $fromUser, string $subject, string $body): array
     return sendEmails($list, $fromUser, $subject, $body);
 }
 
-function emailLetterRequest(string $fromUser, string $subject, string $body): array {
-    // Placeholder email until moved into siteground to test, assuming we can get it to work.
-    $email[] = getEmailsByID('alewers');
-    /*   vv   email that should be used once I'm sure this works as intended.   vv   */
-    //$email[] = ["volunteer@serve-helps.org"];
-    return sendEmails($email, $fromUser, $subject, $body);
+function emailLetterRequest($fromUser, $subject, $body){
+    // THIS LINE MUST BE COMMENTED OUT ONCE THE SOFTWARE GOES LIVE IN ORDER FOR EMAILS TO WORK. 
+    //$toUser = ["volunteer@serve-helps.org"];
+    // THIS LINE MUST BE REMOVED ONCE THE SOFTWARE GOES LIVE, AS IT IS A PLACEHOLDER.
+    $toUser = ["amlewers@gmail.com"];
+    $result = sendEmails($toUser, $fromUser, $subject, $body);
+    return $result;
 }
-
-/*function emailBoardMember(string $fromUser, string $subject, string $body): array {
-    $list = getEmailsByType('board');
-    return sendEmails($list, $fromUser, $subject, $body);
-}
-
-function emailDonor(string $fromUser, string $subject, string $body): array {
-    $list = getEmailsByType('donor');
-    return sendEmails($list, $fromUser, $subject, $body);
-}
-
-function emailParti(string $fromUser, string $subject, string $body): array {
-    $list = getEmailsByType('participant');
-    return sendEmails($list, $fromUser, $subject, $body);
-}*/
 
 function emailAll(string $fromUser, string $subject, string $body): array {
     $list = getAllEmails();
@@ -131,7 +117,7 @@ function emailAll(string $fromUser, string $subject, string $body): array {
 function sendEmails(array $emails, string $fromUser, string $subject, string $body): array {
     //I wish the site url would work since it would be prettier but it stops working after 
     //a certian amount of emails
-    $domain = 'jenniferp162.sg-host.com';
+    $domain = 'serve-helps.org';
     /*  The following is the domain used by the original creator of this. This needs to be changed and set up on live production.  */
     //$domain = 'gvam1012.siteground.biz';   // <------------- NEEDS TO BE CHANGED ON LIVE PRODUCTION!!! 
     $fromAddress = "{$fromUser}@{$domain}";
@@ -141,12 +127,11 @@ function sendEmails(array $emails, string $fromUser, string $subject, string $bo
     
     $results = [];
     foreach ($emails as $email) {
-        $results[$email] = mail($email, $subject, $body, $headers);
-        /*if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $results[$email] = mail($email, $subject, $body, $headers);
         } else {
             $results[$email] = false;
-        }*/
+        }
     }
     return $results;
 }

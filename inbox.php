@@ -34,8 +34,8 @@
         }
     }
 
-    $messages = get_user_read_messages($userID);
     $newMessages = get_user_unread_messages($userID);
+    $messages = get_user_read_messages($userID);
 
     function time24hto12h($time) {
         return date("g:i A", strtotime($time));

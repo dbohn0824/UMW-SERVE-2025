@@ -15,7 +15,7 @@
     }
 
     $currentDate = date("M d, Y");
-    $staff = "vmsroot";
+    $staff = "volunteer";
     $userid = $person->get_id();
     $username = $person->get_first_name() . " " . $person->get_last_name();
     $vol_info = $username . " (User ID: " . $userid. ")";
@@ -36,35 +36,30 @@
     $staffmessage = "A community service letter has been requested by " . $vol_info . ".\nView their profile
                 viewProfile.php?id=" . $person->get_id() . "";
 
-    send_system_message($staff, $stafftitle, $staffmessage);
+    send_system_message("vmsroot", $stafftitle, $staffmessage);
 
     // NEED TO HAVE A MESSAGE SHOW TO THE USER VERIFYING THAT A REQUEST HAS BEEN SENT.
     $volunteertitle = "Community Service Letter Request Successful";
     $volunteermessage = "Hello!\nYou have officially requested a community service letter as of " . $currentDate . ". 
     A notice has been sent to staff, and you should expect a reply within the next two business days.";
     send_system_message($userid, $volunteertitle, $volunteermessage);
-
-    /* testing out mailing via email.php, though it's not working as of yet */
-    /* current issue: '' */
     
     include_once("email.php");
     // Email needs: name, first date volunteered, last date volunteered, total hours, mandated hours, remaining mandated hours
     $emailmessage = "A community service letter has been requested by " . $vol_info . ".\n" . 
                  "For your reference, their information is provided below. If needed, you can select " .
-                 "the link to their profile that has been sent to your inbox on SERVE software, or search " .
+                 "the link to their profile that has been sent to staff inboxes on SERVE software, or search " .
                  "for their name or ID using SERVE software's volunteer search feature.\n\n" .
-                 "Volunteer's Full Name: \n" . $username .
-                 "Volunteer's ID: \n" . $userid .
-                 "Volunteer's First Date Volunteered: \n" . $firstdate .
-                 "Volunteer's Last Date Volunteered: \n" . $lastdate .
-                 "Volunteer's Total Hours Volunteered: \n" . $totalhours .
-                 "Volunteer's Total Mandated Hours to Serve: \n" . $mandatedhours .
-                 "Volunteer's Remaining Mandated Hours to Serve: \n" . $remaininghours .
-                 "";
-    //var_dump($emailmessage);
-    /*emailLetterRequest($staff, $stafftitle, $emailmessage);*/
-    
-    header('Location: volunteerDashboard.php?request=confirmed');
+                 "Volunteer's Full Name: " . $username .
+                 "\nVolunteer's ID: " . $userid .
+                 "\nVolunteer's First Date Volunteered: " . $firstdate .
+                 "\nVolunteer's Last Date Volunteered: " . $lastdate .
+                 "\nVolunteer's Total Hours Volunteered: " . $totalhours .
+                 "\nVolunteer's Total Mandated Hours to Serve: " . $mandatedhours .
+                 "\nVolunteer's Remaining Mandated Hours to Serve: " . $remaininghours;
+    $result = emailLetterRequest($staff, $stafftitle, $emailmessage);
+
+    header('Location: volunteerDashboard.php');
     die();
 
 ?>
