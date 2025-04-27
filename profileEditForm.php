@@ -64,7 +64,7 @@
 ?>
 <h1>Edit Profile</h1>
 <main class="signup-form">
-    <h2>Modify Volunteer Profile</h2>
+    <h2>Modify User Profile</h2>
     <?php if (isset($updateSuccess)): ?>
         <?php if ($updateSuccess): ?>
             <div class="happy-toast">Profile updated successfully!</div>
@@ -107,25 +107,71 @@
             <label for="last_name"><em>* </em>Last Name</label>
             <input type="text" id="last_name" name="last_name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter last name">
 
-            <label>Minor</label>
-            <?php $minor = $person->isMinor()?>
+            <?php 
+                $type = $user->get_type();
+                if($type == "v" || $type == "volunteer") {
+                    ?>
+                    <label>Minor</label>
+                    <?php $minor = $person->isMinor()?>
+                    <div class="radio-group">
+                        <input type="radio" id="minor" name="minor" value="minor" <?php if ($minor == '1') echo 'checked'; ?> required><label for="type">Minor</label>
+                        <input type="radio" id="adult" name="minor" value="adult" <?php if ($minor == '0') echo 'checked'; ?> required><label for="type">Adult</label>
+                    </div>
+
+                    <div class="field-pair">
+                        <label>Total Hours</label>
+                        <p><?php echo $person->get_total_hours() ?></p>
+                    </div>
+
+                    <div class="mandated_hours">
+                        <label for="mandated_hours"><em>* </em>Mandated Hours</label>
+                        <input type="text" id="mandated_hours" name="mandated_hours" value="<?php echo hsc($person->get_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
+                    </div>
+
+                    <div class="mandated_mod">
+                        <label for="mandated_mod"><!--<em>* </em>-->Add amount to current mandated hours?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="mandated_mod_yes" name="mandated_mod" value="1">
+                            <label for="mandated_mod_yes">Add to Current Hours</label>
+                            <input type="radio" id="mandated_mod_no" name="mandated_mod" value="0">
+                            <label for="mandated_mod_no">Replace Current Hours</label>
+                        </div>
+                    </div>
+
+                    <div class="field-pair">
+                        <label>Remaining Mandated Hours</label>
+                        <p><?php echo $person->get_remaining_mandated_hours() ?></p>
+                    </div>
+                <?php
+                } else {
+                    ?>
+                    <label for="type"><em>* </em>Account Type</label> 
+                    <select id="type" name="type">
+                        <option value="admin">Admin</option> 
+                        <option value="superadmin">Super Admin</option> 
+                    </select> 
+                    <?php
+                }
+            ?>
+            <!--<label>Minor</label>
+            <?php //$minor = $person->isMinor()?>
             <div class="radio-group">
-                <input type="radio" id="minor" name="minor" value="minor" <?php if ($minor == '1') echo 'checked'; ?> required><label for="type">Minor</label>
-                <input type="radio" id="adult" name="minor" value="adult" <?php if ($minor == '0') echo 'checked'; ?> required><label for="type">Adult</label>
+                <input type="radio" id="minor" name="minor" value="minor" <?php //if ($minor == '1') echo 'checked'; ?> required><label for="type">Minor</label>
+                <input type="radio" id="adult" name="minor" value="adult" <?php //if ($minor == '0') echo 'checked'; ?> required><label for="type">Adult</label>
             </div>
 
             <div class="field-pair">
                 <label>Total Hours</label>
-                <p><?php echo $person->get_total_hours() ?></p>
+                <p><?php //echo $person->get_total_hours() ?></p>
             </div>
 
             <div class="mandated_hours">
                 <label for="mandated_hours"><em>* </em>Mandated Hours</label>
-                <input type="text" id="mandated_hours" name="mandated_hours" value="<?php echo hsc($person->get_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
+                <input type="text" id="mandated_hours" name="mandated_hours" value="<?php //echo hsc($person->get_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
             </div>
 
             <div class="mandated_mod">
-                <label for="mandated_mod"><!--<em>* </em>-->Add amount to current mandated hours?</label>
+                <label for="mandated_mod"><em>* </em>Add amount to current mandated hours?</label>
                 <div class="radio-group">
                     <input type="radio" id="mandated_mod_yes" name="mandated_mod" value="1">
                     <label for="mandated_mod_yes">Add to Current Hours</label>
@@ -136,8 +182,8 @@
 
             <div class="field-pair">
                 <label>Remaining Mandated Hours</label>
-                <p><?php echo $person->get_remaining_mandated_hours() ?></p>
-            </div>
+                <p><?php //echo $person->get_remaining_mandated_hours() ?></p>
+            </div> -->
         </fieldset>
 
             <label for="street_address"><em>* </em>Street Address</label>

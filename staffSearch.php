@@ -79,7 +79,9 @@
                     } */
                      else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id,null, null, null,null, null);
+                        $admins = find_users($name, $id, null, null, 'admin', null, null);
+                        $superadmins = find_users($name, $id, null, null, 'superadmin', null, null);
+                        $persons = array_merge($admins, $superadmins);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
@@ -90,6 +92,7 @@
                                             <th>ID</th>
                                             <th>First</th>
                                             <th>Last</th>
+                                            <th>Role</th>
                                             <th>Phone Number</th>
                                             <th>Email</th> 
                                             <th>Address</th>
@@ -114,6 +117,8 @@
                                 if($person->get_type() == 'archived'){
                                     $listID = $listID . ' (ARCHIVED)';
                                 }
+
+                                $type = $person->get_type();
                                 $mailingList .= $person->get_email();
                                 $phone = $person->get_phone1();
 
@@ -139,6 +144,7 @@
                                                 </td>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
+                                            <td>' . $person->get_type() . '</td>
                                             <td>' . $person->get_phone1() . '</td>
                                             <td>' . $person->get_email() . '</td>
                                             <td>' . $person->get_street_address() . '</td>

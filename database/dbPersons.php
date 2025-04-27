@@ -1800,7 +1800,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
 
     function find_staff($name) {
         $con = connect();
-
+        
         $searchTerm = '%' . $name . '%';
         $nameSafe = mysqli_real_escape_string($con, $name);
 
