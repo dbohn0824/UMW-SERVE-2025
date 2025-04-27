@@ -393,6 +393,11 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li class="cs-drop-li"><a href="changePassword.php" class="cs-li-link cs-drop-link">Change Password</a></li>
                         </ul>
                     </li>
+                    <li class="cs-li">
+                        <span class="cs-li-link">
+                            <a href="logout.php" class="cs-li-link">Logout</a>
+                        </span>
+                    </li>
                 <?php endif; ?>
                 <!-- FOR REGULAR ADMINS -->
                 <?php if (isset($_SESSION['access_level']) && $_SESSION['access_level'] == 2): ?>
@@ -430,12 +435,12 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li class="cs-drop-li"><a href="changePassword.php" class="cs-li-link cs-drop-link">Change Password</a></li>
                         </ul>
                     </li>
+                    <li class="cs-li">
+                        <span class="cs-li-link">
+                            <a href="logout.php" class="cs-li-link">Logout</a>
+                        </span>
+                    </li>
                 <?php endif; ?>
-                <li class="cs-li">
-                    <span class="cs-li-link">
-                        <a href="logout.php" class="cs-li-link">Logout</a>
-                    </span>
-                </li>
             </ul>
         </div>
     </nav>

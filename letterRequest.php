@@ -59,7 +59,7 @@
                  "\nVolunteer's Remaining Mandated Hours to Serve: " . $remaininghours;
     $result = emailLetterRequest($staff, $stafftitle, $emailmessage);
 
-    header('Location: volunteerDashboard.php');
+    header('Location: volunteerDashboard.php?request=success');
     die();
 
 ?>
