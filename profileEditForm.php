@@ -108,7 +108,7 @@
             <input type="text" id="last_name" name="last_name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter last name">
 
             <?php 
-                $type = $user->get_type();
+                $type = $person->get_type();
                 if($type == "v" || $type == "volunteer") {
                     ?>
                     <label>Minor</label>
@@ -142,6 +142,7 @@
                         <label>Remaining Mandated Hours</label>
                         <p><?php echo $person->get_remaining_mandated_hours() ?></p>
                     </div>
+                </fieldset>
                 <?php
                 } else {
                     ?>
@@ -150,72 +151,43 @@
                         <option value="admin">Admin</option> 
                         <option value="superadmin">Super Admin</option> 
                     </select> 
+                    </fieldset>
                     <?php
                 }
             ?>
-            <!--<label>Minor</label>
-            <?php //$minor = $person->isMinor()?>
-            <div class="radio-group">
-                <input type="radio" id="minor" name="minor" value="minor" <?php //if ($minor == '1') echo 'checked'; ?> required><label for="type">Minor</label>
-                <input type="radio" id="adult" name="minor" value="adult" <?php //if ($minor == '0') echo 'checked'; ?> required><label for="type">Adult</label>
-            </div>
 
-            <div class="field-pair">
-                <label>Total Hours</label>
-                <p><?php //echo $person->get_total_hours() ?></p>
-            </div>
+            <fieldset class="section-box">
+                <legend>Address</legend>
+                <label for="street_address"><em>* </em>Street Address</label>
+                <input type="text" id="street_address" name="street_address" value="<?php echo hsc($person->get_street_address()); ?>" required placeholder="Enter your street address">
 
-            <div class="mandated_hours">
-                <label for="mandated_hours"><em>* </em>Mandated Hours</label>
-                <input type="text" id="mandated_hours" name="mandated_hours" value="<?php //echo hsc($person->get_mandated_hours()); ?>" required placeholder="Enter Remaining Mandated Hours">
-            </div>
+                <label for="city"><em>* </em>City</label>
+                <input type="text" id="city" name="city" value="<?php echo hsc($person->get_city()); ?>" required placeholder="Enter your city">
 
-            <div class="mandated_mod">
-                <label for="mandated_mod"><em>* </em>Add amount to current mandated hours?</label>
-                <div class="radio-group">
-                    <input type="radio" id="mandated_mod_yes" name="mandated_mod" value="1">
-                    <label for="mandated_mod_yes">Add to Current Hours</label>
-                    <input type="radio" id="mandated_mod_no" name="mandated_mod" value="0">
-                    <label for="mandated_mod_no">Replace Current Hours</label>
-                </div>
-            </div>
-
-            <div class="field-pair">
-                <label>Remaining Mandated Hours</label>
-                <p><?php //echo $person->get_remaining_mandated_hours() ?></p>
-            </div> -->
-        </fieldset>
-
-            <label for="street_address"><em>* </em>Street Address</label>
-            <input type="text" id="street_address" name="street_address" value="<?php echo hsc($person->get_street_address()); ?>" required placeholder="Enter your street address">
-
-            <label for="city"><em>* </em>City</label>
-            <input type="text" id="city" name="city" value="<?php echo hsc($person->get_city()); ?>" required placeholder="Enter your city">
-
-            <label for="state"><em>* </em>State</label>
-            <select id="state" name="state" required>
-                <?php
-                    $state = $person->get_state();
-                    $states = array(
-                        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-                    );
-                    $abbrevs = array(
-                        'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
-                    );
-                    $length = count($states);
-                    for ($i = 0; $i < $length; $i++) {
-                        if ($abbrevs[$i] == $state) {
-                            echo '<option value="' . $abbrevs[$i] . '" selected>' . $states[$i] . '</option>';
-                        } else {
-                            echo '<option value="' . $abbrevs[$i] . '">' . $states[$i] . '</option>';
+                <label for="state"><em>* </em>State</label>
+                <select id="state" name="state" required>
+                    <?php
+                        $state = $person->get_state();
+                        $states = array(
+                            'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+                        );
+                        $abbrevs = array(
+                            'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+                        );
+                        $length = count($states);
+                        for ($i = 0; $i < $length; $i++) {
+                            if ($abbrevs[$i] == $state) {
+                                echo '<option value="' . $abbrevs[$i] . '" selected>' . $states[$i] . '</option>';
+                            } else {
+                                echo '<option value="' . $abbrevs[$i] . '">' . $states[$i] . '</option>';
+                            }
                         }
-                    }
-                ?>
-            </select>
+                    ?>
+                </select>
 
-            <label for="zip_code"><em>* </em>Zip Code</label>
-            <input type="text" id="zip_code" name="zip_code" value="<?php echo hsc($person->get_zip_code()); ?>" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
-        </fieldset>
+                <label for="zip_code"><em>* </em>Zip Code</label>
+                <input type="text" id="zip_code" name="zip_code" value="<?php echo hsc($person->get_zip_code()); ?>" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
+            </fieldset>
 
         <fieldset class="section-box">
             <legend>Contact Information</legend>
@@ -228,23 +200,29 @@
             <input type="tel" id="phone1" name="phone1" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
         </fieldset>
 
-        <fieldset class="section-box">
-            <legend>Emergency Contact</legend>
 
-            <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
-            <label for="emergency_contact_first_name" required><em>* </em>First Name</label>
-            <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" value="<?php echo hsc($person->get_emergency_contact_first_name()); ?>" required placeholder="Enter emergency contact name">
+        <?php 
+                $type = $person->get_type();
+                if($type == "v" || $type == "volunteer") {
+                    ?>
+                    <fieldset class="section-box">
+                        <legend>Emergency Contact</legend>
 
-            <label for="emergency_contact_last_name" required><em>* </em>Last Name</label>
-            <input type="text" id="emergency_contact_last_name" name="emergency_contact_last_name" value="<?php echo hsc($person->get_emergency_contact_last_name()); ?>" required placeholder="Enter emergency contact name">
+                        <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
+                        <label for="emergency_contact_first_name" required><em>* </em>First Name</label>
+                        <input type="text" id="emergency_contact_first_name" name="emergency_contact_first_name" value="<?php echo hsc($person->get_emergency_contact_first_name()); ?>" required placeholder="Enter emergency contact name">
 
-            <label for="emergency_contact_relation"><em>* </em>Contact Relation to You</label>
-            <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" value="<?php echo hsc($person->get_emergency_contact_relation()); ?>" required placeholder="Ex. Spouse, Mother, Father, Sister, Brother, Friend">
+                        <label for="emergency_contact_last_name" required><em>* </em>Last Name</label>
+                        <input type="text" id="emergency_contact_last_name" name="emergency_contact_last_name" value="<?php echo hsc($person->get_emergency_contact_last_name()); ?>" required placeholder="Enter emergency contact name">
 
-            <label for="emergency_contact_phone"><em>* </em>Phone Number</label>
-            <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" value="<?php echo formatPhoneNumber($person->get_emergency_contact_phone()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
-        </fieldset>
+                        <label for="emergency_contact_relation"><em>* </em>Contact Relation to You</label>
+                        <input type="text" id="emergency_contact_relation" name="emergency_contact_relation" value="<?php echo hsc($person->get_emergency_contact_relation()); ?>" required placeholder="Ex. Spouse, Mother, Father, Sister, Brother, Friend">
 
+                        <label for="emergency_contact_phone"><em>* </em>Phone Number</label>
+                        <input type="tel" id="emergency_contact_phone" name="emergency_contact_phone" value="<?php echo formatPhoneNumber($person->get_emergency_contact_phone()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
+                    </fieldset>
+                    <?php
+                } ?>
         <!--<fieldset class="section-box">
             <legend>Volunteer Information</legend>
 
