@@ -390,6 +390,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <img class="cs-drop-icon" src="images/dropdown.svg" alt="dropdown icon" width="12" height="12" decoding="async" aria-hidden="true">
                         </span>
                         <ul class="cs-drop-ul">
+                            <li class="cs-drop-li"><a href="staffSearch.php" class="cs-li-link cs-drop-link">Staff Search</a></li>
                             <li class="cs-drop-li"><a href="inbox.php" class="cs-li-link cs-drop-link">Inbox</a></li>
                             <li class="cs-drop-li"><a href="registerStaff.php" class="cs-li-link cs-drop-link">Register Staff</a></li>
                             <li class="cs-drop-li"><a href="deleteStaff.php" class="cs-li-link cs-drop-link">Delete Staff</a></li>

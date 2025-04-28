@@ -92,7 +92,7 @@ function emailLetterRequest($fromUser, $subject, $body){
     // THIS LINE MUST BE UN-COMMENTED (remove the // at the front) ONCE THE SOFTWARE GOES LIVE IN ORDER FOR EMAILS TO WORK. 
     //$toUser = ["volunteer@serve-helps.org"];
     // THIS LINE MUST BE REMOVED ONCE THE SOFTWARE GOES LIVE, AS IT IS A PLACEHOLDER.
-    $toUser = ["amlewers@gmail.com"];
+    //$toUser = ["amlewers@gmail.com"];
     $result = sendEmails($toUser, $fromUser, $subject, $body);
     return $result;
 }
