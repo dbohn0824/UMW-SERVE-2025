@@ -155,3 +155,15 @@ p.no-messages {
 .delete-selected:hover, .delete-all:hover {
     background-color: #a00000;
 }
+.unread-selected, .read-selected {
+    background-color: #800000;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.unread-selected:hover, .read-selected:hover {
+    background-color: #a00000;
+}

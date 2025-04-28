@@ -31,6 +31,16 @@
                 delete_message($msgID);
             }
             $result = "<div style='padding: 12px; background-color: #a83232; color: white; font-weight: bold; text-align: center;'>Selected messages deleted successfully.</div>";
+        } elseif (isset($_POST['unread_selected']) && !empty($_POST['selected_messages'])) {
+            foreach ($_POST['selected_messages'] as $msgID) {
+                mark_unread($msgID);
+            }
+            $result = "<div style='padding: 12px; background-color: #a83232; color: white; font-weight: bold; text-align: center;'>Selected messages deleted successfully.</div>";
+        } elseif (isset($_POST['read_selected']) && !empty($_POST['selected_messages'])) {
+            foreach ($_POST['selected_messages'] as $msgID) {
+                mark_read($msgID);
+            }
+            $result = "<div style='padding: 12px; background-color: #a83232; color: white; font-weight: bold; text-align: center;'>Selected messages deleted successfully.</div>";
         }
     }
 
@@ -59,7 +69,7 @@
                 echo $result;
             }
             ?>
-            <form method="POST" onsubmit="return confirmDelete();">
+            <form method="POST" onsubmit="return handleFormSubmit();">
                 <div class="table-wrapper">
                     <h2>All Notifications</h2>
                     <table class="general">
@@ -106,8 +116,12 @@
                 </div>
             
                 <div class="inbox-actions">
-                    <button type="submit" name="delete_selected" class="delete-selected">Delete Selected Messages</button>
-                    <button type="submit" name="delete_all" class="delete-all">Delete All Messages</button>
+                    <button type="submit" name="delete_selected" class="delete-selected" onclick="setConfirmFunction(confirmDelete)">Delete Selected Messages</button>
+                    <button type="submit" name="delete_all" class="delete-all" onclick="setConfirmFunction(confirmDelete)">Delete All Messages</button>
+                </div>
+                <div class="inbox-actions">
+                    <button type="submit" name="unread_selected" class="unread_selected" onclick="setConfirmFunction(confirmUnread)">Mark Selected Messages Unread</button>
+                    <button type="submit" name="read_selected" class="read_selected" onclick="setConfirmFunction(confirmRead)">Mark Selected Messages Read</button>
                 </div>
             </form>
 
