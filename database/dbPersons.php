@@ -365,7 +365,7 @@ function get_hours_volunteered_by($id) {
 /*@@@ Thomas */
 
 /* Check-in a user by adding a new row and with start_time to dbpersonhours */
-function check_in($personID, $start_time) {
+function check_in($personID, $start_time, $stt) {
     $con = connect();
     // Check if the user is already checked in
     if (!can_check_in($personID)) {
@@ -380,8 +380,8 @@ function check_in($personID, $start_time) {
     $current_date = date('Y-m-d');
 
     // Proceed with inserting a new check-in record if no check-in exists
-    $query = "INSERT INTO dbpersonhours (personID, date, Time_in) 
-                VALUES ('$personID', '$current_date', '$start_time')"; 
+    $query = "INSERT INTO dbpersonhours (personID, date, Time_in, STT) 
+                VALUES ('$personID', '$current_date', '$start_time', '$stt')"; 
     $result = mysqli_query($con, $query);
 
     if ($result) {

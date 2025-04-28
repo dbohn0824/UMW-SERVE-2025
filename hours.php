@@ -16,6 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $personID = $_POST['personID'];
     $action = $_POST['action']; // 'checkin' or 'checkout'
     $redirect_url = $_SERVER['HTTP_REFERER']; 
+    if(isset($_POST['stt'])){
+        $STT = $_POST['stt']; 
+    }else{
+        $STT = "0"; 
+    }
 
     if (!$personID) {
         exit;  // Missing personID, no output here
@@ -37,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $start_time = date('H:i:s');
-            if (check_in($personID, $start_time)) {
+            if (check_in($personID, $start_time, $STT)) {
                 ?>
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">

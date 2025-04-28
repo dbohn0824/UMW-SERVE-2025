@@ -142,7 +142,7 @@ synchronize_hours($personID);
                     <span><center>Check In</center></span>
                 </div>
 
-                <form id="checkin-form" method="POST" action="hours.php" style="display: none;">
+                <form id="checkin-form" method="POST" action="hours.php">
                     <input type="hidden" name="action" value="checkin">
                     <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>">
                 </form>
@@ -152,10 +152,18 @@ synchronize_hours($personID);
                     <span><center>Check Out</center></span>
                 </div>
 
+
                 <form id="checkout-form" method="POST" action="hours.php" style="display: none;">
                     <input type="hidden" name="action" value="checkout">
                     <input type="hidden" name="personID" value="<?php echo $person->get_id(); ?>">
                 </form>
+                
+            </div>
+            <div style="text-align: center !important; margin-top: 20px !important; vertical-align: middle;">
+                <label style="display: inline-block !important; text-align: center;">
+                    <input type="checkbox" name="stt" value="1" form="checkin-form" style="transform: scale(1.5) !important; margin-right: 8px !important;">
+                    <span style="font-size: 18px !important;">Stuff the truck?</span>
+                </label>
             </div>
         </main>
 
