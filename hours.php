@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </main>
                 </html>
                 <?php
-                header("Location: $redirect_url");
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
                 ?>
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //echo "Successfully checked out at $end_time.";
                 //var_dump($redirect_url);
 
-                header("Location: $redirect_url");
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
                 ?>

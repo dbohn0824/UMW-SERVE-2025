@@ -113,7 +113,7 @@
                     // WHEN PORTED TO SITEGROUND, MUST BE MODIFIED TO REMOVE THE UMW-SERVE-2025 SECTION.
                     // Reformats messages to include a functioning link to the volunteer's profile.
                     $url = '@(http)?(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
-                    $string = preg_replace($url, '<a href="/UMW-SERVE-2025/$4" target="_blank" title="$0">here</a>.', $message['body']);
+                    $string = preg_replace($url, '<a href="/$4" target="_blank" title="$0">here</a>.', $message['body']);
                     echo $string;
                     //echo $message['body']
                 ?>

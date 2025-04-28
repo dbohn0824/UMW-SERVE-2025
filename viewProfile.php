@@ -50,7 +50,7 @@
     }*/
 
     // Setting up a thing here to recount hours automatically to make sure it's up to date w present hours in database
-    synchronize_hours($id);
+    $result = synchronize_hours($id);
 ?>
 <!DOCTYPE html>
 <html>
@@ -101,12 +101,6 @@
             <?php else: ?>
                 <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
             <?php endif ?>
-            
-            <?php if ($accessLevel < 2) : ?>
-                <p>Click <a href="volunteerReport.php?id=<?php echo $user->get_id() ?>">here</a> to view your volunteering report.</p>
-            <?php else : ?>
-                <p>Click <a href="volunteerReport.php?id=<?php echo $user->get_id() ?>">here</a> to view <?php echo $user->get_first_name() ?> <?php echo $user->get_last_name() ?>'s volunteering report.</p>
-            <?php endif ?>
 
             <fieldset class="section-box">
                 <legend>Personal Information</legend>
@@ -134,8 +128,6 @@
                 <?php
                     $type = $user->get_type();
                     if($type == "v" || $type == "volunteer"){
-                        // Re-sum hours just in case there have been any updates/modifications to the database (unlikely, but a failsafe).
-                        synchronize_hours($user->get_id());
                         echo '<div class="field-pair">
                             <label>Total Hours</label>
                             <p>' . $user->get_total_hours() .'</p>
@@ -151,14 +143,22 @@
                             <p>' .$user->get_remaining_mandated_hours() . '</p>
                         </div>';
 
+                        $first = get_first_date($user->get_id());
+                        if($first == -1){
+                            $first = "N/A";
+                        }
                         echo '<div class="field-pair">
                             <label>First Date Volunteered</label>
-                            <p>' . get_first_date($user->get_id()) .'</p>
+                            <p>' . $first .'</p>
                         </div>';
 
+                        $last = get_last_date($user->get_id());
+                        if($last == -1){
+                            $last = "N/A";
+                        }
                         echo '<div class="field-pair">
                             <label>Latest Date Volunteered</label>
-                            <p>' . get_last_date($user->get_id()) .'</p>
+                            <p>' . $last .'</p>
                         </div>';
                     }
                 ?>
