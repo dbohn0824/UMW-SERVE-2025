@@ -38,7 +38,7 @@
         // }
 
         $required = array(
-            'first_name', 'last_name', 'type', 'email', 'phone1', 'mandated_hours', 'emergency_contact_first_name',
+            'first_name', 'last_name', 'email', 'phone1', 'mandated_hours', 'emergency_contact_first_name',
             'emergency_contact_last_name', 'emergency_contact_phone', 'emergency_contact_relation'
         );
         $errors = false;
@@ -49,8 +49,6 @@
         $first_name = $args['first_name'];
         
         $last_name = $args['last_name'];
-
-        $type = $args['type'];
         
         /*$birthday = "";
         $birthday = validateDate($args['birthday']);
@@ -106,11 +104,11 @@
         }
         @*/
 
-        $emergency_contact_first_name = $args['emergency_contact_first_name'] ?? "N/A";
+        $emergency_contact_first_name = $args['emergency_contact_first_name'];
 
-        $emergency_contact_last_name = $args['emergency_contact_last_name'] ?? "N/A";
+        $emergency_contact_last_name = $args['emergency_contact_last_name'];
         
-        $emergency_contact_phone = isset($args['emergency_contact_phone']) ? validateAndFilterPhoneNumber($args['emergency_contact_phone']) : null;
+        $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);        
         if (!$emergency_contact_phone) {
             $errors = true;
             // echo 'bad e-contact phone';
@@ -123,7 +121,7 @@
             // echo 'bad phone type';
         }*/
 
-        $emergency_contact_relation = $args['emergency_contact_relation'] ?? "N/A";
+        $emergency_contact_relation = $args['emergency_contact_relation'];
 
         /*@
         $gender = $args['gender'];
@@ -190,12 +188,12 @@
             $updateSuccess = false;
         }*/
 
-        $minor = $args['minor'] ?? 0;
-        $mandated_hours = $args['mandated_hours'] ?? 0;
-        $mandated_mod = $args['mandated_mod'] ?? 0;
+        $minor = $args['minor'];
+        $mandated_hours = $args['mandated_hours'];
+        $mandated_mod = $args['mandated_mod'];
 
         $result = update_person_required(
-            $id, $first_name, $last_name, $type, $minor, $mandated_hours,
+            $id, $first_name, $last_name, $minor, $mandated_hours,
             $street_address, $city, $state, $zip_code, $email,
             $phone1, $emergency_contact_first_name,
             $emergency_contact_last_name, $emergency_contact_phone,
