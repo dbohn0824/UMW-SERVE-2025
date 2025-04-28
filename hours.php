@@ -16,19 +16,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $personID = $_POST['personID'];
     $action = $_POST['action']; // 'checkin' or 'checkout'
     $redirect_url = $_SERVER['HTTP_REFERER']; 
+    if(isset($_POST['stt'])){
+        $STT = $_POST['stt']; 
+    }else{
+        $STT = "0"; 
+    }
 
     if (!$personID) {
         exit;  // Missing personID, no output here
     }
 
     $current_date = date('Y-m-d');
-
+    
     if ($action == 'checkin') {
         if (can_check_out($personID)) {
             ?>
                 <html>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-                    <main>
+                <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+                <main>
                         <p class="happy-toast centered"> You are already checked in!</p>
                     </main>
                 </html>
@@ -37,16 +42,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $start_time = date('H:i:s');
-            if (check_in($personID, $start_time)) {
+            if (check_in($personID, $start_time, $STT)) {
                 ?>
                 <html>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-                    <main>
+                <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+                <main>
                         <div class="happy-toast centered"> You have been checked in!</div>
                     </main>
                 </html>
                 <?php
-                header("Location: $redirect_url");
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
                 ?>
@@ -64,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (can_check_in($personID)) {
             ?>
             <html>
-                <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-                <main>
+            <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+            <main>
                     <p class="happy-toast centered"> You are not checked in.</p>
                 </main>
             </html>
@@ -76,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (check_out($personID, $end_time)) {
                 ?>
                 <html>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-                    <main>
+                <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+                <main>
                         <p class="happy-toast centered"> You have been checked out.</p>
                     </main>
                 </html>
@@ -85,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 //echo "Successfully checked out at $end_time.";
                 //var_dump($redirect_url);
 
-                header("Location: $redirect_url");
+               // header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
                 ?>
                 <html>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-                    <main>
+                <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+                <main>
                         <p class="happy-toast centered"> Error: Check out failed.</p>
                     </main>
                 </html>
@@ -102,8 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         ?>
         <html>
-            <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-            <main>
+        <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+        <main>
                 <p class="happy-toast centered"> Error: Invalid action.</p>
             </main>
             </html>
@@ -113,8 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     ?>
     <html>
-        <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
-        <main>
+    <meta HTTP-EQUIV="REFRESH" content="2; url=<?php echo $redirect_url; ?>">
+    <main>
             <p class="happy-toast centered"> Error: Invalid request method.</p>
         </main>
         </html>

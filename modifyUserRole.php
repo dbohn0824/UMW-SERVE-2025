@@ -5,7 +5,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    /*ini_set("display_errors",1);
+    ini_set("display_errors",1);
     error_reporting(E_ALL);
     $loggedIn = false;
     $accessLevel = 0;
@@ -33,7 +33,7 @@
         require_once('database/dbPersons.php');
         $post = sanitize($_POST);
         $new_role = $post['s_role'];
-        if (!valueConstrainedTo($new_role, ['volunteer', 'participant'])) {
+        if (!valueConstrainedTo($new_role, ['admin', 'superadmin'])) {
             die();
         }
         if (empty($new_role)){
@@ -42,29 +42,6 @@
             update_type($id, $new_role);
             $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
-        }
-        $new_status = $post['statsRadio'];
-        if (!valueConstrainedTo($new_status, ['Active', 'Inactive'])) {
-            die();
-        }
-        if (empty($new_status)){
-            // echo "No new status selected";
-        }else{
-            update_status($id, $new_status);
-            $statusChange = true;
-            // echo "<meta http-equiv='refresh' content='0'>";
-        }
-        $new_notes = $post['s_reason'];
-        if (empty($new_notes)){
-            // echo "No new notes selected";
-        }else{
-            update_notes($id, $new_notes);
-            $notesChange = true;
-            // echo "<meta http-equiv='refresh' content='0'>";
-        }
-        if (isset($notesChange) || isset($statusChange) || isset($typeChange)) {
-            header('Location: viewProfile.php?rscSuccess&id=' . $_GET['id']);
-            die();
         }
     }
 
@@ -85,7 +62,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>SERVE | Archive User</title>
+        <title>SERVE | Modify Account Type</title>
         <style>
             .modUser{
                 display: flex;
@@ -104,18 +81,18 @@
                 }
                 main.user-role {
                     /* align-items: center; */
-                    /*margin: 0rem 16rem;*/
+                    margin: 0rem 16rem;
                     /* width: 50rem; */
-                /*}
+                }
             }
         </style>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Modify Archive Status and Role</h1>
+        <h1>Modify Account Type</h1>
         <main class="user-role">
             <?php if ($accessLevel == 3): ?>
-                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Archive Status and Role</h2>
+                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Account Type</h2>
             <?php else: ?>
                 <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Status</h2>
             <?php endif ?>
@@ -127,7 +104,7 @@
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
             if ($accessLevel == 3) {
-				$roles = array('volunteer' => 'Volunteer', 'participant' => 'Participant');
+				$roles = array('admin' => 'Admin', 'superadmin' => 'SuperAdmin');
                 echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
                 // echo '<option value="" SELECTED></option>' ;
                 $currentRole = $thePerson->get_type()[0];
@@ -141,38 +118,11 @@
                 echo '</select>';
             }
         ?>
-		<label>Change Status</label>
-		<div class="form-row">
-                <?php
-                    // Check the person's status and check the radio to signal the current status
-                    // Display the current and other available statuses as well to change the status
-		            //$currentStatus = $thePerson->get_status();
-                    
-                    /*Commented out by Jackson
-                    if ($currentStatus == "Active") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked><label for="makeActive" class="checkbox-label">Active</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive"><label for="makeInactive" class="checkbox-label">Inactive</label>';
-                    } elseif ($currentStatus == "Inactive") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active"><label for="makeActive" class="checkbox-label">Active</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked><label for="makeInactive" class="checkbox-label">Inactive</label>';
-                    }
-                        *//*
-		?>
-		</div>
-		
-		<?php
-		    //$reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
-              //      echo '<label>Reason for Status Change</label><select class="form-select-sm" name="s_reason">';
-              //      echo '<option value="" SELECTED></option>';
-              //      foreach ($reasons as $reason)
-              //          echo '<option value="'.$reason.'">'.$reason.'</option>';
-              //      echo '</select>';
-                
-		?>
 
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" name="user_access_modified" value="Update">
-                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Cancel</a>
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="user_access_modified" value="Update">
+            <a class="button cancel" href="staffSearch.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Staff Search</a>
+            <a class="button cancel" href="staffDashboard.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Dashboard</a>
 		</form>
         </main>
     </body>
