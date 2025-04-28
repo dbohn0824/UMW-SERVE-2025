@@ -368,6 +368,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li class="cs-drop-li"><a href="editVolunteer.php" class="cs-li-link cs-drop-link">Edit</a></li>
                             <li class="cs-drop-li"><a href="register.php" class="cs-li-link cs-drop-link">Add</a></li>
                             <li class="cs-drop-li"><a href="deleteVolunteer.php" class="cs-li-link cs-drop-link">Delete</a></li>
+                            <li class="cs-drop-li"><a href="archiveVolunteer.php" class="cs-li-link cs-drop-link">Archive</a></li>
                             <li class="cs-drop-li"><a href="checkVolunteerStatus.php" class="cs-li-link cs-drop-link">Status Report</a></li>
                             <li class="cs-drop-li"><a href="searchHours.php" class="cs-li-link cs-drop-link">View and Change Hours</a></li>
                         </ul>
@@ -412,7 +413,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li class="cs-drop-li"><a href="volunteerSearch.php" class="cs-li-link cs-drop-link">Search</a></li>
                             <li class="cs-drop-li"><a href="editVolunteer.php" class="cs-li-link cs-drop-link">Edit</a></li>
                             <li class="cs-drop-li"><a href="register.php" class="cs-li-link cs-drop-link">Add</a></li>
-                            <li class="cs-drop-li"><a href="deleteVolunteer.php" class="cs-li-link cs-drop-link">Delete</a></li>
+                            <li class="cs-drop-li"><a href="archiveVolunteer.php" class="cs-li-link cs-drop-link">Archive</a></li>
                             <li class="cs-drop-li"><a href="checkVolunteerStatus.php" class="cs-li-link cs-drop-link">Status Report</a></li>
                             <li class="cs-drop-li"><a href="searchHours.php" class="cs-li-link cs-drop-link">View and Change Hours</a></li>
                         </ul>
