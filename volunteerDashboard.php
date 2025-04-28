@@ -100,7 +100,7 @@
                     <span><center>View Hours for Date Range</center></span>
                 </div>
 
-                <div class="dashboard-item" data-link="letterRequest.php">
+                <div class="dashboard-item" data-link="letterRequest.php" onclick="return confirm('Are you sure you want to request a community service letter?')">
                     <img src="images/inbox-unread.svg">
                     <span><center>Request Community Service Letter</center></span>
                 </div>

@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
                     </tbody>
                 </table>
             </div>
-            <input type="submit" name="delete" value="Delete Selected Volunteers" onclick="return confirm('Are you sure you want to delete the selected volunteers?')">
+            <input type="submit" name="delete" value="Delete Selected Volunteers" onclick="return confirm('Are you sure you want to delete the selected volunteers? Their information and volunteering hours will be deleted from the database. This action CANNOT be undone.')">
         <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) : ?>
             <div class="error-toast">No results found for your search.</div>
         <?php endif; ?>

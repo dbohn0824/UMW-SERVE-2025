@@ -383,6 +383,14 @@ function dateChecker(){
     return true;
 }
 
+function delete_all_messages_for_user($userID) {
+    $connection = connect();
+    $stmt = $connection->prepare("DELETE FROM dbmessages WHERE recipientID = ?");
+    $stmt->bind_param("s", $userID);
+    $stmt->execute();
+    mysqli_close($connection);
+}
+
 //dateChecker();
 //Method Type 1: For Upcoming Appointments
 //message_all_users('vmsroot', 'message all users test', "does this work?");

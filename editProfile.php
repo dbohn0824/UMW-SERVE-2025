@@ -105,10 +105,10 @@
         @*/
 
         $emergency_contact_first_name = $args['emergency_contact_first_name'];
-        
+
         $emergency_contact_last_name = $args['emergency_contact_last_name'];
         
-        $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);
+        $emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);        
         if (!$emergency_contact_phone) {
             $errors = true;
             // echo 'bad e-contact phone';

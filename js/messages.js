@@ -25,15 +25,49 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 $(function() {
     $('.delete-button').click(function(e) {
         e.preventDefault();
-        // Testing code
-        //$_SESSION['error'] = 'something borked';
 
         let id = $(this).data('message-id');
         sendDelete(id); 
     });
 
-    $('tr.message').click(function() {
-        let id = $(this).data('message-id');
-        window.location = 'viewNotification.php?id=' + id;
+    $('tr.message').on('click', function(e) {
+        // Only proceed if the clicked cell is NOT the first cell (checkbox column)
+        const clickedCell = $(e.target).closest('td');
+        const cellIndex = clickedCell.index();
+
+        // Don't navigate if clicked inside the checkbox column (index 0)
+        if (cellIndex === 0 || $(e.target).is('input[type="checkbox"]')) {
+            return;
+        }
+
+        const id = $(this).data('message-id');
+        if (id) {
+            window.location = 'viewNotification.php?id=' + id;
+        }
     });
 });
+
+function toggleSelectAll(source) {
+    const checkboxes = document.querySelectorAll('input[name="selected_messages[]"]');
+    checkboxes.forEach(cb => cb.checked = source.checked);
+}
+
+let confirmFunction = null;
+function setConfirmFunction(fn) {
+    confirmFunction = fn;
+}
+function handleFormSubmit() {
+    if (confirmFunction) {
+        return confirmFunction();
+    }
+    return true; // default allow
+}
+function confirmDelete() {
+    return confirm("Are you sure you want to delete these messages?");
+}
+function confirmUnread() {
+    return confirm("Are you sure you want to mark these messages as unread?");
+}
+function confirmRead() {
+    return confirm("Are you sure you want to mark these messages as read?");
+}

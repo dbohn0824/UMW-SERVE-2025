@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <?php require_once('universal.inc'); ?>
+</head>
+
 <?php
 ob_start();  // Start output buffering
 
@@ -17,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $current_date = date('Y-m-d');
 
-    if ($action === 'checkin') {
+    if ($action == 'checkin') {
         if (can_check_out($personID)) {
             ?>
                 <html>
@@ -36,18 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
                     <main>
-                        <p class="happy-toast centered"> You have been checked in!</p>
+                        <div class="happy-toast centered"> You have been checked in!</div>
                     </main>
                 </html>
                 <?php
-                header("Location: $redirect_url");
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
                 ?>
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
                     <main>
-                        <p class="happy-toast centered"> Check in failed</p>
+                        <p class="happy-toast centered"> Check in failed./p>
                     </main>
                 </html>
                 <?php
@@ -60,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <html>
                 <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
                 <main>
-                    <p class="happy-toast centered"> You are not checked in</p>
+                    <p class="happy-toast centered"> You are not checked in.</p>
                 </main>
             </html>
             <?php
@@ -72,21 +78,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
                     <main>
-                        <p class="happy-toast centered"> You have been checked out</p>
+                        <p class="happy-toast centered"> You have been checked out.</p>
                     </main>
                 </html>
                 <?php
                 //echo "Successfully checked out at $end_time.";
                 //var_dump($redirect_url);
 
-                header("Location: $redirect_url");
+                //header("Location: $redirect_url");
                 exit();  // Ensure script stops after redirect
             } else {
                 ?>
                 <html>
                     <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
                     <main>
-                        <p class="happy-toast centered"> Error: Check out failed</p>
+                        <p class="happy-toast centered"> Error: Check out failed.</p>
                     </main>
                 </html>
                 <?php
@@ -94,10 +100,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
-        echo "Error: Invalid action.";
+        ?>
+        <html>
+            <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+            <main>
+                <p class="happy-toast centered"> Error: Invalid action.</p>
+            </main>
+            </html>
+            <?php
+        //echo "Error: Invalid action.";
     }
 } else {
-    echo "Error: Invalid request method.";
+    ?>
+    <html>
+        <meta HTTP-EQUIV="REFRESH" content="2; url=checkInCheckOut.php">
+        <main>
+            <p class="happy-toast centered"> Error: Invalid request method.</p>
+        </main>
+        </html>
+        <?php
+    //echo "Error: Invalid request method.";
 }
 
 ob_end_flush();  // Flush output buffer and send output to browser

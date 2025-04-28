@@ -107,6 +107,10 @@
                     <img src="images/archive.png">
                     <span>Archive Volunteer</span>
                 </div>
+                <div class="dashboard-item" data-link="staffSearch.php">
+                    <img src="images/person-search.svg">
+                    <span>Find Staff</span>
+                </div>
                 <div class="dashboard-item" data-link="registerStaff.php">
                     <img src="images/add-person.svg">
                     <span>Register Staff</span>
