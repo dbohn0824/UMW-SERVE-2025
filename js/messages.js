@@ -51,6 +51,23 @@ function toggleSelectAll(source) {
     const checkboxes = document.querySelectorAll('input[name="selected_messages[]"]');
     checkboxes.forEach(cb => cb.checked = source.checked);
 }
+
+let confirmFunction = null;
+function setConfirmFunction(fn) {
+    confirmFunction = fn;
+}
+function handleFormSubmit() {
+    if (confirmFunction) {
+        return confirmFunction();
+    }
+    return true; // default allow
+}
 function confirmDelete() {
     return confirm("Are you sure you want to delete these messages?");
+}
+function confirmUnread() {
+    return confirm("Are you sure you want to mark these messages as unread?");
+}
+function confirmRead() {
+    return confirm("Are you sure you want to mark these messages as read?");
 }
