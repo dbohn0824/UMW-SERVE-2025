@@ -37,12 +37,13 @@ function add_person($person) {
             $person->get_email() . '","' .
             $person->get_password() . '");'
         );*/
-        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours, remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
+        mysqli_query($con, 'INSERT INTO dbpersons (id, first_name, last_name, minor, total_hours,mandated_hours,remaining_mandated_hours, checked_in, phone1, email, notes, type, password, street_address, city, state, zip_code, emergency_contact_first_name, emergency_contact_last_name, emergency_contact_phone, emergency_contact_relation) VALUES ("' .
             $person->get_id() . '","' . 
             $person->get_first_name() . '","' .
             $person->get_last_name() . '","' .
             $person->isMinor() . '","' .
             $person->get_total_hours() . '","' .
+            $person->get_mandated_hours() . '","' .
             $person->get_remaining_mandated_hours() . '","' .
             $person->get_checked_in() . '","' .
             $person->get_phone1() . '","' .
