@@ -310,7 +310,9 @@ if (session_status() === PHP_SESSION_NONE) {
         $permission_array['staffdashboard.php'] = 2;
         $permission_array['visualizedata.php'] = 2;
         $permission_array['checkvolunteerstatus.php'] = 2;
-        $permission_array['archivevolunteer.php'] = 2; 
+        $permission_array['archivevolunteer.php'] = 2;
+        $permission_array['staffsearch.php'] = 2;
+        $permission_array['modifyuserrole.php'] = 2; 
 
         // pages only super admins can view
         $permission_array['deletestaff.php'] = 3;
