@@ -5,6 +5,12 @@
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
+    if (!isset($_SESSION['access_level'])){
+        header('Location: login.php');
+    } elseif($_SESSION['access_level'] < 2) {
+        header('Location: index.php');
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html>
