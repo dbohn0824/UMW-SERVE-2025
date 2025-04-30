@@ -69,6 +69,8 @@
         <main class="hours-report">
 
 <div class="chart">
+<p> Click on the  the legend items below to filter results in the Graph</p> 
+
   <canvas id="myChart"></canvas>
 </div>
 
